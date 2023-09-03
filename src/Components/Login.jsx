@@ -25,7 +25,7 @@ const Login = () => {
           </Grid.Col>
           <Grid.Col span={12} p={0}>
             <Container p={0} style={{ position: "absolute", bottom: '0', left: '0', zIndex: "" }}>
-              <Image src={fileImage} style={{ width: "40rem" }} />
+              <Image src={fileImage} style={{ width: "30rem" }} />
             </Container>
           </Grid.Col>
         </Grid>
@@ -36,7 +36,7 @@ const Login = () => {
           <Box p={0} bg={theame.colors.basicColors[1]} style={{ width: isSmall?'98%':'70%', borderRadius: "20px", boxShadow: "1px 1px 20px 2px #696969 " }}>
             <Container p={40} mt={!isSmall?20:0} mb={!isSmall?20:0}>
               {!isSmall?
-                <Title align='center' color={theame.colors.basicBlues[0]} fw={900} size={isSmall?'40px':'60px'}>LOGIN</Title>
+                <Title order={1} align='left' color={theame.colors.basicBlues[0]} fw={900} size={isSmall?'40px':'64px'}>LOGIN</Title>
                 :
                 <Center mb={30}>
                   <Image src={logoWithText} style={{ width:'300px' }} />
