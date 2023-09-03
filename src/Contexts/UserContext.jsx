@@ -1,7 +1,9 @@
 import { Token } from "Utils/UserDetails";
-import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const UserContext = () => {
+import React, { createContext, useEffect, useState } from "react";
+export const UserContext = createContext({});
+const UserProvider = () => {
   const [user, setUser] = useState(null);
   const token = Token();
 
@@ -14,13 +16,7 @@ const UserContext = () => {
       })
       .then((response) => {
         let data = response.data.data;
-
         setUser(data);
-        setUserType(
-          `${response?.data?.data?.userType
-            ?.toLowerCase()
-            ?.replaceAll(" ", "")}`
-        );
       })
 
       .catch((err) => {
@@ -42,4 +38,4 @@ const UserContext = () => {
   );
 };
 
-export default UserContext;
+export default UserProvider;
