@@ -54,7 +54,7 @@ const Login = () => {
         </Center>
       </Grid.Col>
     </Grid>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
