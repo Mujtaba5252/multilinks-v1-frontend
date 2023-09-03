@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "../src/Components/Layout";
 import { routes } from "../src/routes";
+import Login from "./Components/Login";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -10,7 +11,7 @@ function App() {
   return (
     <Routes>
       <Route path={routes.home} element={<Layout />} />
-      <Route path={routes.login} element={<Button>Hello</Button>} />
+      <Route path={routes.login} element={<Login/>} />
     </Routes>
   );
 }
