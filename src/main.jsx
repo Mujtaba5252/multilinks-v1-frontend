@@ -16,15 +16,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           colors: {
             themeDark: "#1e1e1e",
             themeWhite: ["ffffff", "ffffff", "ffffff"],
-            themeOrange: ["#ffa803", "#7d5103", "#f76707"],
+            basicBlues: ["#0487FF", "0263BD", "#f76707"],
+            basicColors:['#000','#fff'],
             container: ["#F8F9FA"],
           },
-          primaryColor: "orange",
+          primaryColor: "blue",
           globalStyles: () => ({
             ".mantine-Modal-title": {
               margin: "auto",
               fontWeight: "bold",
-              color: "rgb(0,0,0,0.5)",
+              color: "rgb(0,0,0,0.5)",  
             },
           }),
         }}
