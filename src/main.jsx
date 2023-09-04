@@ -4,10 +4,12 @@ import App from "./App.jsx";
 import "./index.css";
 import { MantineProvider } from "@mantine/core";
 import { BrowserRouter } from "react-router-dom";
+import  UserContext  from "./Contexts/UserContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
+    <UserContext>
       <MantineProvider
         withGlobalStyles
         withNormalizeCS
@@ -32,6 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       >
         <App />
       </MantineProvider>
+      </UserContext>
     </BrowserRouter>
   </React.StrictMode>
 );

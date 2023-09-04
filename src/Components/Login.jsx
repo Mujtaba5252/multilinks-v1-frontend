@@ -1,12 +1,37 @@
 import { Box, Button, Center, Container, Flex, Grid, Image, Input, Stack, Text, TextInput, Title, useMantineTheme } from '@mantine/core'
-import React from 'react'
+import React, { useContext } from 'react'
 import fileImage from "../assets/images/file.png"
 import logo from "../assets/images/logo.png"
 import logoWithText from "../assets/images/logo_with_text_dark.png"
 import { useMediaQuery } from '@mantine/hooks';
+import { UserContext } from '../Contexts/UserContext'
+import { useForm } from '@mantine/form'
 const Login = () => {
+  const user= useContext(UserContext);
   const theame = useMantineTheme();
   const  isSmall=useMediaQuery('(max-width: 992px)');
+
+  const form = useForm({
+    validateInputOnChange: true,
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    validate: {
+      // email: (value) => (emailRegex.test(value) ? null : "Invalid Email"),
+      // password: (value) =>
+      //   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,100}$/.test(
+      //     value
+      //   )
+      //     ? null
+      //     : "Must Contain 8 Characters, 1 Uppercase, 1 Lowercase, 1 Number, 1 Special Character",
+    },
+  });
+
+const handleSubmit = (values) => {
+
+}
   return (
     <Grid style={{ width: "100vw", height: "100vh", backgroundColor: theame.colors.basicBlues[0] }}>
     {!isSmall&&
@@ -42,11 +67,11 @@ const Login = () => {
                   <Image src={logoWithText} style={{ width:'300px' }} />
                 </Center>
               }
-              <form>
-                <TextInput mt={"md"} mb={"md"} label={'Email'} size='lg' placeholder='Enter Email' />
-                <TextInput mt={"md"} mb={"md"} type='password' size='lg' label={'Password'} placeholder='Enter Password' />
+              <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+                <TextInput form={form} mt={"md"} mb={"md"} label={'Email'} size='lg' placeholder='Enter Email' withAsterisk={true} {...form?.getInputProps('email')} />
+                <TextInput form={form} mt={"md"} mb={"md"} type='password' size='lg' label={'Password'} placeholder='Enter Password' {...form?.getInputProps('password')}/> 
                 <Center>
-                  <Button mt={"md"} mb={"md"} size='lg' fullWidth>LOGIN</Button>
+                  <Button type="submit" mt={"md"} mb={"md"} size='lg' fullWidth>LOGIN</Button>
                 </Center>
               </form>
             </Container>
