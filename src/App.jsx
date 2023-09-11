@@ -26,7 +26,6 @@ function App() {
   useEffect(()=>{
     const tokenExists= isValidToken();
     if(tokenExists){
-    // const role = Role();
     isAdmin?navigate(routes.dashboard):navigate(routes.staffDashboard)
     console.log(isAdmin)
   }
