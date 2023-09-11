@@ -3,7 +3,7 @@ import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "../src/Components/Layout";
 import { routes } from "../src/routes";
-import Login from "./Components/Login";
+import Login from "./Components/Login/Login";
 import Admin from "./Portals/Admin/Admin"
 import Staff from "./Portals/Staff/Staff"
 import LandingPage from "./Components/LandingPage/LandingPage";

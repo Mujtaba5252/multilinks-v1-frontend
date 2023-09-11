@@ -1,8 +1,8 @@
 import { Box, Button, Center, Container, Flex, Grid, Image, Input, Stack, Text, TextInput, Title, useMantineTheme } from '@mantine/core'
 import React, { useContext,useState } from 'react'
-import fileImage from "../assets/images/file.png"
-import logo from "../assets/images/logo.png"
-import logoWithText from "../assets/images/logo_with_text_dark.png"
+import fileImage from "../../assets/images/file.png"
+import logo from "../../assets/images/logo.png"
+import logoWithText from "../../assets/images/logo_with_text_dark.png"
 import { useMediaQuery } from '@mantine/hooks';
 import { UserContext } from '../../Contexts/UserContext'
 import { useForm } from '@mantine/form'
