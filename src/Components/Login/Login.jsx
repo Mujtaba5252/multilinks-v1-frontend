@@ -4,13 +4,13 @@ import fileImage from "../assets/images/file.png"
 import logo from "../assets/images/logo.png"
 import logoWithText from "../assets/images/logo_with_text_dark.png"
 import { useMediaQuery } from '@mantine/hooks';
-import { UserContext } from '../Contexts/UserContext'
+import { UserContext } from '../../Contexts/UserContext'
 import { useForm } from '@mantine/form'
-import { routes } from '../routes'
+import { routes } from '../../routes'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { backendUrl } from '../Utils/Constants'
-import Loader from '../Components/Loader/loader'
+import { backendUrl } from '../../Utils/Constants'
+import Loader from '../Loader/loader'
 const Login = () => {
   const theame = useMantineTheme();
   const  isSmall=useMediaQuery('(max-width: 992px)');
