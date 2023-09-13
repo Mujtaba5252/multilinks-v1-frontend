@@ -5,6 +5,7 @@ import {
   Box,
   Group,
   Image,
+  NavLink,
   Navbar,
   ScrollArea,
   Text,
@@ -21,14 +22,15 @@ import { AdminSidebar } from "../SideBars/AdminSideBar";
 import { StaffSideBar } from "../SideBars/StaffSideBar";
 import { useNavigate } from "react-router-dom";
 import "./Link.css";
+import { DarkBlue, MainBlue } from "../../Utils/ThemeColors";
 
 const Appshell = () => {
   const { user, userType, isAdmin, isStaff } = useContext(UserContext);
-  console.log("user", user);
   const theme = useTheme();
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState(false);
-  const [opened, setOpened] = useState(false);
+  const [activeParent, setActiveParent] = useState(0);
+  const [activeChildren, setActiveChildren] = useState(0);
+
   return (
     <AppShell
       styles={{
@@ -66,53 +68,50 @@ const Appshell = () => {
           <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs" mt={10}>
             <Box py="xs">
               <Text size="xl" weight={700}>
-                {isAdmin?AdminSidebar.map((item) => (
-                  <UnstyledButton //this is for the links in the sidebar
-                    className="isActive"
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      borderRadius: "1px",
-                      padding: "0.5rem",
-                      marginBottom: "10px",
-                    }}
-                    onClick={() => {
-                      
-                    }}
-                  >
-                    <Group>
-                      <ThemeIcon size={"lg"}>{item.icon}</ThemeIcon>
-
-                      <Text size="md" fw={100} color="white">
-                        {item.label}
-                      </Text>
-                    </Group>
-                  </UnstyledButton>
-                )):StaffSideBar.map((item) => (
-                  <UnstyledButton //this is for the links in the sidebar
-                    className="isActive"
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      borderRadius: "1px",
-                      padding: "0.5rem",
-                      marginBottom: "10px",
-                    }}
-                    onClick={() => {
-                      setIsActive(!isActive);
-                      setOpened(!opened);
-                      navigate(item.path);
-                    }}
-                  >
-                    <Group>
-                      <ThemeIcon size={"lg"}>{item.icon}</ThemeIcon>
-
-                      <Text size="md" fw={100} color="white">
-                        {item.label}
-                      </Text>
-                    </Group>
-                  </UnstyledButton>
-                ))}
+                {isAdmin
+                  ? AdminSidebar.map((item, index) => (
+                      <NavLink
+                        my={20}
+                        key={item.label}
+                        active={index === activeParent}
+                        label={item.label}
+                        // rightSection={item.rightSection}
+                        icon={item.icon}
+                        onClick={() => setActiveParent(index)}
+                        color={DarkBlue()}
+                        childrenOffset={item.Links == undefined ? 0 : 28}
+                        variant="filled"
+                      >
+                        {item.Links != undefined
+                          ? item.Links.map((item, index) => (
+                              <NavLink
+                                my={5}
+                                key={item.label}
+                                active={index === activeChildren}
+                                label={item.label}
+                                // rightSection={item.rightSection}
+                                icon={item.icon}
+                                onClick={() => setActiveChildren(index)}
+                                color={DarkBlue()}
+                                variant="filled"
+                              ></NavLink>
+                            ))
+                          : null}
+                      </NavLink>
+                    ))
+                  : StaffSideBar.map((item) => (
+                      <NavLink
+                        key={item.label}
+                        active={index === active}
+                        label={item.label}
+                        // rightSection={item.rightSection}
+                        icon={item.icon}
+                        onClick={() => setActive(index)}
+                        childrenOffset={28}
+                        color={MainBlue()}
+                        variant="filled"
+                      ></NavLink>
+                    ))}
               </Text>
             </Box>
           </Navbar.Section>
