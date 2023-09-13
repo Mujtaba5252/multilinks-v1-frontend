@@ -23,7 +23,6 @@ function App() {
     const tokenExists = isValidToken();
     if (tokenExists) {
       isAdmin ? navigate(routes.dashboard) : navigate(routes.staffDashboard);
-      console.log(isAdmin);
     }
   }, []);
   return (
