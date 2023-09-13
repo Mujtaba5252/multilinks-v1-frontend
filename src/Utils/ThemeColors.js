@@ -6,7 +6,7 @@ export const MainBlue =()=>{
 }
 export const DarkBlue =()=>{
     const theme=useMantineTheme();
-    return theme.colors.basicBlues[2]
+    return theme.colors.basicBlues[1]
 }
 export const Black =()=>{
     const theme=useMantineTheme();
