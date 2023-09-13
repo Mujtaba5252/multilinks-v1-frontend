@@ -36,7 +36,7 @@ function App() {
           <Route path={routes.adminDashboard} element={<Appshell />} />
         </Route>
         <Route element={<RequireAuth allowedRole={["staff"]} />}>
-          <Route path={routes.staffDashboard} element={<Staff />} />
+          <Route path={routes.staffDashboard} element={<Appshell />} />
         </Route>
       </Route>
     </Routes>

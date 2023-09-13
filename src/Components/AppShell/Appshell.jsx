@@ -18,6 +18,7 @@ import Admin from "../../Portals/Admin/Admin";
 import Staff from "../../Portals/Staff/Staff";
 import logo_with_text_dark from "../../assets/images/logo_with_text_dark.png";
 import { AdminSidebar } from "../SideBars/AdminSideBar";
+import { StaffSideBar } from "../SideBars/StaffSideBar";
 import { useNavigate } from "react-router-dom";
 import "./Link.css";
 
@@ -65,7 +66,29 @@ const Appshell = () => {
           <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs" mt={10}>
             <Box py="xs">
               <Text size="xl" weight={700}>
-                {AdminSidebar.map((item) => (
+                {isAdmin?AdminSidebar.map((item) => (
+                  <UnstyledButton //this is for the links in the sidebar
+                    className="isActive"
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      borderRadius: "1px",
+                      padding: "0.5rem",
+                      marginBottom: "10px",
+                    }}
+                    onClick={() => {
+                      
+                    }}
+                  >
+                    <Group>
+                      <ThemeIcon size={"lg"}>{item.icon}</ThemeIcon>
+
+                      <Text size="md" fw={100} color="white">
+                        {item.label}
+                      </Text>
+                    </Group>
+                  </UnstyledButton>
+                )):StaffSideBar.map((item) => (
                   <UnstyledButton //this is for the links in the sidebar
                     className="isActive"
                     style={{

@@ -61,7 +61,7 @@ const handleSubmit = async (values) => {
       switch(userType){
         case true:
           console.log('navigating to dashboard')
-          navigate(routes.dashboard,{replace:true});
+          navigate(routes.adminDashboard,{replace:true});
           break;
         case false:
           navigate(routes.staffDashboard,{replace:true});
