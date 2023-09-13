@@ -25,8 +25,8 @@ const Appshell = () => {
   const { user, userType, isAdmin, isStaff } = useContext(UserContext);
   const theme = useTheme();
   const navigate = useNavigate();
-  const [activeParent, setActiveParent] = useState(0);
-  const [activeChildren, setActiveChildren] = useState(0);
+  const [activeParent, setActiveParent] = useState(null);
+  const [activeChildren, setActiveChildren] = useState(null);
 
   return (
     <AppShell
@@ -64,35 +64,33 @@ const Appshell = () => {
             <Box py="xs">
               <Text size="xl" weight={700}>
                 {isAdmin
-                  ? AdminSidebar.map((item, index) => (
-                      <NavLink //for single link
-                        my={20}
-                        key={item.label}
-                        active={index === activeParent}
-                        label={item.label}
-                        // rightSection={item.rightSection}
-                        icon={item.icon}
-                        onClick={() => setActiveParent(index)}
-                        color={DarkBlue()}
-                        childrenOffset={item.Links == undefined ? 0 : 28}
-                        variant="filled"
-                      >
-                        {item.Links != undefined
-                          ? item.Links.map((item, index) => (
-                              <NavLink //for nested links
-                                my={5}
-                                key={item.label}
-                                active={index === activeChildren}
-                                label={item.label}
-                                // rightSection={item.rightSection}
-                                icon={item.icon}
-                                onClick={() => setActiveChildren(index)}
-                                color={DarkBlue()}
-                                variant="filled"
-                              ></NavLink>
-                            ))
-                          : null}
-                      </NavLink>
+                  ? AdminSidebar.map((item) => (
+                      <div key={item.order}>
+                        <NavLink //for single link
+                          my={20}
+                          key={item.label}
+                          active={item.order === activeParent}
+                          label={item.label}
+                          icon={item.icon}
+                          onClick={() => setActiveParent(item.order)}
+                          childrenOffset={item.Links ? 28 : 0}
+                          variant="filled"
+                        >
+                          {item.Links != undefined
+                            ? item.Links.map((item) => (
+                                <NavLink //for nested links
+                                  my={5}
+                                  key={item.label}
+                                  active={item.order === activeChildren}
+                                  label={item.label}
+                                  icon={item.icon}
+                                  onClick={() => setActiveChildren(item.order)}
+                                  variant="filled"
+                                ></NavLink>
+                              ))
+                            : null}
+                        </NavLink>
+                      </div>
                     ))
                   : StaffSideBar.map((item) => (
                       <NavLink //incase of staff there is no nested links thats why no nested links code is applicabale here
