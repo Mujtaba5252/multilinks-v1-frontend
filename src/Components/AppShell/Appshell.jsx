@@ -8,25 +8,24 @@ import {
   Navbar,
   ScrollArea,
   Text,
+  ThemeIcon,
+  UnstyledButton,
 } from "@mantine/core";
-import React, { useContext,useState } from "react";
-import { Outlet } from "react-router";
+import React, { useContext, useState } from "react";
+import { ChevronRight, Man } from "tabler-icons-react";
+import { UserContext } from "../../Contexts/UserContext";
 import Admin from "../../Portals/Admin/Admin";
 import Staff from "../../Portals/Staff/Staff";
-import { UserContext } from "../../Contexts/UserContext";
 import logo_with_text_dark from "../../assets/images/logo_with_text_dark.png";
-import {
-  ChevronDownLeft,
-  ChevronDownRight,
-  ChevronRight,
-  Man,
-} from "tabler-icons-react";
-import Links from "./Links";
+import { AdminSidebar } from "../SideBars/AdminSideBar";
+import { useNavigate } from "react-router-dom";
+import "./Link.css";
 
 const Appshell = () => {
   const { user, userType, isAdmin, isStaff } = useContext(UserContext);
   console.log("user", user);
   const theme = useTheme();
+  const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const [opened, setOpened] = useState(false);
   return (
@@ -42,7 +41,7 @@ const Appshell = () => {
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={
-        <Navbar
+        <Navbar //Navbar
           height={"100%"}
           p="xs"
           width={{ base: 300 }}
@@ -64,9 +63,33 @@ const Appshell = () => {
             />
           </Navbar.Section>
           <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs" mt={10}>
-            <Box py="md">
+            <Box py="xs">
               <Text size="xl" weight={700}>
-                <Links />
+                {AdminSidebar.map((item) => (
+                  <UnstyledButton //this is for the links in the sidebar
+                    className="isActive"
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      borderRadius: "1px",
+                      padding: "0.5rem",
+                      marginBottom: "10px",
+                    }}
+                    onClick={() => {
+                      setIsActive(!isActive);
+                      setOpened(!opened);
+                      navigate(item.path);
+                    }}
+                  >
+                    <Group>
+                      <ThemeIcon size={"lg"}>{item.icon}</ThemeIcon>
+
+                      <Text size="md" fw={100} color="white">
+                        {item.label}
+                      </Text>
+                    </Group>
+                  </UnstyledButton>
+                ))}
               </Text>
             </Box>
           </Navbar.Section>

@@ -4,8 +4,8 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "../src/Components/Layout";
 import { routes } from "../src/routes";
 import Login from "./Components/Login/Login";
-import Admin from "./Portals/Admin/Admin"
-import Staff from "./Portals/Staff/Staff"
+import Admin from "./Portals/Admin/Admin";
+import Staff from "./Portals/Staff/Staff";
 import LandingPage from "./Components/LandingPage/LandingPage";
 import RequireAuth from "./Components/RequireAuth/RequireAuth";
 import { Token, Role } from "./Utils/UserDetails";
@@ -33,7 +33,7 @@ function App() {
         <Route path={routes.login} element={<Login />} />
         <Route path="/*" element={<RequireAuth allowedRole={[]} />} />
         <Route element={<RequireAuth allowedRole={["admin"]} />}>
-          <Route path={routes.dashboard} element={<Appshell />} />
+          <Route path={routes.adminDashboard} element={<Appshell />} />
         </Route>
         <Route element={<RequireAuth allowedRole={["staff"]} />}>
           <Route path={routes.staffDashboard} element={<Staff />} />
