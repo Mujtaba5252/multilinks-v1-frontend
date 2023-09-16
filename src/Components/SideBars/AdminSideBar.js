@@ -1,66 +1,73 @@
+import {
+  CurrencyDollar,
+  Dashboard,
+  FileUnknown,
+  LayoutDashboard,
+  Man,
+} from "tabler-icons-react";
 import { routes } from "../../routes";
 
 export const AdminSidebar = [
   {
-    order:100,
+    order: 100,
     label: "Dashboard",
     Link: routes.adminDashboard,
-    icon: "",
+    icon: LayoutDashboard,
   },
   {
-    order:101,
+    order: 101,
     label: "Human Resource",
-    icon: "",
+    icon: Man,
     Links: [
       {
-        order:102,
+        order: 102,
         label: "Staff",
         Link: routes.adminDashboard,
-        icon: "",
+        icon: Man,
       },
       {
-        order:103,
+        order: 103,
         label: "Leave Request",
         Link: routes.adminDashboard,
-        icon: "",
+        icon: Man,
       },
     ],
   },
   {
-    order:104,
+    order: 104,
     label: "Accounts",
+    icon: CurrencyDollar,
     Links: [
       {
-        order:105,
+        order: 105,
         label: "Quotations",
         Link: routes.adminDashboard,
-        icon: "",
+        icon: CurrencyDollar,
       },
       {
-        order:106,
+        order: 106,
         label: "Invoices",
         Link: routes.adminDashboard,
-        icon: "",
+        icon: CurrencyDollar,
       },
       {
-        order:107,
+        order: 107,
         label: "Receipts",
         Link: routes.adminDashboard,
-        icon: "",
+        icon: CurrencyDollar,
       },
       {
-        order:108,
+        order: 108,
         label: "Salaries & Commissions",
         Link: routes.adminDashboard,
-        icon: "",
+        icon: CurrencyDollar,
       },
     ],
-    icon: "",
   },
   {
-    order:109,
+    order: 109,
     label: "Licenses",
     Link: routes.adminDashboard,
-    icon: "",
+    icon: FileUnknown,
   },
 ];

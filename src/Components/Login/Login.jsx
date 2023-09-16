@@ -42,7 +42,7 @@ const Login = () => {
     },
 
     validate: {
-      // email: (value) => (emailRegex.test(value) ? null : "Invalid Email"),
+      email: (value) => (value ? null : "Invalid Email"),
       // password: (value) =>
       //   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,100}$/.test(
       //     value
@@ -176,6 +176,7 @@ const Login = () => {
                     type="password"
                     size="lg"
                     label={"Password"}
+                    withAsterisk
                     placeholder="Enter Password"
                     {...form?.getInputProps("password")}
                   />

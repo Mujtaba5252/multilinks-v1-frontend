@@ -16,17 +16,32 @@ import { ChevronRight, Man } from "tabler-icons-react";
 import { UserContext } from "../../Contexts/UserContext";
 import Admin from "../../Portals/Admin/Admin";
 import Staff from "../../Portals/Staff/Staff";
-import { Black, DarkBlue, MainBlue, White } from "../../Utils/ThemeColors";
 import logo_with_text_dark from "../../assets/images/logo_with_text_dark.png";
 import { AdminSidebar } from "../SideBars/AdminSideBar";
 import { StaffSideBar } from "../SideBars/StaffSideBar";
+import { Black, MainBlue, White } from "../../Utils/ThemeColors";
 
 const Appshell = () => {
-  const { user, userType, isAdmin, isStaff } = useContext(UserContext);
+  const { user, isAdmin } = useContext(UserContext);
   const theme = useTheme();
   const navigate = useNavigate();
   const [activeParent, setActiveParent] = useState(null);
   const [activeChildren, setActiveChildren] = useState(null);
+  const [openedNav, setOpenedNav] = useState("");
+
+  const handleParentClick = (item) => {
+    if (openedNav === item.label) {
+      setOpenedNav(null);
+    } else {
+      setOpenedNav(item.label);
+    }
+    setActiveParent(item.label);
+    setActiveChildren(null);
+  };
+
+  const handleChildClick = (item) => {
+    setActiveChildren(item.label);
+  };
 
   return (
     <AppShell
@@ -38,7 +53,7 @@ const Appshell = () => {
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={
-        <Navbar //Navbar
+        <Navbar
           height={"100%"}
           p="xs"
           width={{ base: 300 }}
@@ -52,63 +67,101 @@ const Appshell = () => {
           }}
         >
           <Navbar.Section mt="xs">
-            <Image // for logo section in navbar
+            <Image
               src={logo_with_text_dark}
               width={"100%"}
               height={"auto"}
               p={10}
             />
           </Navbar.Section>
-          {/*For side bar items*/}
           <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs" mt={10}>
             <Box py="xs">
               <Text size="xl" weight={700}>
                 {isAdmin
                   ? AdminSidebar.map((item) => (
-                      <div key={item.order}>
-                        <NavLink //for single link
+                      <div key={item.label}>
+                        <NavLink
                           my={20}
+                          onClick={() => handleParentClick(item)}
+                          styles={{
+                            root: {
+                              ":hover": {
+                                backgroundColor: "#0263BD",
+                              },
+                              color: "white",
+                            },
+                            icon: {
+                              color: "white",
+                            },
+                          }}
+                          bg={
+                            activeParent === item.label ||
+                            openedNav === item.label
+                              ? "#0263BD"
+                              : ""
+                          }
                           key={item.label}
-                          active={item.order === activeParent}
                           label={item.label}
-                          icon={item.icon}
-                          onClick={() => setActiveParent(item.order)}
+                          icon={<item.icon color="white" />}
                           childrenOffset={item.Links ? 28 : 0}
                           variant="filled"
                         >
-                          {item.Links != undefined
-                            ? item.Links.map((item) => (
-                                <NavLink //for nested links
-                                  my={5}
-                                  key={item.label}
-                                  active={item.order === activeChildren}
-                                  label={item.label}
-                                  icon={item.icon}
-                                  onClick={() => setActiveChildren(item.order)}
-                                  variant="filled"
-                                ></NavLink>
-                              ))
-                            : null}
+                          {item.Links &&
+                            item.Links.map((childItem) => (
+                              <NavLink
+                                my={5}
+                                key={childItem.label}
+                                onClick={() => handleChildClick(childItem)}
+                                label={childItem.label}
+                                icon={<childItem.icon color="white" />}
+                                styles={{
+                                  root: {
+                                    ":hover": {
+                                      backgroundColor: "#0263BD",
+                                    },
+                                    color: "white",
+                                  },
+                                  icon: {
+                                    color: "white",
+                                  },
+                                }}
+                                bg={
+                                  activeChildren === childItem.label
+                                    ? "#0263BD"
+                                    : ""
+                                }
+                                variant="filled"
+                              />
+                            ))}
                         </NavLink>
                       </div>
                     ))
                   : StaffSideBar.map((item) => (
-                      <NavLink //incase of staff there is no nested links thats why no nested links code is applicabale here
+                      <NavLink
                         key={item.label}
-                        active={index === active}
+                        my={20}
                         label={item.label}
-                        icon={item.icon}
-                        onClick={() => setActive(index)}
+                        icon={<item.icon color="white" />}
+                        onClick={() => setActiveParent(item.label)}
                         childrenOffset={28}
-                        color={MainBlue()}
                         variant="filled"
-                      ></NavLink>
+                        styles={{
+                          root: {
+                            ":hover": {
+                              backgroundColor: "#0263BD",
+                            },
+                            color: "white",
+                          },
+                          icon: {
+                            color: "white",
+                          },
+                        }}
+                        bg={activeParent === item.label ? "#0263BD" : ""}
+                      />
                     ))}
               </Text>
             </Box>
           </Navbar.Section>
-          {/*FOr profile section below*/}
-
           <Navbar.Section
             style={{
               borderTop: "1px solid #fff",
@@ -134,7 +187,6 @@ const Appshell = () => {
         </Navbar>
       }
     >
-      {/* <Navbar.Section>Logo</Navbar.Section> */}
       {isAdmin ? <Admin /> : <Staff />}
     </AppShell>
   );
