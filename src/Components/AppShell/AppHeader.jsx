@@ -13,10 +13,11 @@ import logo_with_text_light from "../../assets/images/logo_with_text_light.png";
 import { useMediaQuery } from "@mantine/hooks";
 import { Man, Power } from "tabler-icons-react";
 import { routes } from "../../routes";
-import { useNavigate } from "react-router-dom";
+import { matchRoutes, useNavigate } from "react-router-dom";
+import logo from "../../assets/images/logo.png";
 
 const AppHeader = ({ user }) => {
-  const matches = useMediaQuery("(min-width: 770px)");
+  const matches = useMediaQuery("(min-width:990px)");
   const navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem("user");
@@ -32,9 +33,9 @@ const AppHeader = ({ user }) => {
       w="100%"
     >
       <Image
-        src={logo_with_text_light}
+        src={matches ? logo_with_text_light : logo}
         fit="contain"
-        width={"14rem"}
+        width={matches ? "14rem" : "7rem"}
         mx={!matches && "auto"}
         // onClick={() => navigate(routes.home)}
         style={{
@@ -48,14 +49,12 @@ const AppHeader = ({ user }) => {
           position="bottom-start"
           transition="pop-top-left"
           offset={20}
-          onClose={() => setUserMenuOpened(false)}
-          onOpen={() => setUserMenuOpened(true)}
         >
           <Menu.Target>
             <UnstyledButton>
               <Group spacing={7} noWrap>
                 <MediaQuery
-                  query="(max-width: 650px)"
+                  query="(max-width: 990px)"
                   styles={{
                     display: "none",
                   }}
@@ -86,7 +85,6 @@ const AppHeader = ({ user }) => {
             </UnstyledButton>
           </Menu.Target>
           <Menu.Dropdown>
-            {/* <Menu.Item onClick={() => navigate(routes.settings)}></Menu.Item> */}
             <Menu.Item
               color="red"
               onClick={() => {

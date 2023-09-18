@@ -27,6 +27,7 @@ import { adminRoutes, routes, staffRoutes } from "../../routes";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { backendUrl } from "../../Utils/Constants";
+import { toast } from "react-hot-toast";
 const Login = () => {
   const theame = useMantineTheme();
   const isSmall = useMediaQuery("(max-width: 992px)");
@@ -73,12 +74,15 @@ const Login = () => {
           case true:
             console.log("navigating to dashboard");
             navigate(adminRoutes.adminDashboard, { replace: true });
+            toast.success("Login Successful");
             break;
           case false:
             navigate(staffRoutes.staffDashboard, { replace: true });
+            toast.success("Login Successful");
             break;
           default:
             navigate(routes.login, { replace: true });
+            toast.error("Invalid Credentials");
         }
       }
       if (response.data.error) {
@@ -87,6 +91,7 @@ const Login = () => {
 
       setLoader(false);
     } catch (err) {
+      toast.error("Invalid Credentials");
       console.log(err);
       setLoader(false);
     }

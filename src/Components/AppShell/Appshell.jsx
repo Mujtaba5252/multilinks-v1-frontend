@@ -58,14 +58,18 @@ const Appshell = () => {
           background: theme.colors === "dark" ? Black() : White(),
         },
       }}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
+      navbarOffsetBreakpoint="md"
+      asideOffsetBreakpoint="md"
       header={
-        <Header height={{ base: 50, md: 70 }} p="md" bg={MainBlue()}>
+        <Header height={{ base: 60, md: 60 }} p="md" bg={MainBlue()}>
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+            <MediaQuery
+              // query="max-width: 600px"
+              largerThan="md"
+              styles={{ display: "none" }}
+            >
               <Burger
                 opened={opened}
                 onClick={() => setOpened((o) => !o)}
