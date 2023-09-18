@@ -13,6 +13,7 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "./Contexts/UserContext";
 import Appshell from "./Components/AppShell/Appshell";
 import StaffView from "./Portals/Admin/HumanResource/Staff/StaffView";
+import { Toaster } from "react-hot-toast";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -27,45 +28,49 @@ function App() {
     }
   }, []);
   return (
-    <Routes>
-      <Route path={routes.home} element={<Layout />}>
-        <Route index path={routes.login} element={<Login/>} />
-        <Route path="/*" element={<RequireAuth allowedRole={[]} />} />
-        <Route element={<RequireAuth allowedRole={["admin"]} />}>
-          <Route path={routes.admin} element={<Appshell />}>
-            <Route
-              index
-              path={adminRoutes.adminDashboard}
-              element={<Admin />}
-            />
-            <Route path={adminRoutes.humanResource}>
+    <>
+      <Toaster />
+      <Routes>
+        <Route path={routes.home} element={<Layout />}>
+          <Route path={routes.home} element={<Login />} />
+          <Route index path={routes.login} element={<Login />} />
+          <Route path="/*" element={<RequireAuth allowedRole={[]} />} />
+          <Route element={<RequireAuth allowedRole={["admin"]} />}>
+            <Route path={routes.admin} element={<Appshell />}>
               <Route
                 index
-                path={adminRoutes.staffView}
-                element={<StaffView />}
+                path={adminRoutes.adminDashboard}
+                element={<Admin />}
               />
-              <Route path={adminRoutes.leaves} />
+              <Route path={adminRoutes.humanResource}>
+                <Route
+                  index
+                  path={adminRoutes.staffView}
+                  element={<StaffView />}
+                />
+                <Route path={adminRoutes.leaves} />
+              </Route>
+              <Route path={adminRoutes.accounts}>
+                <Route path={adminRoutes.qutotations} />
+                <Route path={adminRoutes.invoices} />
+                <Route path={adminRoutes.receipts} />
+                <Route path={adminRoutes.salariesAndCommissions} />
+              </Route>
+              <Route path={adminRoutes.licenses} />
             </Route>
-            <Route path={adminRoutes.accounts}>
-              <Route path={adminRoutes.qutotations} />
-              <Route path={adminRoutes.invoices} />
-              <Route path={adminRoutes.receipts} />
-              <Route path={adminRoutes.salariesAndCommissions} />
+          </Route>
+          <Route element={<RequireAuth allowedRole={["staff"]} />}>
+            <Route path={routes.staff} element={<Appshell />}>
+              <Route
+                index
+                path={staffRoutes.staffDashboard}
+                element={<Staff />}
+              />
             </Route>
-            <Route path={adminRoutes.licenses} />
           </Route>
         </Route>
-        <Route element={<RequireAuth allowedRole={["staff"]} />}>
-          <Route path={routes.staff} element={<Appshell />}>
-            <Route
-              index
-              path={staffRoutes.staffDashboard}
-              element={<Staff />}
-            />
-          </Route>
-        </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 }
 

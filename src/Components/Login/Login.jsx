@@ -58,42 +58,53 @@ const Login = () => {
     setLoader(true);
     let url = backendUrl + routes.login;
     try {
-      const response = await axios.post(url, {
-        login_email: values.email,
-        login_password: values.password,
-      });
-      console.log(response);
-      if (response.data.data) {
-        const userType = response.data.data.isAdmin;
-        setIsAdmin(userType === true);
-        setIsStaff(userType === false);
-        setUser(response.data.data);
-        setUserType(response.data.data.isAdmin ? "admin" : "staff");
-        localStorage.setItem("user", JSON.stringify(response.data.data));
-        switch (userType) {
-          case true:
-            console.log("navigating to dashboard");
-            navigate(adminRoutes.adminDashboard, { replace: true });
-            toast.success("Login Successful");
-            break;
-          case false:
-            navigate(staffRoutes.staffDashboard, { replace: true });
-            toast.success("Login Successful");
-            break;
-          default:
-            navigate(routes.login, { replace: true });
-            toast.error("Invalid Credentials");
-        }
-      }
-      if (response.data.error) {
-        console.log(response.data.error);
-      }
-
-      setLoader(false);
+      await axios
+        .post(url, {
+          login_email: values.email,
+          login_password: values.password,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            const userType = response.data.data.isAdmin;
+            setIsAdmin(userType === true);
+            setIsStaff(userType === false);
+            setUser(response.data.data);
+            setUserType(response.data.data.isAdmin ? "admin" : "staff");
+            localStorage.setItem("user", JSON.stringify(response.data.data));
+            switch (userType) {
+              case true:
+                console.log("navigating to dashboard");
+                navigate(adminRoutes.adminDashboard, { replace: true });
+                toast.success("Login Successful");
+                break;
+              case false:
+                navigate(staffRoutes.staffDashboard, { replace: true });
+                toast.success("Login Successful");
+                break;
+              default:
+                navigate(routes.login, { replace: true });
+                toast.error("Invalid Credentials");
+            }
+          }
+          if (response.status === 400) {
+            toast.error("something went wrong");
+          }
+          setLoader(false);
+        });
     } catch (err) {
       toast.error("Invalid Credentials");
       console.log(err);
       setLoader(false);
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      // Prevent the default Enter key behavior (e.g., submitting the form)
+      event.preventDefault();
+
+      // Call your handleSubmit function when Enter is pressed
+      handleSubmit(form.values);
     }
   };
   return (
@@ -174,6 +185,7 @@ const Login = () => {
                     placeholder="Enter Email"
                     withAsterisk={true}
                     {...form?.getInputProps("email")}
+                    onKeyDown={handleKeyDown}
                   />
                   <PasswordInput
                     form={form}
@@ -184,6 +196,7 @@ const Login = () => {
                     withAsterisk
                     placeholder="Enter Password"
                     {...form?.getInputProps("password")}
+                    onKeyDown={handleKeyDown}
                   />
                   <Center>
                     <Button

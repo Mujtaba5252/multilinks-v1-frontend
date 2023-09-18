@@ -3,7 +3,6 @@ export const routes = {
   login: "/login",
   admin: "/admin",
   staff: "/staff",
-
 };
 export const adminRoutes = {
   adminDashboard: "/admin/dashboard",
@@ -16,7 +15,7 @@ export const adminRoutes = {
   receipts: "/admin/accounts/receipts",
   salariesAndCommissions: "/admin/accounts/salariesAndCommissions",
   licenses: "/admin/licenses",
-}
+};
 export const staffRoutes = {
   staffDashboard: "/staff/dashboard",
-}
+};
