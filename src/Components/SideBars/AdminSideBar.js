@@ -22,7 +22,7 @@ export const AdminSidebar = [
       {
         order: 102,
         label: "Staff",
-        Link: routes.adminDashboard,
+        Link: routes.addStaff,
         icon: Man,
       },
       {

@@ -13,6 +13,7 @@ import {
   Title,
   useMantineTheme,
   Loader,
+  PasswordInput,
 } from "@mantine/core";
 import React, { useContext, useState } from "react";
 import fileImage from "../../assets/images/file.png";
@@ -169,11 +170,10 @@ const Login = () => {
                     withAsterisk={true}
                     {...form?.getInputProps("email")}
                   />
-                  <TextInput
+                  <PasswordInput
                     form={form}
                     mt={"md"}
                     mb={"md"}
-                    type="password"
                     size="lg"
                     label={"Password"}
                     withAsterisk

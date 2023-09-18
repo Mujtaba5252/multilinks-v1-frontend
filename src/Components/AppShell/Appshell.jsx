@@ -11,7 +11,7 @@ import {
   Text,
 } from "@mantine/core";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { ChevronRight, Man } from "tabler-icons-react";
 import { UserContext } from "../../Contexts/UserContext";
 import Admin from "../../Portals/Admin/Admin";
@@ -32,7 +32,9 @@ const Appshell = () => {
   const handleParentClick = (item) => {
     if (openedNav === item.label) {
       setOpenedNav(null);
+      navigate(item.Link);
     } else {
+      navigate(item.Link);
       setOpenedNav(item.label);
     }
     setActiveParent(item.label);
@@ -40,6 +42,7 @@ const Appshell = () => {
   };
 
   const handleChildClick = (item) => {
+    navigate(item.Link);
     setActiveChildren(item.label);
   };
 
@@ -108,7 +111,7 @@ const Appshell = () => {
                         >
                           {item.Links &&
                             item.Links.map((childItem) => (
-                              <NavLink
+                              <NavLink //for nested children
                                 my={5}
                                 key={childItem.label}
                                 onClick={() => handleChildClick(childItem)}
@@ -137,7 +140,7 @@ const Appshell = () => {
                       </div>
                     ))
                   : StaffSideBar.map((item) => (
-                      <NavLink
+                      <NavLink //for staff side bar
                         key={item.label}
                         my={20}
                         label={item.label}
@@ -162,7 +165,7 @@ const Appshell = () => {
               </Text>
             </Box>
           </Navbar.Section>
-          <Navbar.Section
+          <Navbar.Section //for user profile below the side bar
             style={{
               borderTop: "1px solid #fff",
             }}
@@ -187,7 +190,7 @@ const Appshell = () => {
         </Navbar>
       }
     >
-      {isAdmin ? <Admin /> : <Staff />}
+      <Outlet />
     </AppShell>
   );
 };
