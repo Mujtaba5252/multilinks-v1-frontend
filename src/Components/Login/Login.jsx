@@ -23,7 +23,7 @@ import logoWithText from "../../assets/images/logo_with_text_dark.png";
 import { useMediaQuery } from "@mantine/hooks";
 import { UserContext } from "../../Contexts/UserContext";
 import { useForm } from "@mantine/form";
-import { routes } from "../../routes";
+import { adminRoutes, routes, staffRoutes } from "../../routes";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { backendUrl } from "../../Utils/Constants";
@@ -72,10 +72,10 @@ const Login = () => {
         switch (userType) {
           case true:
             console.log("navigating to dashboard");
-            navigate(routes.adminDashboard, { replace: true });
+            navigate(adminRoutes.adminDashboard, { replace: true });
             break;
           case false:
-            navigate(routes.staffDashboard, { replace: true });
+            navigate(staffRoutes.staffDashboard, { replace: true });
             break;
           default:
             navigate(routes.login, { replace: true });

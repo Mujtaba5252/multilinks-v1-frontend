@@ -5,13 +5,13 @@ import {
   LayoutDashboard,
   Man,
 } from "tabler-icons-react";
-import { routes } from "../../routes";
+import { routes,adminRoutes } from "../../routes";
 
 export const AdminSidebar = [
   {
     order: 100,
     label: "Dashboard",
-    Link: routes.adminDashboard,
+    Link: adminRoutes.adminDashboard,
     icon: LayoutDashboard,
   },
   {
@@ -22,13 +22,13 @@ export const AdminSidebar = [
       {
         order: 102,
         label: "Staff",
-        Link: routes.addStaff,
+        Link: adminRoutes.staffView,
         icon: Man,
       },
       {
         order: 103,
         label: "Leave Request",
-        Link: routes.adminDashboard,
+        Link: adminRoutes.leaves,
         icon: Man,
       },
     ],
@@ -41,25 +41,25 @@ export const AdminSidebar = [
       {
         order: 105,
         label: "Quotations",
-        Link: routes.adminDashboard,
+        Link: adminRoutes.qutotations,
         icon: CurrencyDollar,
       },
       {
         order: 106,
         label: "Invoices",
-        Link: routes.adminDashboard,
+        Link: adminRoutes.invoices,
         icon: CurrencyDollar,
       },
       {
         order: 107,
         label: "Receipts",
-        Link: routes.adminDashboard,
+        Link: adminRoutes.receipts,
         icon: CurrencyDollar,
       },
       {
         order: 108,
         label: "Salaries & Commissions",
-        Link: routes.adminDashboard,
+        Link: adminRoutes.salariesAndCommissions,
         icon: CurrencyDollar,
       },
     ],
@@ -67,7 +67,7 @@ export const AdminSidebar = [
   {
     order: 109,
     label: "Licenses",
-    Link: routes.adminDashboard,
+    Link: adminRoutes.licenses,
     icon: FileUnknown,
   },
 ];

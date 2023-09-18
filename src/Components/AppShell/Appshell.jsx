@@ -14,12 +14,11 @@ import React, { useContext, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ChevronRight, Man } from "tabler-icons-react";
 import { UserContext } from "../../Contexts/UserContext";
-import Admin from "../../Portals/Admin/Admin";
-import Staff from "../../Portals/Staff/Staff";
-import logo_with_text_dark from "../../assets/images/logo_with_text_dark.png";
+import { Black, White } from "../../Utils/ThemeColors";
+import logo_with_text_light from "../../assets/images/logo_with_text_light.png";
 import { AdminSidebar } from "../SideBars/AdminSideBar";
 import { StaffSideBar } from "../SideBars/StaffSideBar";
-import { Black, MainBlue, White } from "../../Utils/ThemeColors";
+import './Link.css';
 
 const Appshell = () => {
   const { user, isAdmin } = useContext(UserContext);
@@ -70,8 +69,8 @@ const Appshell = () => {
           }}
         >
           <Navbar.Section mt="xs">
-            <Image
-              src={logo_with_text_dark}
+            <Image // for logo section in navbar
+              src={logo_with_text_light}
               width={"100%"}
               height={"auto"}
               p={10}
@@ -108,6 +107,17 @@ const Appshell = () => {
                           icon={<item.icon color="white" />}
                           childrenOffset={item.Links ? 28 : 0}
                           variant="filled"
+                          // styles={{
+                          //   root:{
+                          //     color:White(),
+                          //     ":hover":{
+                          //         backgroundColor:DarkBlue()
+                          //     },
+                          //     ":active":{
+                          //         background:DarkBlue()
+                          //     }
+                          //   }
+                          // }}
                         >
                           {item.Links &&
                             item.Links.map((childItem) => (
