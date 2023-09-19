@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
 import { Button, Group } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { staffRoutes } from "../../../routes";
 import DataGrid from "../../../Components/DataTable/DataGrid";
+import { axios_get } from "../../../Utils/Axios";
 
 const ViewClients = () => {
   const navigate = useNavigate();
+  const [staffData, setStaffData] = useState([]);
+
+  const getCleintData = async () => {
+    axios_get({ url: "/client" }).then((res) => {
+      console.log(res.data.data);
+      setStaffData(res.data.data);
+    });
+  };
+  useEffect(() => {
+    getCleintData();
+  }, []);
+
   return (
     <PageWrapper title="View Clients">
       <Group

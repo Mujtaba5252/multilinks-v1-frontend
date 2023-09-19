@@ -1,5 +1,6 @@
 import React from "react";
 import DataTable from "react-data-table-component";
+import Loader from "../Loader/Loader";
 
 const DataGrid = ({ columns, data, pagination, ...props }) => {
   const customStyles = {
@@ -36,8 +37,9 @@ const DataGrid = ({ columns, data, pagination, ...props }) => {
     <DataTable
       columns={columns}
       data={data || []}
-      pagination
+      pagination={pagination || true}
       customStyles={customStyles}
+      progressComponent={<Loader />}
       {...props}
     />
   );

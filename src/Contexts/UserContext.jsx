@@ -24,8 +24,8 @@ const UserProvider = (props) => {
       })
       .then((response) => {
         let data = response.data.data;
+        
         setUser(data);
-        console.log(data);
       })
 
       .catch((err) => {
