@@ -1,35 +1,35 @@
 import { CurrencyDollar, LayoutDashboard, Plus } from "tabler-icons-react";
-import { routes } from "../../routes";
+import { routes, staffRoutes } from "../../routes";
 
 export const StaffSideBar = [
   {
     label: "Dashboard",
-    Link: routes.staffDashboard,
+    Link: staffRoutes.staffDashboard,
     icon: LayoutDashboard,
   },
   {
-    label: "Add Client",
-    Link: routes.staffDashboard,
+    label: "My Client",
+    Link: staffRoutes.addClient,
     icon: Plus,
   },
   {
     label: "Qoutations",
-    Link: routes.staffDashboard,
+    Link: staffRoutes.staffDashboard,
     icon: CurrencyDollar,
   },
   {
     label: "Payments Invoice",
-    Link: routes.staffDashboard,
+    Link: staffRoutes.staffDashboard,
     icon: CurrencyDollar,
   },
   {
     label: "Commissions",
-    Link: routes.staffDashboard,
+    Link: staffRoutes.staffDashboard,
     icon: CurrencyDollar,
   },
   {
     label: "Leave Request",
-    Link: routes.staffDashboard,
+    Link: staffRoutes.staffDashboard,
     icon: CurrencyDollar,
   },
 ];

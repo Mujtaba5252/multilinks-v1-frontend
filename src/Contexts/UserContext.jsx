@@ -4,17 +4,17 @@ import axios from "axios";
 
 import React, { createContext, useEffect, useState } from "react";
 export const UserContext = createContext({});
-const token = Token();
 const UserProvider = (props) => {
   const [user, setUser] = useState(null);
-  const [userType, setUserType]=useState(null)
-  const [isAdmin,setIsAdmin]=useState(
-    JSON.parse(localStorage.getItem("user"))?.isAdmin===true
-  )
-  const [isStaff,setIsStaff]=useState(
-    JSON.parse(localStorage.getItem("user"))?.isAdmin===false
-  )
-  
+  const [userType, setUserType] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(
+    JSON.parse(localStorage.getItem("user"))?.isAdmin === true
+  );
+  const [isStaff, setIsStaff] = useState(
+    JSON.parse(localStorage.getItem("user"))?.isAdmin === false
+  );
+
+  const token = Token();
   const getMyData = () => {
     axios
       .get(backendUrl + "/me", {
@@ -33,8 +33,11 @@ const UserProvider = (props) => {
       });
   };
   useEffect(() => {
-    if (token) getMyData();
-    else console.log("no token");
+    if (token) {
+      getMyData();
+    } else {
+      console.log("no token");
+    }
   }, []);
 
   const values = {
@@ -46,7 +49,7 @@ const UserProvider = (props) => {
     isAdmin,
     setIsAdmin,
     isStaff,
-    setIsStaff
+    setIsStaff,
   };
   return (
     <UserContext.Provider value={values}>{props.children}</UserContext.Provider>

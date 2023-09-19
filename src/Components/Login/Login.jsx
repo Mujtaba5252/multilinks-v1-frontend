@@ -100,10 +100,7 @@ const Login = () => {
   };
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      // Prevent the default Enter key behavior (e.g., submitting the form)
       event.preventDefault();
-
-      // Call your handleSubmit function when Enter is pressed
       handleSubmit(form.values);
     }
   };

@@ -164,7 +164,10 @@ const Appshell = () => {
                       my={20}
                       label={item.label}
                       icon={<item.icon color="white" />}
-                      onClick={() => setActiveParent(item.label)}
+                      onClick={() => {
+                        setActiveParent(item.label);
+                        navigate(item.Link);
+                      }}
                       childrenOffset={28}
                       variant="filled"
                       styles={{

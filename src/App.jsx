@@ -1,19 +1,18 @@
-import { Button } from "@mantine/core";
-import "./App.css";
+import { useContext, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Layout from "../src/Components/Layout";
-import { routes, adminRoutes, staffRoutes } from "../src/routes";
-import Login from "./Components/Login/Login";
-import Admin from "./Portals/Admin/Admin";
-import Staff from "./Portals/Staff/Staff";
-import LandingPage from "./Components/LandingPage/LandingPage";
-import RequireAuth from "./Components/RequireAuth/RequireAuth";
-import { Token, Role } from "./Utils/UserDetails";
-import { useContext, useEffect } from "react";
-import { UserContext } from "./Contexts/UserContext";
+import { adminRoutes, routes, staffRoutes } from "../src/routes";
+import "./App.css";
 import Appshell from "./Components/AppShell/Appshell";
+import Login from "./Components/Login/Login";
+import RequireAuth from "./Components/RequireAuth/RequireAuth";
+import { UserContext } from "./Contexts/UserContext";
+import Admin from "./Portals/Admin/Admin";
 import StaffView from "./Portals/Admin/HumanResource/Staff/StaffView";
-import { Toaster } from "react-hot-toast";
+import AddClient from "./Portals/Staff/AddClient/AddClient";
+import StaffDashboard from "./Portals/Staff/StaffDashboard/StaffDashboard";
+import { Token } from "./Utils/UserDetails";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -64,8 +63,9 @@ function App() {
               <Route
                 index
                 path={staffRoutes.staffDashboard}
-                element={<Staff />}
+                element={<StaffDashboard />}
               />
+              <Route path={staffRoutes.addClient} element={<AddClient />} />
             </Route>
           </Route>
         </Route>
