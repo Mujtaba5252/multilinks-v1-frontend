@@ -13,6 +13,7 @@ import StaffView from "./Portals/Admin/HumanResource/Staff/StaffView";
 import AddClient from "./Portals/Staff/AddClient/AddClient";
 import StaffDashboard from "./Portals/Staff/StaffDashboard/StaffDashboard";
 import { Token } from "./Utils/UserDetails";
+import ViewClients from "./Portals/Staff/ViewClients/ViewClients";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -65,6 +66,7 @@ function App() {
                 path={staffRoutes.staffDashboard}
                 element={<StaffDashboard />}
               />
+              <Route path={staffRoutes.viewClient} element={<ViewClients />} />
               <Route path={staffRoutes.addClient} element={<AddClient />} />
             </Route>
           </Route>

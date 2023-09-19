@@ -24,6 +24,7 @@ import { StaffSideBar } from "../SideBars/StaffSideBar";
 import "./Link.css";
 import { useMediaQuery } from "@mantine/hooks";
 import AppHeader from "./AppHeader";
+import PageWrapper from "../PageWrapper/PageWrapper";
 
 const Appshell = () => {
   const { user, isAdmin } = useContext(UserContext);
@@ -186,28 +187,6 @@ const Appshell = () => {
                   ))}
             </Text>
           </Box>
-          {/* <Navbar.Section //for user profile below the side bar
-            style={{
-              borderTop: "1px solid #fff",
-            }}
-          >
-            <Group position="apart">
-              <Avatar mt={10} size="lg" radius="xl" src={<Man />} />
-              <Box
-                style={{
-                  flex: 1,
-                }}
-              >
-                <Text size={"sm"} color="white" weight={"bold"}>
-                  {user?.name}
-                </Text>
-                <Text size={"xs"} color="white">
-                  {user?.login_email}
-                </Text>
-              </Box>
-              <ChevronRight color="white" />
-            </Group>
-          </Navbar.Section> */}
         </Navbar>
       }
     >

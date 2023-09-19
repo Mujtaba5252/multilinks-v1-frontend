@@ -1,4 +1,4 @@
-import { CurrencyDollar, LayoutDashboard, Plus } from "tabler-icons-react";
+import { CurrencyDollar, LayoutDashboard, Plus, Man } from "tabler-icons-react";
 import { routes, staffRoutes } from "../../routes";
 
 export const StaffSideBar = [
@@ -9,11 +9,11 @@ export const StaffSideBar = [
   },
   {
     label: "My Client",
-    Link: staffRoutes.addClient,
-    icon: Plus,
+    Link: staffRoutes.viewClient,
+    icon: Man,
   },
   {
-    label: "Qoutations",
+    label: "Quotations",
     Link: staffRoutes.staffDashboard,
     icon: CurrencyDollar,
   },

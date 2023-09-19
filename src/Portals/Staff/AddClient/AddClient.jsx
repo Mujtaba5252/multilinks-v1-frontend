@@ -3,7 +3,11 @@ import { useForm } from "@mantine/form";
 import React, { useContext, useState } from "react";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
 import { UserContext } from "../../../Contexts/UserContext";
+import { useNavigate } from "react-router-dom";
+import { CircleCheck, CircleX } from "tabler-icons-react";
+
 const AddClient = () => {
+  const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   const { user } = useContext(UserContext);
 
@@ -114,7 +118,23 @@ const AddClient = () => {
           </Grid.Col>
         </Grid>
         <Group position="right">
-          <Button type="submit" mt={"md"} mb={"md"} size="lg">
+          <Button
+            mt={"md"}
+            mb={"md"}
+            variant="outline"
+            onClick={() => {
+              navigate(-1);
+            }}
+            leftIcon={<CircleX color="red" />}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            mt={"md"}
+            mb={"md"}
+            leftIcon={<CircleCheck color="white" />}
+          >
             Submit
           </Button>
         </Group>
