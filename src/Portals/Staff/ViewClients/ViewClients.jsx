@@ -5,15 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { staffRoutes } from "../../../routes";
 import DataGrid from "../../../Components/DataTable/DataGrid";
 import { axios_get } from "../../../Utils/Axios";
+import { ClientHeader } from "./ClientHeader";
 
 const ViewClients = () => {
   const navigate = useNavigate();
-  const [staffData, setStaffData] = useState([]);
+  const [ClientData, setClientData] = useState([]);
 
   const getCleintData = async () => {
     axios_get({ url: "/client" }).then((res) => {
       console.log(res.data.data);
-      setStaffData(res.data.data);
+      setClientData(res.data.data);
     });
   };
   useEffect(() => {
@@ -29,37 +30,7 @@ const ViewClients = () => {
       >
         <Button variant="filled">ADD CLIENT</Button>
       </Group>
-      <DataGrid
-        columns={[
-          {
-            name: "UID",
-            selector: (row) => row.UID,
-          },
-          {
-            name: "Client Name",
-            selector: (row) => row.client_name,
-          },
-        ]}
-        data={[
-          {
-            UID: "123",
-            client_name: "John Doe",
-          },
-          {
-            UID: "123",
-            client_name: "John Doe",
-          },
-          {
-            UID: "123",
-            client_name: "John Doe",
-          },
-          {
-            UID: "123",
-            client_name: "John Doe",
-          },
-        ]}
-        pagination={true}
-      />
+      <DataGrid columns={ClientHeader()} data={ClientData} pagination={true} />
     </PageWrapper>
   );
 };

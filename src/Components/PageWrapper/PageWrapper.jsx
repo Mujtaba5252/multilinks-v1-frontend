@@ -19,7 +19,14 @@ const PageWrapper = ({ children, title }) => {
         // radius={radius}
         shadow="sm"
       >
-        <Text size={25} weight={"bold"} mb={0} ml="sm" align={"center"}>
+        <Text
+          size={25}
+          weight={"bold"}
+          mb={0}
+          ml="sm"
+          align={"center"}
+          color="#0487FF"
+        >
           {title}
         </Text>
 

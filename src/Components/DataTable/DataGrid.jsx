@@ -1,34 +1,39 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import Loader from "../Loader/Loader";
-
+import { MainBlue } from "../../Utils/ThemeColors";
 const DataGrid = ({ columns, data, pagination, ...props }) => {
   const customStyles = {
     headCells: {
       style: {
-        fontSize: "14px",
-        fontWeight: "bold",
-        color: "#000000",
-        backgroundColor: "#F5F5F5",
-        border: "1px solid #E0E0E0",
-        padding: "10px",
+        color: "#0487FF",
+        fontSize: "12px",
+        fontWeight: 600,
+        backgroundColor: "#fff",
+        borderTop: `3px solid ${MainBlue()}`,
       },
     },
-    cells: {
+    headRow: {
       style: {
-        fontSize: "14px",
-        color: "#000000",
-        border: "1px solid #E0E0E0",
-
-        padding: "10px",
+        backgroundColor: "#fff",
+      },
+    },
+    rows: {
+      style: {
+        color: "#000",
+        fontSize: "12px",
+        paddingTop: "10px",
+        paddingBottom: "10px",
+        backgroundColor: "#fff",
       },
     },
     pagination: {
       style: {
-        fontSize: "14px",
-        color: "#000000",
-        border: "1px solid #E0E0E0",
-        padding: "10px",
+        color: "#000",
+        backgroundColor: "#fff",
+      },
+      pageButtonsStyle: {
+        fill: "#000",
       },
     },
   };
@@ -39,6 +44,7 @@ const DataGrid = ({ columns, data, pagination, ...props }) => {
       data={data || []}
       pagination={pagination || true}
       customStyles={customStyles}
+      subHeaderWrap
       progressComponent={<Loader />}
       {...props}
     />
