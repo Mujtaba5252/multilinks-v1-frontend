@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
 import { Button, Group } from "@mantine/core";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { staffRoutes } from "../../../routes";
 import DataGrid from "../../../Components/DataTable/DataGrid";
+import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
 import { axios_get } from "../../../Utils/Axios";
+import { staffRoutes } from "../../../routes";
 import { ClientHeader } from "./ClientHeader";
 
 const ViewClients = () => {
@@ -30,7 +30,12 @@ const ViewClients = () => {
       >
         <Button variant="filled">ADD CLIENT</Button>
       </Group>
-      <DataGrid columns={ClientHeader()} data={ClientData} pagination={true} />
+      <DataGrid
+        columns={ClientHeader()}
+        data={ClientData}
+        pagination={true}
+        noDataComponent
+      />
     </PageWrapper>
   );
 };
