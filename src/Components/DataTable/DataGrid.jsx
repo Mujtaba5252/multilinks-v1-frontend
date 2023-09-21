@@ -1,8 +1,8 @@
 import React from "react";
 import DataTable from "react-data-table-component";
-import Loader from "../Loader/Loader";
 import { MainBlue } from "../../Utils/ThemeColors";
-const DataGrid = ({ columns, data, pagination, ...props }) => {
+import { Loader, Stack, Text } from "@mantine/core";
+const DataGrid = ({ columns, data, pagination, noDataComponent, ...props }) => {
   const customStyles = {
     headCells: {
       style: {
@@ -35,6 +35,12 @@ const DataGrid = ({ columns, data, pagination, ...props }) => {
       pageButtonsStyle: {
         fill: "#000",
       },
+      noDataComponent: {
+        style: {
+          color: "#000",
+          backgroundColor: "#fff",
+        },
+      },
     },
   };
 
@@ -45,7 +51,13 @@ const DataGrid = ({ columns, data, pagination, ...props }) => {
       pagination={pagination || true}
       customStyles={customStyles}
       subHeaderWrap
-      progressComponent={<Loader />}
+      // progressComponent={<Loader />}
+      noDataComponent={
+        <Stack>
+          <Loader color="#0487FF" style={{ margin: "auto" }} />
+          <Text align="center">Please wait for data to load</Text>
+        </Stack>
+      }
       {...props}
     />
   );
