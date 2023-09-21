@@ -1,4 +1,5 @@
-import { Man } from "tabler-icons-react";
+import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
+import ClientViewModal from "./ClientViewModal";
 
 export const ClientHeader = () => {
   return [
@@ -43,7 +44,15 @@ export const ClientHeader = () => {
     {
       name: "Actions",
       cell: (row) => {
-        return <Man />;
+        return (
+          <ActionIcons
+            edit={true}
+            blocked={false}
+            // editUrl={`/staff/edit-client/${row.UID}`}
+            ModalTitle={"Client Details"}
+            ViewModalComponent={<ClientViewModal />}
+          />
+        );
       },
       sortable: true,
     },
