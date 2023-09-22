@@ -25,19 +25,24 @@ const ActionIcons = ({
         {/*for VIEW*/}
         <Tooltip label="View">
           <ActionIcon onClick={handleView}>
-            <Eye />
+            <Eye color="#0487FF" />
           </ActionIcon>
         </Tooltip>
         {/*for EIDT*/}
         {edit && (
           <Tooltip label={blocked ? "Edit Not Allowed" : "Edit"}>
             <ActionIcon onClick={handleEdit} disabled={blocked}>
-              {blocked ? <EditCircleOff /> : <Edit color={"grey"} />}
+              {blocked ? (
+                <EditCircleOff color="#0487FF" />
+              ) : (
+                <Edit color="#0487FF" />
+              )}
             </ActionIcon>
           </Tooltip>
         )}
       </Flex>
-      <ModalComponent
+      
+      <ModalComponent //for view modal component
         opened={openViewModal}
         setOpened={setOpenViewModal}
         title={ModalTitle}
