@@ -12,7 +12,7 @@ const ViewClients = () => {
   const [ClientData, setClientData] = useState([]);
 
   const getCleintData = async () => {
-    axios_get({ url: "/client" }).then((res) => {
+    axios_get({ url: "/client", withSNo: true }).then((res) => {
       console.log(res.data.data);
       setClientData(res.data.data);
     });
@@ -30,12 +30,7 @@ const ViewClients = () => {
       >
         <Button variant="filled">ADD CLIENT</Button>
       </Group>
-      <DataGrid
-        columns={ClientHeader()}
-        data={ClientData}
-        pagination={true}
-        noDataComponent
-      />
+      <DataGrid columns={ClientHeader()} data={ClientData} pagination={true} />
     </PageWrapper>
   );
 };

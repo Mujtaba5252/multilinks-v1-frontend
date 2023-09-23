@@ -1,11 +1,12 @@
 import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
+import { routes, staffRoutes } from "../../../routes";
 import ClientViewModal from "./ClientViewModal";
 
 export const ClientHeader = () => {
   return [
     {
       name: "S.No",
-      selector: (row, index) => index + 1,
+      selector: (row) => row.sNo,
       sortable: true,
       width: "80px",
     },
@@ -13,12 +14,13 @@ export const ClientHeader = () => {
       name: "Client ID",
       selector: (row) => row.UID,
       sortable: true,
-      width: "130px",
+      width: "160px",
       wrap: true,
     },
     {
       name: "Client Name",
       selector: (row) => row.client_name,
+      width: "150px",
       sortable: true,
       wrap: true,
     },
@@ -48,9 +50,9 @@ export const ClientHeader = () => {
           <ActionIcons
             edit={true}
             blocked={false}
-            // editUrl={`/staff/edit-client/${row.UID}`}
+            editUrl={`${staffRoutes.addClient}/${row.id}`}
             ModalTitle={"Client Details"}
-            ViewModalComponent={<ClientViewModal />}
+            ViewModalComponent={<ClientViewModal row={row} />}
           />
         );
       },

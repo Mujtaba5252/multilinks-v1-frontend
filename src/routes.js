@@ -26,6 +26,7 @@ export const staffRoutes = {
   staffDashboard: "/staff/dashboard",
   viewClient: "/staff/viewClient",
   addClient: "/staff/addClient",
+  editClient: "/staff/addClient/:editId",
   addQuotation: "/staff/addQuotation",
   viewQuotation: "/staff/viewQuotations",
 };
