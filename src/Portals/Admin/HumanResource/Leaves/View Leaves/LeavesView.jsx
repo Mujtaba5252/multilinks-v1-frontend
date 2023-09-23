@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import PageWrapper from '../../../../../Components/PageWrapper/PageWrapper'
 import { Grid, Text } from '@mantine/core'
-import Loader from '../../../../../Components/Loader/Loader'
+import Loader from '../../../../../Components/Loader/CustomLoader'
 import { axios_get } from '../../../../../Utils/Axios'
 import DataGrid from '../../../../../Components/DataTable/DataGrid'
 import { LeavesViewHeader } from './LeavesViewHeader'

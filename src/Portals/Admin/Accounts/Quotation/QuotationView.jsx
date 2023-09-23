@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import PageWrapper from '../../../../Components/PageWrapper/PageWrapper'
 import { Button, Flex, Grid, Text } from '@mantine/core'
 import DataGrid from '../../../../Components/DataTable/DataGrid'
-import Loader from '../../../../Components/Loader/Loader'
+import Loader from '../../../../Components/Loader/CustomLoader'
 import { axios_get } from '../../../../Utils/Axios';
 
 function QuotationView() {

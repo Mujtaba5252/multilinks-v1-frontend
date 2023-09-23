@@ -4,7 +4,7 @@ import { CirclePlus } from 'tabler-icons-react'
 import DataGrid from '../../../../../../../Components/DataTable/DataGrid'
 import PageWrapper from '../../../../../../../Components/PageWrapper/PageWrapper'
 import { axios_get } from '../../../../../../../Utils/Axios'
-import Loader from '../../../../../../../Components/Loader/Loader'
+import Loader from '../../../../../../../Components/Loader/CustomLoader'
 import { ClientExpenseViewHeader } from './ClientExpenseViewHeader'
 
 function ClientExpenseView({isInvoice}) {

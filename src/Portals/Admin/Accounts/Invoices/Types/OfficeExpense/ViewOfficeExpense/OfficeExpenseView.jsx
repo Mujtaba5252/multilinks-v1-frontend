@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PageWrapper from '../../../../../../../Components/PageWrapper/PageWrapper'
 import { Button, Flex, Grid, Text } from '@mantine/core'
 import { OfficeExpenseViewHeader } from './OfficeExpenseViewHeader'
-import Loader from '../../../../../../../Components/Loader/Loader'
+import Loader from '../../../../../../../Components/Loader/CustomLoader'
 import DataGrid from '../../../../../../../Components/DataTable/DataGrid'
 import { CirclePlus } from 'tabler-icons-react'
 function OfficeExpenseView({isInvoice}) {

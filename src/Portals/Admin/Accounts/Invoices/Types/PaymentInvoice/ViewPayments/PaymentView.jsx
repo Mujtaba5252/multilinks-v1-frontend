@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PageWrapper from '../../../../../../../Components/PageWrapper/PageWrapper'
 import { Grid, Text } from '@mantine/core'
 import { axios_get } from '../../../../../../../Utils/Axios'
-import  Loader  from '../../../../../../../Components/Loader/Loader'
+import  Loader  from '../../../../../../../Components/Loader/CustomLoader'
 import { PaymentViewHeader } from './PaymentViewHeader'
 
 function PaymentView({isInvoice}) {
