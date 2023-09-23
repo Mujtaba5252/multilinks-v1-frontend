@@ -14,7 +14,7 @@ export const StaffSideBar = [
   },
   {
     label: "Quotations",
-    Link: staffRoutes.staffDashboard,
+    Link: staffRoutes.viewQuotation,
     icon: CurrencyDollar,
   },
   {

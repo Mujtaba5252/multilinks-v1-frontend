@@ -14,6 +14,8 @@ import AddClient from "./Portals/Staff/AddClient/AddClient";
 import StaffDashboard from "./Portals/Staff/StaffDashboard/StaffDashboard";
 import { Token } from "./Utils/UserDetails";
 import ViewClients from "./Portals/Staff/ViewClients/ViewClients";
+import ViewQuotations from "./Portals/Staff/ViewQuotations/ViewQuotations";
+import AddQuotationss from "./Portals/Staff/AddQuotations/AddQuotationss";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -68,6 +70,14 @@ function App() {
               />
               <Route path={staffRoutes.viewClient} element={<ViewClients />} />
               <Route path={staffRoutes.addClient} element={<AddClient />} />
+              <Route
+                path={staffRoutes.viewQuotation}
+                element={<ViewQuotations />}
+              />
+              <Route
+                path={staffRoutes.addQuotation}
+                element={<AddQuotationss />}
+              />
             </Route>
           </Route>
         </Route>

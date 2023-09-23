@@ -20,4 +20,6 @@ export const staffRoutes = {
   staffDashboard: "/staff/dashboard",
   viewClient: "/staff/viewClient",
   addClient: "/staff/addClient",
+  addQuotation: "/staff/addQuotation",
+  viewQuotation: "/staff/viewQuotations",
 };
