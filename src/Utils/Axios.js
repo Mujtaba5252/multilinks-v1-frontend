@@ -2,7 +2,7 @@ import axios from "axios";
 import { Token } from "./UserDetails";
 import { backendUrl } from "./Constants";
 
-export const axios_get = async ({ url, header, params }) => {
+export const axios_get = async ({ url, header, params, withSNo }) => {
   let response;
   const token = Token();
   try {
@@ -16,14 +16,19 @@ export const axios_get = async ({ url, header, params }) => {
   } catch (error) {
     response = e.response;
   }
+  if (response.data && withSNo) {
+    response.data.data = response.data.data?.map((item, index) => {
+      return { ...item, sNo: index + 1 };
+    });
+  }
   return response;
 };
 
-export const axios_post = async ({ url, header, params }) => {
+export const axios_post = async ({ url, data, header, params }) => {
   let response;
   const token = Token();
   try {
-    response = await axios.post(backendUrl + url, {
+    response = await axios.post(backendUrl + url, data, {
       ...params,
       headers: {
         Authorization: "Bearer " + token,
@@ -36,9 +41,9 @@ export const axios_post = async ({ url, header, params }) => {
   return response;
 };
 
-export const axios_put = async ({ url, header, params }) => {
+export const axios_put = async ({ url, data, header, params }) => {
   const token = Token();
-  const response = await axios.put(backendUrl + url, {
+  const response = await axios.put(backendUrl + url, data, {
     ...params,
     headers: {
       Authorization: "Bearer " + token,
@@ -60,9 +65,9 @@ export const axios_delete = async ({ url, header, params }) => {
   return response;
 };
 
-export const axios_patch = async ({ url, header, params }) => {
+export const axios_patch = async ({ url, data, header, params }) => {
   const token = Token();
-  const response = await axios.patch(backendUrl + url, {
+  const response = await axios.patch(backendUrl + url, data, {
     ...params,
     headers: {
       Authorization: "Bearer " + token,
@@ -70,4 +75,16 @@ export const axios_patch = async ({ url, header, params }) => {
     },
   });
   return response;
+};
+
+export const axios_switch = async (option, data) => {
+  switch (option) {
+    case "post":
+      return axios_post(data);
+    case "put":
+      return axios_put(data);
+    case "get":
+    default:
+      axios_get(data);
+  }
 };

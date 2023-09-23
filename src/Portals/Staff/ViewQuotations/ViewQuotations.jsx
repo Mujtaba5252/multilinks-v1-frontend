@@ -34,7 +34,6 @@ const ViewQuotations = () => {
         columns={QuotationHeader()}
         data={QuotationData}
         pagination={true}
-        noDataComponent={false}
       />
     </PageWrapper>
   );
