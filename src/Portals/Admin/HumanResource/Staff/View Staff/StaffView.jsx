@@ -6,17 +6,12 @@ import DataGrid from "../../../../../Components/DataTable/DataGrid";
 import { StaffViewHeader } from "./StaffViewHeader";
 
 function StaffView() {
-  const [staffData, setStaffData] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [staffData, setStaffData] = useState([]);
 
   const fetchStaff = async () => {
-    setLoading(true);
     let url = "/user";
     await axios_get({ url: url }).then((res) => {
       setStaffData(res.data.data);
-      setLoading(false);
-      console.log(url);
-      console.log(res.data.data);
     });
   };
   useEffect(() => {
@@ -32,17 +27,11 @@ function StaffView() {
             </Flex>
           </Grid.Col>
           <Grid.Col span={12}>
-            {loading ? (
-              <Loader />
-            ) : staffData.length > 0 ? (
               <DataGrid
                 columns={StaffViewHeader()}
                 data={staffData}
                 pagination={true}
               />
-            ) : (
-              <Text align="center">No Staff Members to Display</Text>
-            )}
           </Grid.Col>
         </Grid>
       </PageWrapper>
