@@ -15,7 +15,7 @@ import {
   Loader,
   PasswordInput,
 } from "@mantine/core";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import fileImage from "../../assets/images/file.png";
 import logo from "../../assets/images/logo.png";
 import { MainBlue, Black, White, DarkBlue } from "../../Utils/ThemeColors";
@@ -28,14 +28,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { backendUrl } from "../../Utils/Constants";
 import { toast } from "react-hot-toast";
+import { Role, Token } from "../../Utils/UserDetails";
 const Login = () => {
   const theame = useMantineTheme();
   const isSmall = useMediaQuery("(max-width: 992px)");
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
-  const { setUser, setUserType, setIsAdmin, setIsStaff } =
-    useContext(UserContext);
-
+  const { setUser, setUserType, setIsAdmin, setIsStaff } =useContext(UserContext);
   const form = useForm({
     validateInputOnChange: true,
     initialValues: {
@@ -104,6 +103,23 @@ const Login = () => {
       handleSubmit(form.values);
     }
   };
+  useEffect(() => {
+    const token = Token();
+    const  role= Role();
+    if(token){
+      switch(role){
+        case true:
+          navigate("/admin/dashboard");
+          break;
+        case false:
+          navigate("/staff/dashboard");
+          break;
+        default:
+          navigate("/login");
+          break;
+      }
+    }
+  }, []);
   return (
     <>
       <Grid

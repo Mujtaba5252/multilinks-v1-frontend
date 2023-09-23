@@ -34,9 +34,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           }}
         >
           <AuthProvider>
-            <Routes>
+            {/* <Routes>
               <Route path="/*" element={<App />} />
-            </Routes>
+            </Routes> */}
+            <App />
           </AuthProvider>
         </MantineProvider>
       </UserContext>

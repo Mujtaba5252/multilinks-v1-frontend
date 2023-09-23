@@ -12,7 +12,13 @@ export const adminRoutes = {
   accounts: "/admin/accounts",
   qutotations: "/admin/accounts/qutotations",
   invoices: "/admin/accounts/invoices",
+  paymentsInvoice: "/admin/accounts/invoices/payments",
+  clientExpenseInvoice: "/admin/accounts/invoices/clientExpenses",
+  officeExpenseInvoice: "/admin/accounts/invoices/officeExpenses",
   receipts: "/admin/accounts/receipts",
+  paymentsReceipts: "/admin/accounts/receipts/payments",
+  clientExpenseReceipts: "/admin/accounts/receipts/clientExpenses",
+  officeExpenseReceipts: "/admin/accounts/receipts/officeExpenses",
   salariesAndCommissions: "/admin/accounts/salariesAndCommissions",
   licenses: "/admin/licenses",
 };
