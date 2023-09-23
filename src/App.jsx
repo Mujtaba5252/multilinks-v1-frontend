@@ -8,12 +8,18 @@ import Appshell from "./Components/AppShell/Appshell";
 import Login from "./Components/Login/Login";
 import RequireAuth from "./Components/RequireAuth/RequireAuth";
 import { UserContext } from "./Contexts/UserContext";
-import Admin from "./Portals/Admin/Admin";
-import StaffView from "./Portals/Admin/HumanResource/Staff/StaffView";
+import StaffView from "./Portals/Admin/HumanResource/Staff/View Staff/StaffView";
 import AddClient from "./Portals/Staff/AddClient/AddClient";
 import StaffDashboard from "./Portals/Staff/StaffDashboard/StaffDashboard";
 import { Token } from "./Utils/UserDetails";
 import ViewClients from "./Portals/Staff/ViewClients/ViewClients";
+import LeavesView from "./Portals/Admin/HumanResource/Leaves/View Leaves/LeavesView";
+import QuotationView from "./Portals/Admin/Accounts/Quotation/QuotationView";
+import Index from "./Portals/Admin/Accounts/Invoices/Index";
+import PaymentView from "./Portals/Admin/Accounts/Invoices/Types/PaymentInvoice/ViewPayments/PaymentView";
+import ClientExpenseView from "./Portals/Admin/Accounts/Invoices/Types/ClientExpenseInvoice/ViewClientExpenseInvoice/ClientExpenseView";
+import OfficeExpenseView from "./Portals/Admin/Accounts/Invoices/Types/OfficeExpense/ViewOfficeExpense/OfficeExpenseView";
+import AdminDashboard from "./Portals/Admin/AdminDashboard/AdminDashboard";
 import ViewQuotations from "./Portals/Staff/ViewQuotations/ViewQuotations";
 import AddQuotationss from "./Portals/Staff/AddQuotations/AddQuotationss";
 const isValidToken = () => {
@@ -34,28 +40,30 @@ function App() {
       <Toaster />
       <Routes>
         <Route path={routes.home} element={<Layout />}>
-          <Route path={routes.home} element={<Login />} />
+          <Route path={routes.home} element={<Login/>} />
           <Route index path={routes.login} element={<Login />} />
           <Route path="/*" element={<RequireAuth allowedRole={[]} />} />
           <Route element={<RequireAuth allowedRole={["admin"]} />}>
             <Route path={routes.admin} element={<Appshell />}>
-              <Route
-                index
-                path={adminRoutes.adminDashboard}
-                element={<Admin />}
-              />
+              <Route index path={adminRoutes.adminDashboard} element={<AdminDashboard />}/>
               <Route path={adminRoutes.humanResource}>
                 <Route
                   index
                   path={adminRoutes.staffView}
                   element={<StaffView />}
                 />
-                <Route path={adminRoutes.leaves} />
+                <Route path={adminRoutes.leaves} element={<LeavesView/>}/>
               </Route>
               <Route path={adminRoutes.accounts}>
-                <Route path={adminRoutes.qutotations} />
-                <Route path={adminRoutes.invoices} />
-                <Route path={adminRoutes.receipts} />
+                <Route path={adminRoutes.qutotations} element={<QuotationView/>}/>
+                <Route path={adminRoutes.invoices}  element={<Index isInvoice={true}/>}/>
+                <Route path={adminRoutes.paymentsInvoice} element={<PaymentView isInvoice={true}/>}/>
+                <Route path={adminRoutes.clientExpenseInvoice} element={<ClientExpenseView isInvoice={true}/>}/>
+                <Route path={adminRoutes.officeExpenseInvoice} element={<OfficeExpenseView isInvoice={true}/>}/>
+                <Route path={adminRoutes.receipts} element={<Index isInvoice={false}/>}/>
+                <Route path={adminRoutes.paymentsReceipts} element={<PaymentView isInvoice={false}/>}/>
+                <Route path={adminRoutes.clientExpenseReceipts} element={<ClientExpenseView isInvoice={false}/>}/>
+                <Route path={adminRoutes.officeExpenseReceipts} element={<OfficeExpenseView isInvoice={false}/>}/>
                 <Route path={adminRoutes.salariesAndCommissions} />
               </Route>
               <Route path={adminRoutes.licenses} />
