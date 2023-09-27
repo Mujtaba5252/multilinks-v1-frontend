@@ -12,10 +12,14 @@ const ViewClients = () => {
   const [ClientData, setClientData] = useState([]);
 
   const getCleintData = async () => {
-    axios_get({ url: "/client", withSNo: true }).then((res) => {
-      console.log(res.data.data);
-      setClientData(res.data.data);
-    });
+    axios_get({ url: "/client", withSNo: true })
+      .then((res) => {
+        console.log(res.data.data);
+        setClientData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   useEffect(() => {
     getCleintData();
