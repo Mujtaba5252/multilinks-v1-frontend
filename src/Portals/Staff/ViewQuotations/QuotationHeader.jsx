@@ -1,4 +1,6 @@
 import QuotationViewModal from "./QuotationViewModal";
+import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
+import { Badge } from "@mantine/core";
 
 export const QuotationHeader = () => {
   return [
@@ -10,14 +12,14 @@ export const QuotationHeader = () => {
     },
     {
       name: "Quotation ID",
-      selector: (row) => row.quotationID || "N/A",
+      selector: (row) => row.quotation_ID || "N/A",
       sortable: true,
       width: "130px",
       wrap: true,
     },
     {
       name: "Client ID",
-      selector: (row) => row.UID || "N/A",
+      selector: (row) => row.client.id || "N/A",
       sortable: true,
       width: "130px",
       wrap: true,
@@ -30,13 +32,13 @@ export const QuotationHeader = () => {
     },
     {
       name: "Service Type",
-      selector: (row) => row.serviceType || "N/A",
+      selector: (row) => row.service_type || "N/A",
       sortable: true,
       wrap: true,
     },
     {
       name: "Amount",
-      selector: (row) => row.amount || "N/A",
+      selector: (row) => row.client_balance || "N/A",
       sortable: true,
       wrap: true,
     },
@@ -44,6 +46,12 @@ export const QuotationHeader = () => {
     {
       name: "Contact Number",
       selector: (row) => row.client_contact_number || "N/A",
+      sortable: true,
+      wrap: true,
+    },
+    {
+      name: "Status",
+      selector: (row) => {return<Badge color={row.status=='Approved'?'green':(row.status=='Pending'?'yellow':(row.status=='Rejected'?'red':'blue'))}>{row.status}</Badge>},
       sortable: true,
       wrap: true,
     },

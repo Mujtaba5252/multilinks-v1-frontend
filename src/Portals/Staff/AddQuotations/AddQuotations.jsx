@@ -1,15 +1,19 @@
 import { Button, Group, Stepper } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
 import LicenseForm from "./LicenseForm";
 import OtherServiceForm from "./OtherServiceForm";
 import Step1 from "./Step1";
 import VisaForm from "./VisaForm";
+import { axios_post } from "../../../Utils/Axios";
+import toast from "react-hot-toast";
+import { staffRoutes } from "../../../routes";
 
 const AddQuotations = () => {
   const location = useLocation();
+  const navigate=useNavigate();
   const [active, setActive] = useState(0);
   const [total, setTotal] = useState(0);
   //for ssetting client data
@@ -46,8 +50,8 @@ const AddQuotations = () => {
     form.values.offered_services = null;
   };
   //handle submit
-  const handleSubmit = (formValues) => {
-    const values = {
+  const handleSubmit = async (formValues) => {
+     const values = {
       offered_services: formValues.offered_services?.map((item) => ({
         service: item === "entryPermit" ? formValues.entryPermit : item,
         amount: formValues[`${item}Amount`],
@@ -67,7 +71,21 @@ const AddQuotations = () => {
       grand_total_numeric: formValues.grand_total_numeric,
       grand_total_in_words: formValues.grand_total_in_words,
     };
+    let url='/quotation';
     console.log(values);
+    await axios_post({url:url,data:values}).then((res)=>{
+      if(res.status===200){
+        toast.success("Quotation Added Successfully");
+        localStorage.removeItem("clientData");
+        navigate(staffRoutes.viewQuotation); 
+      }
+      else if(res.status===400){
+        toast.error("Quotation Already Exists");
+      }
+      else{
+        toast.error("Something Went Wrong");
+      }
+    })
   };
   return (
     <PageWrapper title="Add Quotation">
