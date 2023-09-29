@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               themeDark: "#1e1e1e",
               themeWhite: ["ffffff", "ffffff", "ffffff"],
               basicBlues: ["#0487FF", "#0263BD", "#f76707"],
-              basicColors: ['#000', '#fff'],
+              basicColors: ['#000', '#fff','#D3D3D3','#FF0000','#FFBF00'],
               container: ["#F8F9FA"],
             },
             primaryColor: "blue",

@@ -1,9 +1,15 @@
 import {
+  Blockquote,
+  Cash,
   CurrencyDollar,
-  Dashboard,
+  DoorExit,
+  FileInvoice,
   FileUnknown,
   LayoutDashboard,
   Man,
+  Receipt,
+  UserPlus,
+  Users,
 } from "tabler-icons-react";
 import { routes,adminRoutes } from "../../routes";
 
@@ -17,19 +23,19 @@ export const AdminSidebar = [
   {
     order: 101,
     label: "Human Resource",
-    icon: Man,
+    icon: Users,
     Links: [
       {
         order: 102,
         label: "Staff",
         Link: adminRoutes.staffView,
-        icon: Man,
+        icon: UserPlus,
       },
       {
         order: 103,
         label: "Leave Request",
         Link: adminRoutes.leaves,
-        icon: Man,
+        icon: DoorExit,
       },
     ],
   },
@@ -42,25 +48,25 @@ export const AdminSidebar = [
         order: 105,
         label: "Quotations",
         Link: adminRoutes.qutotations,
-        icon: CurrencyDollar,
+        icon: Blockquote,
       },
       {
         order: 106,
         label: "Invoices",
         Link: adminRoutes.invoices,
-        icon: CurrencyDollar,
+        icon: FileInvoice,
       },
       {
         order: 107,
         label: "Receipts",
         Link: adminRoutes.receipts,
-        icon: CurrencyDollar,
+        icon: Receipt,
       },
       {
         order: 108,
         label: "Salaries & Commissions",
         Link: adminRoutes.salariesAndCommissions,
-        icon: CurrencyDollar,
+        icon: Cash,
       },
     ],
   },

@@ -1,19 +1,30 @@
 import React from 'react'
 import PageWrapper from '../../../../Components/PageWrapper/PageWrapper'
 import { Button, Grid } from '@mantine/core'
-import { Coin, Paperclip, Wallet } from 'tabler-icons-react'
+import { Blockquote, Coin, Paperclip, Wallet } from 'tabler-icons-react'
 import { DarkBlue } from '../../../../Utils/ThemeColors'
 import { useNavigate } from 'react-router-dom'
 import { adminRoutes } from '../../../../routes'
+import { useMediaQuery } from '@mantine/hooks'
 
 function Index({ isInvoice }) {
   
   const navigate=useNavigate();
+  const handleMargin=useMediaQuery('(max-width: 1199.20px)')
 
   return (
     <>
       <PageWrapper title={isInvoice ? 'Invoices' : 'Receipts'}>
         <Grid>
+          {!isInvoice&&<Grid.Col span={12} mb={handleMargin?0:10}>
+            <Button 
+              fullWidth h={170} leftIcon={<Blockquote size={50} />} 
+              bg={DarkBlue()} onClick={
+                ()=>navigate(adminRoutes.approvedQuotationsReceipts)
+              } 
+              style={{ fontSize: '20px' }}>
+                Approved Quotations</Button>
+          </Grid.Col>}
           <Grid.Col xs={12} lg={4} sm={6} md={6}>
             <Button 
               fullWidth h={170} leftIcon={<Coin size={50} />} 

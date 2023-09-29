@@ -1,49 +1,45 @@
 import React, { useEffect,useState } from 'react'
 import PageWrapper from '../../../../../Components/PageWrapper/PageWrapper'
 import { axios_get } from '../../../../../Utils/Axios'
-import Loader from '../../../../../Components/Loader/CustomLoader'
 import { Button, Flex, Grid, Text } from '@mantine/core'
 import DataGrid from '../../../../../Components/DataTable/DataGrid'
 import { StaffViewHeader } from './StaffViewHeader'
+import { CirclePlus } from 'tabler-icons-react'
+import { useNavigate } from 'react-router'
+import { adminRoutes } from '../../../../../routes'
 
 function StaffView() {
 
-  const [staffData, setStaffData] = useState({})
-  const [loading, setLoading] = useState(false)
-  
+  const [staffData, setStaffData] = useState([])
+  const [update, setUpdate] = useState(false)
+  const navigate=useNavigate();
   const fetchStaff = async () => {
-    setLoading(true)
-    let url='/user'
+    let url='/user?isAdmin=false'
     await axios_get({url:url}).then((res)=>{
-      setStaffData(res.data.data)
-      setLoading(false)
-      console.log(url)
       console.log(res.data.data)
+      setStaffData(res.data.data)
     })
   }
   useEffect(() => {
     fetchStaff();
-  }, [])
+    setUpdate(false)
+  }, [update]);
   return (
     <>
       <PageWrapper title="Staff Members">
         <Grid>
           <Grid.Col span={12}>
             <Flex justify="flex-end">
-              <Button>Add Staff</Button>
+              <Button leftIcon={<CirclePlus/>} onClick={()=>navigate(adminRoutes.addStaff)}>Add Staff</Button>
             </Flex>
           </Grid.Col>
           <Grid.Col span={12}>
-            {loading ? <Loader /> :
-              staffData.length > 0 ?
-                <DataGrid columns={StaffViewHeader()} data={staffData} pagination={true} />
-                : <Text align='center'>No Staff Members to Display</Text>
-            }
+            <DataGrid columns={StaffViewHeader({setUpdate})} data={staffData} pagination={true} />
           </Grid.Col>
         </Grid>
       </PageWrapper>
     </>
-  )
+  );
 }
 
-export default StaffView
+export default StaffView;
