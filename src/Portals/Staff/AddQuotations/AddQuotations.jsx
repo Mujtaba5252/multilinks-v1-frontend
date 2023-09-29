@@ -83,7 +83,6 @@ const AddQuotations = () => {
       client_name: formValues.client_name,
       client_email: formValues.client_email,
       client_contact_number: formValues.client_contact_number,
-      quotation_date: formValues.quotation_date,
       service_type_additional_fields: { visa_status: formValues.visa_status },
       service_charges: formValues.service_charges,
       client: storedClientData?.id,
