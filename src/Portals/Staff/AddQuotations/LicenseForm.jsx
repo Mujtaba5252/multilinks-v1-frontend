@@ -1,7 +1,7 @@
-import { Grid, MultiSelect, Select, TextInput } from "@mantine/core";
+import { Button, Grid, MultiSelect, Select, TextInput } from "@mantine/core";
 import React from "react";
 
-const LicenseForm = ({ form }) => {
+const LicenseForm = ({ form, setTotal }) => {
   const data = [
     { value: "intialApproval", label: "Intial Approval" },
     { value: "ejari", label: "Ejari" },
@@ -15,7 +15,16 @@ const LicenseForm = ({ form }) => {
     { value: "sponsorFee", label: "Sponsor Fee" },
     { value: "laborUpdate", label: "Labor Update" },
   ];
-
+  const calculate = () => {
+    let collector = 0;
+    for (let i = 0; i < form.values.offered_services.length; i++) {
+      const dat = form.values.offered_services[i] + "Amount";
+      const valuefromFeilds = parseInt(form.values[dat]);
+      collector = collector + valuefromFeilds;
+    }
+    setTotal(collector);
+    form.setFieldValue("total", collector);
+  };
   return (
     <>
       <Grid>
@@ -83,6 +92,9 @@ const LicenseForm = ({ form }) => {
               </Grid.Col>
             </React.Fragment>
           ))}
+        <Grid.Col span={12}>
+          <Button onClick={calculate}> Calculate</Button>
+        </Grid.Col>
         <Grid.Col md={6}>
           <TextInput
             form={form}

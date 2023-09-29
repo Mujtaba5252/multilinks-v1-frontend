@@ -6,7 +6,7 @@ export const QuotationHeader = () => {
   return [
     {
       name: "S.No",
-      selector: (row, index) => index + 1,
+      selector: (row) => row.sNo,
       sortable: true,
       width: "80px",
     },
@@ -14,19 +14,19 @@ export const QuotationHeader = () => {
       name: "Quotation ID",
       selector: (row) => row.quotation_ID || "N/A",
       sortable: true,
-      width: "130px",
+      width: "140px",
       wrap: true,
     },
     {
       name: "Client ID",
-      selector: (row) => row.client.id || "N/A",
+      selector: (row) => row.client.UID || "N/A",
       sortable: true,
       width: "130px",
       wrap: true,
     },
     {
       name: "Client Name",
-      selector: (row) => row.client_name || "N/A",
+      selector: (row) => row.client?.client_name || "N/A",
       sortable: true,
       wrap: true,
     },
@@ -38,20 +38,38 @@ export const QuotationHeader = () => {
     },
     {
       name: "Amount",
-      selector: (row) => row.client_balance || "N/A",
+      selector: (row) => row.grand_total_numeric || "N/A",
       sortable: true,
       wrap: true,
     },
 
     {
       name: "Contact Number",
-      selector: (row) => row.client_contact_number || "N/A",
+      selector: (row) => row.client?.client_contact_number || "N/A",
       sortable: true,
       wrap: true,
     },
     {
       name: "Status",
-      selector: (row) => {return<Badge color={row.status=='Approved'?'green':(row.status=='Pending'?'yellow':(row.status=='Rejected'?'red':'blue'))}>{row.status}</Badge>},
+      center: true,
+      selector: (row) => {
+        return (
+          <Badge
+            fullWidth
+            color={
+              row.status == "Approved"
+                ? "green"
+                : row.status == "Pending"
+                ? "yellow"
+                : row.status == "Rejected"
+                ? "red"
+                : "blue"
+            }
+          >
+            {row.status}
+          </Badge>
+        );
+      },
       sortable: true,
       wrap: true,
     },

@@ -73,6 +73,7 @@ const Step1 = ({ form }) => {
           <Select
             label="Select Service Type"
             placeholder="Select Service Type"
+            withAsterisk={true}
             size="md"
             data={[
               { value: "visa", label: "VISA Service" },

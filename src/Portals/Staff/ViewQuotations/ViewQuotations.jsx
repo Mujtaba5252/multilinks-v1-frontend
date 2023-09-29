@@ -15,7 +15,7 @@ const ViewQuotations = () => {
   const [openViewModal, setOpenViewModal] = useState(false);
 
   const getQuotationData = async () => {
-    axios_get({ url: "/quotation" }).then((res) => {
+    axios_get({ url: "/quotation", withSNo: true }).then((res) => {
       console.log(res.data.data);
       setQuotationData(res.data.data);
     });
@@ -25,7 +25,7 @@ const ViewQuotations = () => {
   }, []);
 
   return (
-    <PageWrapper title={"View Quotations"}>
+    <PageWrapper title={"VIEW QUOTATIONS"}>
       <ModalComponent //for view modal component
         opened={openViewModal}
         setOpened={setOpenViewModal}

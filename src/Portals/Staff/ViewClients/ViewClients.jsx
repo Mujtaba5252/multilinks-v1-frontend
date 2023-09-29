@@ -26,7 +26,7 @@ const ViewClients = () => {
   }, []);
 
   return (
-    <PageWrapper title="View Clients">
+    <PageWrapper title="VIEW CLIENTS">
       <Group
         position="right"
         my={20}

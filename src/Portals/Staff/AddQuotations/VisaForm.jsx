@@ -35,6 +35,7 @@ const VisaForm = ({ form, total, setTotal }) => {
             mt={"md"}
             placeholder="Select Service Type"
             size="md"
+            withAsterisk={true}
             data={[
               { value: "NEW", label: "NEW" },
               { value: "Renewal", label: "Renewal" },
@@ -60,6 +61,7 @@ const VisaForm = ({ form, total, setTotal }) => {
             form={form}
             data={data}
             label="Offered Services"
+            withAsterisk={true}
             placeholder="Select Offered Services"
             size="md"
             {...form?.getInputProps("offered_services")}
@@ -108,8 +110,8 @@ const VisaForm = ({ form, total, setTotal }) => {
                   label={"Amount"}
                   icon="Dhs"
                   placeholder={"Amount"}
-                  size="md"
                   withAsterisk={true}
+                  size="md"
                   {...form?.getInputProps(`${item}Amount`)}
                 />
               </Grid.Col>
@@ -123,6 +125,7 @@ const VisaForm = ({ form, total, setTotal }) => {
             form={form}
             type="number"
             label={"Total Amount"}
+            withAsterisk
             placeholder={"Please Enter Amount"}
             size="md"
             {...form?.getInputProps("total")}
@@ -143,6 +146,7 @@ const VisaForm = ({ form, total, setTotal }) => {
             form={form}
             type="number"
             label={"Grand Total"}
+            withAsterisk
             placeholder={"Please Enter Grand Total"}
             size="md"
             {...form?.getInputProps("grand_total_numeric")}
@@ -151,6 +155,7 @@ const VisaForm = ({ form, total, setTotal }) => {
         <Grid.Col md={12}>
           <TextInput
             form={form}
+            withAsterisk
             label={"Grand Total(In Words)"}
             placeholder={"Please Enter Grand Total In Words"}
             size="md"
