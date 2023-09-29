@@ -14,7 +14,7 @@ export const axios_get = async ({ url, header, params, withSNo }) => {
       },
     });
   } catch (error) {
-    response = e.response;
+    response = error.response;
   }
   if (response.data && withSNo) {
     response.data.data = response.data.data?.map((item, index) => {
@@ -36,7 +36,7 @@ export const axios_post = async ({ url, data, header, params }) => {
       },
     });
   } catch (error) {
-    response = e.response;
+    response = error.response;
   }
   return response;
 };

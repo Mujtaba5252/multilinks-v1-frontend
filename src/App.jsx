@@ -22,6 +22,7 @@ import OfficeExpenseView from "./Portals/Admin/Accounts/Invoices/Types/OfficeExp
 import AdminDashboard from "./Portals/Admin/AdminDashboard/AdminDashboard";
 import ViewQuotations from "./Portals/Staff/ViewQuotations/ViewQuotations";
 import AddQuotations from "./Portals/Staff/AddQuotations/AddQuotations";
+import AddStaff from "./Portals/Admin/HumanResource/Staff/Add Staff/AddStaff";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -51,17 +52,14 @@ function App() {
                 element={<AdminDashboard />}
               />
               <Route path={adminRoutes.humanResource}>
-                <Route
-                  index
-                  path={adminRoutes.staffView}
-                  element={<StaffView />}
-                />
-                <Route path={adminRoutes.leaves} element={<LeavesView />} />
+                <Route index path={adminRoutes.staffView} element={<StaffView />}/>
+                <Route path={adminRoutes.addStaff} element={<AddStaff />}/>
+                <Route path={adminRoutes.leaves} element={<LeavesView/>}/>
               </Route>
               <Route path={adminRoutes.accounts}>
                 <Route
                   path={adminRoutes.qutotations}
-                  element={<QuotationView />}
+                  element={<QuotationView pending={'Pending'}/>}
                 />
                 <Route
                   path={adminRoutes.invoices}
@@ -82,6 +80,10 @@ function App() {
                 <Route
                   path={adminRoutes.receipts}
                   element={<Index isInvoice={false} />}
+                />
+                <Route
+                  path={adminRoutes.approvedQuotationsReceipts}
+                  element={<QuotationView pending={'Approved'} />}
                 />
                 <Route
                   path={adminRoutes.paymentsReceipts}

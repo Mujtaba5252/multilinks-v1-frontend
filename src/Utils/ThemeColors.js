@@ -16,3 +16,15 @@ export const White =()=>{
     const theme=useMantineTheme();
     return theme.colors.basicColors[1]
 }
+export const LightGrey =()=>{
+    const theme=useMantineTheme();
+    return theme.colors.basicColors[2]
+}
+export const Red =()=>{
+    const theme=useMantineTheme();
+    return theme.colors.basicColors[3]
+}
+export const Amber =()=>{
+    const theme=useMantineTheme();
+    return theme.colors.basicColors[4]
+}

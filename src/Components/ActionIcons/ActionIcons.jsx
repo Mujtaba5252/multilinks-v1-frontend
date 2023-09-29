@@ -1,8 +1,9 @@
-import { ActionIcon, Flex, Tooltip } from "@mantine/core";
+import { ActionIcon, Flex, Progress, Title, Tooltip } from "@mantine/core";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Edit, EditCircleOff, Eye } from "tabler-icons-react";
+import { ChartBar, CircleCheck, CircleX, Edit, EditCircleOff, Eye, Printer, Trash } from "tabler-icons-react";
 import ModalComponent from "../ModalComponent/ModalComponent";
+import { Amber, MainBlue, Red } from "../../Utils/ThemeColors";
 
 const ActionIcons = ({
   edit,
@@ -10,19 +11,60 @@ const ActionIcons = ({
   editUrl,
   ModalTitle,
   ViewModalComponent,
+  progress,
+  Delete,
+  Approve,
+  Reject,
+  Print,
+  ApproveModalComponent,
+  RejectModalComponent,
+  ProgressModalComponent,
+  ApproveModalTitle,
+  RejectModalTitle,
+  ProgressModalTitle,
+  DeleteModalTitle,
+  DeleteModalComponent,
+  disableApproveReject,
+  size="lg"
 }) => {
   const navigate = useNavigate();
   const [openViewModal, setOpenViewModal] = useState(false);
+  const [openProgressModal, setOpenProgressModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openApproveModal, setOpenApproveModal] = useState(false);
+  const [openRejectModal, setOpenRejectModal] = useState(false);
   const handleView = () => {
     setOpenViewModal(true);
   };
   const handleEdit = () => {
     navigate(editUrl);
   };
+  const handleProgress = () => {  
+    setOpenProgressModal(true);
+  }
+
+  const handleDelete = () => {
+    setOpenDeleteModal(true);
+  }
+  const handleApprove = () => {
+    setOpenApproveModal(true);
+  }
+  const handleReject = () => {
+    setOpenRejectModal(true);
+  }
   return (
     <>
       <Flex gap={5} align="center" justify="center">
         {/*for VIEW*/}
+        {
+          progress &&(
+            <Tooltip label={"Progress"}>
+              <ActionIcon onClick={handleProgress}>
+                <ChartBar color={Amber()} />
+              </ActionIcon>
+              </Tooltip>
+          )
+        }
         <Tooltip label="View">
           <ActionIcon onClick={handleView}>
             <Eye color="#0487FF" />
@@ -40,15 +82,84 @@ const ActionIcons = ({
             </ActionIcon>
           </Tooltip>
         )}
+        {
+          Delete &&(
+            <Tooltip label={"Progress"}>
+              <ActionIcon onClick={handleDelete}>
+                <Trash color={Red()} />
+              </ActionIcon>
+              </Tooltip>
+          )
+        }
+        {
+          Reject &&(
+            <Tooltip label={"Reject"}>
+              <ActionIcon onClick={handleReject} disabled={disableApproveReject}>
+                <CircleX color={disableApproveReject?'gray':Red()} />
+              </ActionIcon>
+              </Tooltip>
+          )
+        }
+        {
+          Approve &&(
+            <Tooltip label={"Approve"}>
+              <ActionIcon onClick={handleApprove} disabled={disableApproveReject}>
+                <CircleCheck color={disableApproveReject?'gray':'green'} />
+              </ActionIcon>
+              </Tooltip>
+          )
+        }
+        {
+          Print &&(
+            <Tooltip label={"Print"}>
+              <ActionIcon disabled={!disableApproveReject}>
+                <Printer color={!disableApproveReject?'gray':MainBlue()} />
+              </ActionIcon>
+              </Tooltip>
+          )
+        }
+        
       </Flex>
       
       <ModalComponent //for view modal component
         opened={openViewModal}
         setOpened={setOpenViewModal}
-        title={ModalTitle}
-        size={"lg"}
+        title={<Title order={3} style={{position:'absolute'}}>{ModalTitle}</Title>}
+        size={size}
       >
         {ViewModalComponent}
+      </ModalComponent>
+      <ModalComponent //for progress modal component
+        opened={openProgressModal}
+        setOpened={setOpenProgressModal}
+        title={ProgressModalTitle}
+        size={"lg"}
+      >
+        {ProgressModalComponent}
+      </ModalComponent>
+      <ModalComponent //for delete modal component
+        opened={openDeleteModal}
+        setOpened={setOpenDeleteModal}
+        title={DeleteModalTitle}
+        size={"lg"}
+      >
+        {DeleteModalComponent}
+      </ModalComponent>
+      <ModalComponent //for approve modal component
+        opened={openApproveModal}
+        setOpened={setOpenApproveModal}
+        title={ApproveModalTitle}
+        size={"lg"}
+      >
+        {ApproveModalComponent}
+      </ModalComponent>
+      <ModalComponent //for reject modal component
+        opened={openRejectModal}
+        setOpened={setOpenRejectModal}
+        title={RejectModalTitle}
+        size={"lg"}
+      >
+        {RejectModalComponent}
       </ModalComponent>
     </>
   );
