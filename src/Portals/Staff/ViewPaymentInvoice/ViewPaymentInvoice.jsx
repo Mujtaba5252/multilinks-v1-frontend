@@ -6,9 +6,12 @@ import { axios_get } from "../../../Utils/Axios";
 import { PaymentInvoiceHeader } from "./PaymentInvoiceHeader";
 import { staffRoutes } from "../../../routes";
 import { useNavigate } from "react-router";
+import ModalComponent from "../../../Components/ModalComponent/ModalComponent";
+import QuotationsForPaymentInvoice from "./Modals/QuotationsForPaymentInvoice";
 
 const ViewPaymentInvoice = () => {
   const [PaymentInvoiceData, setPaymentInvoiceData] = useState([]);
+  const [addPayment, setAddPayment] = useState(false);
   const navigate = useNavigate();
   const getPaymentInvoiceData = async () => {
     axios_get({ url: "/invoice", withSNo: true })
@@ -26,13 +29,19 @@ const ViewPaymentInvoice = () => {
 
   return (
     <PageWrapper title={"VIEW PAYMENT INVOICE"}>
-      {" "}
+      <ModalComponent
+        opened={addPayment}
+        setOpened={setAddPayment}
+        radius
+        size={1200}
+        >
+          <QuotationsForPaymentInvoice />
+      </ModalComponent>
       <Group
         position="right"
         my={20}
-        onClick={() => navigate(staffRoutes.addPaymentInvoice)}
       >
-        <Button variant="filled">ADD PAYMENT INVOICE</Button>
+        <Button onClick={() => {setAddPayment(true)}} variant="filled">ADD PAYMENT INVOICE</Button>
         <DataGrid
           columns={PaymentInvoiceHeader()}
           data={PaymentInvoiceData}

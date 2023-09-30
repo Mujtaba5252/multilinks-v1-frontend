@@ -10,6 +10,7 @@ const ActionIcons = ({
   editUrl,
   ModalTitle,
   ViewModalComponent,
+  viewModalSize="lg",
 }) => {
   const navigate = useNavigate();
   const [openViewModal, setOpenViewModal] = useState(false);
@@ -46,7 +47,7 @@ const ActionIcons = ({
         opened={openViewModal}
         setOpened={setOpenViewModal}
         title={ModalTitle}
-        size={"lg"}
+        size={viewModalSize}
       >
         {ViewModalComponent}
       </ModalComponent>
