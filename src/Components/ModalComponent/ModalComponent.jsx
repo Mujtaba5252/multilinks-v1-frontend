@@ -18,7 +18,7 @@ const ModalComponent = ({
   children,
   title,
   radius = "lg",
-,color="#0487FF !important"}) => {
+  color="#0487FF !important"}) => {
   const matches = useMediaQuery("(max-width: 600-1000px)");
   const ismobile = useMediaQuery("(max-width: 600px)");
   return (
