@@ -22,6 +22,8 @@ import OfficeExpenseView from "./Portals/Admin/Accounts/Invoices/Types/OfficeExp
 import AdminDashboard from "./Portals/Admin/AdminDashboard/AdminDashboard";
 import ViewQuotations from "./Portals/Staff/ViewQuotations/ViewQuotations";
 import AddQuotations from "./Portals/Staff/AddQuotations/AddQuotations";
+import AddPaymentInvoice from "./Portals/Staff/AddPaymentInvoice/AddPaymentInvoice";
+import ViewPaymentInvoice from "./Portals/Staff/ViewPaymentInvoice/ViewPaymentInvoice";
 import AddStaff from "./Portals/Admin/HumanResource/Staff/Add Staff/AddStaff";
 const isValidToken = () => {
   const token = Token();
@@ -120,6 +122,8 @@ function App() {
                 path={staffRoutes.addQuotation}
                 element={<AddQuotations />}
               />
+              <Route path={staffRoutes.addPaymentInvoice} element={<AddPaymentInvoice/>}/>
+              <Route path={staffRoutes.viewPaymentInvoice} element={<ViewPaymentInvoice/>}/>
             </Route>
           </Route>
         </Route>

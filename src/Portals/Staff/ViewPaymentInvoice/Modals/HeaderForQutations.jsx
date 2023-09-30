@@ -1,8 +1,12 @@
-import QuotationViewModal from "./QuotationViewModal";
-import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
+import { ToiletPaper } from "tabler-icons-react";
+import ActionIcons from "../../../../Components/ActionIcons/ActionIcons";
 import { Badge } from "@mantine/core";
+import { MainBlue } from "../../../../Utils/ThemeColors";
+import { useNavigate } from "react-router-dom";
+import { staffRoutes } from "../../../../routes";
 
-export const QuotationHeader = () => {
+export const HeaderForQutation = () => {
+  const navigate = useNavigate();
   return [
     {
       name: "S.No",
@@ -76,14 +80,12 @@ export const QuotationHeader = () => {
     {
       name: "Actions",
       cell: (row) => {
+        console.log(row);
         return (
-          <ActionIcons
-            edit={row.status=='Pending'?true:false}
-            blocked={false}
-            // editUrl={`/staff/edit-client/${row.UID}`}
-            ModalTitle={"Quotation Details"}
-            ViewModalComponent={<QuotationViewModal />}
-          />
+          <ToiletPaper style={{cursor:'pointer'}} color={MainBlue()} onClick={()=>{
+            localStorage.setItem('client_payment',JSON.stringify(row))
+            navigate(staffRoutes.addPaymentInvoice)
+          }}/>
         );
       },
       sortable: true,

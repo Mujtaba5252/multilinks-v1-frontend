@@ -11,7 +11,14 @@ import PageWrapper from "../PageWrapper/PageWrapper";
 import { X } from "tabler-icons-react";
 import { useMediaQuery } from "@mantine/hooks";
 
-const ModalComponent = ({ opened, size, setOpened, children, title ,color="#0487FF !important"}) => {
+const ModalComponent = ({
+  opened,
+  size,
+  setOpened,
+  children,
+  title,
+  radius = "lg",
+,color="#0487FF !important"}) => {
   const matches = useMediaQuery("(max-width: 600-1000px)");
   const ismobile = useMediaQuery("(max-width: 600px)");
   return (
@@ -20,7 +27,7 @@ const ModalComponent = ({ opened, size, setOpened, children, title ,color="#0487
       onClose={() => setOpened(false)}
       centered
       withCloseButton={true}
-      radius={"lg"}
+      radius={radius}
       title={title}
       size={size}
       styles={{

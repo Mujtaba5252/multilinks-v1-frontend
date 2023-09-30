@@ -8,8 +8,8 @@ import { QuotationViewHeader } from "./QuotationHeader";
 function QuotationView({pending}) {
   const [quotationData, setQuotationData] = useState([]);
   const [update, setUpdate] = useState(false);
+  let url = "/quotation?status="+pending;
   const fetchQuotation = async () => {
-    let url = "/quotation?status="+pending;
     await axios_get({ url: url }).then((res) => {
       setQuotationData(res.data.data);
     });
@@ -17,7 +17,7 @@ function QuotationView({pending}) {
   useEffect(() => {
     fetchQuotation();
     setUpdate(false);
-  }, [update]);
+  }, [update,url]);
 
   return (
     <>

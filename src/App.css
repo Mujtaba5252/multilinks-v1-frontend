@@ -2,3 +2,19 @@
   margin: 0 auto;
   /* text-align: center; */
 }
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #0487FF;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0487FF;
+  cursor: pointer;
+}
