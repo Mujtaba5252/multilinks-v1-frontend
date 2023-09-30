@@ -3,22 +3,21 @@ import PageWrapper from "../../../../../../../Components/PageWrapper/PageWrapper
 import { Grid, Loader, Text } from "@mantine/core";
 import { axios_get } from "../../../../../../../Utils/Axios";
 import { PaymentViewHeader } from "./PaymentViewHeader";
-
+import DataGrid from "../../../../../../../Components/DataTable/DataGrid";
 function PaymentView({ isInvoice }) {
-  const [paymentData, setPaymentData] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [paymentData, setPaymentData] = useState([]);
+  const [update, setUpdate] = useState(false);
   const fetchPayment = async () => {
-    setLoading(true);
-    //url will be changed depending on the payment invoice or reciept using isInvoice
-    let url = "/invoice";
-    await axios_get({ url: url }).then((res) => {
+    let url = "/invoice?status=Pending";
+    await axios_get({ url: url,withSNo:true }).then((res) => {
       setPaymentData(res.data.data);
-      setLoading(false);
+      console.log(res.data.data);
     });
   };
   useEffect(() => {
     fetchPayment();
-  }, []);
+    setUpdate(false);
+  }, [update]);
   return (
     <>
       <PageWrapper title={isInvoice ? "Payment Invoices" : "Payment Receipts"}>
@@ -31,21 +30,13 @@ function PaymentView({ isInvoice }) {
             )}
           </Grid.Col>
           <Grid.Col span={12}>
-            {loading ? (
-              <Loader />
-            ) : paymentData.length > 0 ? (
+            { paymentData.length > 0 ? (
               <DataGrid
-                coloum={PaymentViewHeader(true)}
+                columns={PaymentViewHeader({isInvoice,setUpdate})}
                 data={paymentData}
                 pagination={true}
-              />
-            ) : (
-              <Text align="center">
-                {isInvoice
-                  ? "No Payment Invoices to Display"
-                  : "No Payment Receipts to Display"}
-              </Text>
-            )}
+              />)
+            : (<Text align="center">No Data Found</Text>)}
           </Grid.Col>
         </Grid>
       </PageWrapper>

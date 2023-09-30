@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
-import { Button, Grid, Group, TextInput } from "@mantine/core";
+import { Button, Grid, Group, TextInput, Tooltip } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { MainBlue } from "../../../Utils/ThemeColors";
 import { DatePickerInput } from "@mantine/dates";
@@ -8,9 +8,11 @@ import { axios_post } from "../../../Utils/Axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { staffRoutes } from "../../../routes";
+import { numeric_to_word } from "../../../Utils/CommonFormatters";
+import { Currency, SortAZ } from "tabler-icons-react";
 const AddPaymentInvoice = () => {
   const QutationData = JSON.parse(localStorage.getItem("client_payment"));
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const form = useForm({
     initialValues: {
       id: QutationData?.id,
@@ -32,30 +34,31 @@ const AddPaymentInvoice = () => {
     },
 
   })
-  const submitInvoice = async(values) => {
-    const value={
-      quotation:values.id,
-      amount_received:values.Ammount_in_Numeric,
-      amount_received_in_words:values.Ammount_in_Words,
+  const submitInvoice = async (values) => {
+    const value = {
+      quotation: values.id,
+      amount_received: values.Ammount_in_Numeric,
+      amount_received_in_words: values.Ammount_in_Words,
     }
     console.log(value);
-    const url= '/invoice';
-    await axios_post({url:url,data:value}).then((response)=>{
-      if(response.status==201 || response.status==200){
+    const url = '/invoice';
+    await axios_post({ url: url, data: value }).then((response) => {
+      if (response.status == 201 || response.status == 200) {
         toast.success("Invoice Added Successfully");
         localStorage.removeItem("client_payment");
         navigate(staffRoutes.viewPaymentInvoice);
       }
-      else if(response.status==400){
+      else if (response.status == 400) {
         toast.error("Invoice Already Added");
       }
-      else{
+      else {
         toast.error("Something Went Wrong");
       }
     })
   }
+
   useEffect(() => {
-    console.log("QutationData", QutationData);
+    console.log(form.values);
   }, []);
   return (
     <>
@@ -124,6 +127,8 @@ const AddPaymentInvoice = () => {
                     label="Ammount in Numeric"
                     placeholder="Please Enter Ammount in Numeric"
                     type="number"
+                    onBlurCapture={() => form.setValues({Ammount_in_Words:numeric_to_word(parseInt(form.values.Ammount_in_Numeric))})}
+                    //get the value of ammount in numeric and convert it to words
                     {...form?.getInputProps("Ammount_in_Numeric")}
                   />
                 </Grid.Col>
@@ -132,17 +137,19 @@ const AddPaymentInvoice = () => {
                     label="Ammount in Words"
                     placeholder="Please Enter Ammount in Words"
                     {...form?.getInputProps("Ammount_in_Words")}
+                    readOnly={true}
+                    
                   />
                 </Grid.Col>
                 <Grid.Col span={12}>
                   <Group position="right">
-                  <Button color={MainBlue()}
-                    onClick={() => {
-                      form.isValid()?submitInvoice(form.values):form.validate();
-                    }}
-                  >
-                    Submit
-                  </Button>
+                    <Button color={MainBlue()}
+                      onClick={() => {
+                        form.isValid() ? submitInvoice(form.values) : form.validate();
+                      }}
+                    >
+                      Submit
+                    </Button>
                   </Group>
                 </Grid.Col>
               </Grid>

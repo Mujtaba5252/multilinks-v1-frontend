@@ -4,12 +4,11 @@ import { Button, Flex, Grid, Loader, Text } from "@mantine/core";
 import DataGrid from "../../../../Components/DataTable/DataGrid";
 import { axios_get } from "../../../../Utils/Axios";
 
-function QuotationView() {
-  const [quotationData, setQuotationData] = useState({});
-  const [loading, setLoading] = useState(false);
+function QuotationView({pending}) {
+  const [quotationData, setQuotationData] = useState([]);
+  const [update, setUpdate] = useState(false);
+  let url = "/quotation?status="+pending;
   const fetchQuotation = async () => {
-    setLoading(true);
-    let url = "/quotation";
     await axios_get({ url: url }).then((res) => {
       setQuotationData(res.data.data);
       setLoading(false);
@@ -18,7 +17,8 @@ function QuotationView() {
   };
   useEffect(() => {
     fetchQuotation();
-  }, []);
+    setUpdate(false);
+  }, [update,url]);
 
   return (
     <>
