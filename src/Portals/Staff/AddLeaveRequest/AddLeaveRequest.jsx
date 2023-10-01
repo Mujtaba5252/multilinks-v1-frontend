@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
-import CustomLoader from "../../../Components/CustomLoader/Customloader";
 import { Grid, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import CustomLoader from "../../../Components/CustomLoader/CustomLoader";
 
 const AddLeaveRequest = () => {
   const [loading, setLoading] = useState(false);

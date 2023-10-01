@@ -10,7 +10,7 @@ import VisaForm from "./VisaForm";
 import { axios_get, axios_post, axios_switch } from "../../../Utils/Axios";
 import toast from "react-hot-toast";
 import { staffRoutes } from "../../../routes";
-import CustomLoader from "../../../Components/CustomLoader/Customloader";
+import CustomLoader from "../../../Components/CustomLoader/CustomLoader";
 
 const AddQuotations = () => {
   const param = useParams();
