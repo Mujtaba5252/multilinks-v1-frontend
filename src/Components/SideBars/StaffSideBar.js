@@ -29,7 +29,7 @@ export const StaffSideBar = [
   },
   {
     label: "Leave Request",
-    Link: staffRoutes.staffDashboard,
+    Link: staffRoutes.viewLeaveRequest,
     icon: CurrencyDollar,
   },
 ];

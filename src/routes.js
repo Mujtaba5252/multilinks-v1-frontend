@@ -34,4 +34,6 @@ export const staffRoutes = {
   viewQuotation: "/staff/viewQuotations",
   addPaymentInvoice: "/staff/addPaymentInvoice",
   viewPaymentInvoice: "/staff/viewPaymentInvoice",
+  addLeaveRequest: "/staff/addLeaveRequest",
+  viewLeaveRequest: "/staff/viewLeaveRequest",
 };
