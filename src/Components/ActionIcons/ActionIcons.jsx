@@ -11,6 +11,7 @@ const ActionIcons = ({
   editUrl,
   ModalTitle,
   ViewModalComponent,
+  viewModalSize="lg",
   progress,
   Delete,
   Approve,

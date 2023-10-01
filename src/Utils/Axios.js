@@ -35,10 +35,10 @@ export const axios_post = async ({ url, data, header, params }) => {
         ...header,
       },
     });
+    return response;
   } catch (error) {
     response = error.response;
   }
-  return response;
 };
 
 export const axios_put = async ({ url, data, header, params }) => {

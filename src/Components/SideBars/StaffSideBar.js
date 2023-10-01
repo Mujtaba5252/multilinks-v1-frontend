@@ -19,7 +19,7 @@ export const StaffSideBar = [
   },
   {
     label: "Payments Invoice",
-    Link: staffRoutes.staffDashboard,
+    Link: staffRoutes.viewPaymentInvoice,
     icon: CurrencyDollar,
   },
   {

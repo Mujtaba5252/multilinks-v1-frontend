@@ -31,4 +31,6 @@ export const staffRoutes = {
   editClient: "/staff/addClient/:editId",
   addQuotation: "/staff/addQuotation",
   viewQuotation: "/staff/viewQuotations",
+  addPaymentInvoice: "/staff/addPaymentInvoice",
+  viewPaymentInvoice: "/staff/viewPaymentInvoice",
 };
