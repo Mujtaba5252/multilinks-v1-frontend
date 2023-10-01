@@ -24,6 +24,8 @@ import ViewQuotations from "./Portals/Staff/ViewQuotations/ViewQuotations";
 import AddQuotations from "./Portals/Staff/AddQuotations/AddQuotations";
 import AddPaymentInvoice from "./Portals/Staff/AddPaymentInvoice/AddPaymentInvoice";
 import ViewPaymentInvoice from "./Portals/Staff/ViewPaymentInvoice/ViewPaymentInvoice";
+import AddLeaveRequest from "./Portals/Staff/AddLeaveRequest/AddLeaveRequest";
+import ViewLeaveRequest from "./Portals/Staff/ViewLeaveRequest/ViewLeaveRequest";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -132,6 +134,14 @@ function App() {
               <Route
                 path={staffRoutes.viewPaymentInvoice}
                 element={<ViewPaymentInvoice />}
+              />
+              <Route
+                path={staffRoutes.addLeaveRequest}
+                element={<AddLeaveRequest />}
+              />
+              <Route
+                path={staffRoutes.viewLeaveRequest}
+                element={<ViewLeaveRequest />}
               />
             </Route>
           </Route>
