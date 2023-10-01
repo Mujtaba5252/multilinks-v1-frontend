@@ -10,7 +10,8 @@ export const numeric_to_word = (num) => {
     else{
         return "Invalid Number";
     }
-}export const DateFormatter = (date) => {
+}
+export const DateFormatter = (date) => {
     //formate date into like sepetmber 12, 2021
     if(!date) return ('');
     const d = new Date(date);

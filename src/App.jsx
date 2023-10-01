@@ -69,7 +69,7 @@ function App() {
                 />
                 <Route
                   path={adminRoutes.paymentsInvoice}
-                  element={<PaymentView isInvoice={true} />}
+                  element={<PaymentView isInvoice={true} pending={'Pending'} />}
                 />
                 <Route
                   path={adminRoutes.clientExpenseInvoice}
@@ -89,7 +89,7 @@ function App() {
                 />
                 <Route
                   path={adminRoutes.paymentsReceipts}
-                  element={<PaymentView isInvoice={false} />}
+                  element={<PaymentView isInvoice={false} pending={'Approved'} />}
                 />
                 <Route
                   path={adminRoutes.clientExpenseReceipts}

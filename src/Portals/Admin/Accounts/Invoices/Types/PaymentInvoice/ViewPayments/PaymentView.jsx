@@ -4,11 +4,11 @@ import { Grid, Loader, Text } from "@mantine/core";
 import { axios_get } from "../../../../../../../Utils/Axios";
 import { PaymentViewHeader } from "./PaymentViewHeader";
 import DataGrid from "../../../../../../../Components/DataTable/DataGrid";
-function PaymentView({ isInvoice }) {
+function PaymentView({ isInvoice,pending }) {
   const [paymentData, setPaymentData] = useState([]);
   const [update, setUpdate] = useState(false);
+  let url = "/invoice?status="+pending;
   const fetchPayment = async () => {
-    let url = "/invoice?status=Pending";
     await axios_get({ url: url,withSNo:true }).then((res) => {
       setPaymentData(res.data.data);
       console.log(res.data.data);
@@ -17,7 +17,7 @@ function PaymentView({ isInvoice }) {
   useEffect(() => {
     fetchPayment();
     setUpdate(false);
-  }, [update]);
+  }, [update,url]);
   return (
     <>
       <PageWrapper title={isInvoice ? "Payment Invoices" : "Payment Receipts"}>

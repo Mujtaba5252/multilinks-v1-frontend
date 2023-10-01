@@ -14,8 +14,6 @@ function ApproveModalPayment({Data,setUpdate}) {
             console.log(url)
             const values={
                 status:'Approved',
-                amount_received:Data.amount_received,
-                amount_received_in_words:Data.amount_received_in_words,
             }
             await axios_put({url:url, data:{values}}).then((res)=>{
                 if(res.status === 200 || res.status==201){

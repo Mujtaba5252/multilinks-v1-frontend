@@ -72,7 +72,8 @@ export const PaymentViewHeader = ({isInvoice,setUpdate}) => {
                   RejectModalComponent={<RejectModalPayment Data={row} />}                 
                 >
 
-                </ActionIcons>:""
+                </ActionIcons>:
+                <ActionIcons></ActionIcons>
               }
 
               </>
