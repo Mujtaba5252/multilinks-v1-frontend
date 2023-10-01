@@ -1,24 +1,22 @@
-import { Button, Grid, Group, Input, Loader, TextInput } from "@mantine/core";
+import { Button, Grid, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React, { useContext, useEffect, useState } from "react";
-import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
-import { UserContext } from "../../../Contexts/UserContext";
+import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { CircleCheck, CircleX } from "tabler-icons-react";
-import {
-  axios_get,
-  axios_patch,
-  axios_post,
-  axios_switch,
-} from "../../../Utils/Axios";
-import toast from "react-hot-toast";
-import { staffRoutes } from "../../../routes";
+import CustomLoader from "../../../Components/CustomLoader/Customloader";
+import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
 import {
   emailRegex,
   nameRegex,
   phoneRegex,
 } from "../../../Components/Regex/Regex";
-import CustomLoader from "../../../Components/CustomLoader/Customloader";
+import { UserContext } from "../../../Contexts/UserContext";
+import {
+  axios_get,
+  axios_switch
+} from "../../../Utils/Axios";
+import { staffRoutes } from "../../../routes";
 // import  InputMask from "@react-input/mask";
 
 const AddClient = () => {
