@@ -114,7 +114,7 @@ const AddClient = () => {
     }
   };
   return (
-    <PageWrapper title="ADD CLIENT">
+    <PageWrapper title={params.editId ? "Update Client" : "ADD CLIENT"}>
       <CustomLoader loading={loader}>
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Grid>

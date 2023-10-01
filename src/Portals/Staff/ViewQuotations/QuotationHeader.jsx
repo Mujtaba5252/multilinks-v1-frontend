@@ -1,6 +1,7 @@
 import QuotationViewModal from "./QuotationViewModal";
 import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
 import { Badge } from "@mantine/core";
+import { staffRoutes } from "../../../routes";
 
 export const QuotationHeader = () => {
   return [
@@ -80,9 +81,9 @@ export const QuotationHeader = () => {
           <ActionIcons
             edit={true}
             blocked={false}
-            // editUrl={`/staff/edit-client/${row.UID}`}
+            editUrl={`${staffRoutes.addQuotation}/${row.id}`}
             ModalTitle={"Quotation Details"}
-            ViewModalComponent={<QuotationViewModal />}
+            ViewModalComponent={<QuotationViewModal row={row} />}
           />
         );
       },
