@@ -1,7 +1,6 @@
 import { Grid, Select, TextInput } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import React from "react";
-import CustomLoader from "../../../Components/CustomLoader/Customloader";
 import { useParams } from "react-router";
 
 const Step1 = ({ form, loading }) => {
