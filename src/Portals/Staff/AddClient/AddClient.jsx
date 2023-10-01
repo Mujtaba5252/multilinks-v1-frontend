@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { CircleCheck, CircleX } from "tabler-icons-react";
-import CustomLoader from "../../../Components/CustomLoader/Customloader";
+import CustomLoader from "../../../Components/CustomLoader/Customloader.jsx";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
 import {
   emailRegex,
@@ -12,10 +12,7 @@ import {
   phoneRegex,
 } from "../../../Components/Regex/Regex";
 import { UserContext } from "../../../Contexts/UserContext";
-import {
-  axios_get,
-  axios_switch
-} from "../../../Utils/Axios";
+import { axios_get, axios_switch } from "../../../Utils/Axios";
 import { staffRoutes } from "../../../routes";
 // import  InputMask from "@react-input/mask";
 
