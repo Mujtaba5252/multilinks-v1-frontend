@@ -1,4 +1,11 @@
-import { Button, Grid, MultiSelect, Select, TextInput } from "@mantine/core";
+import {
+  Button,
+  Grid,
+  MultiSelect,
+  Select,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
 import React from "react";
 
 const LicenseForm = ({ form, setTotal }) => {
@@ -22,6 +29,11 @@ const LicenseForm = ({ form, setTotal }) => {
       const valuefromFeilds = parseInt(form.values[dat]);
       collector = collector + valuefromFeilds;
     }
+    const discount = form.values.discount && parseInt(form.values.discount);
+    if (discount > 0) {
+      collector = collector - (discount / 100) * collector;
+    }
+
     setTotal(collector);
     form.setFieldValue("total", collector);
   };
@@ -92,20 +104,8 @@ const LicenseForm = ({ form, setTotal }) => {
               </Grid.Col>
             </React.Fragment>
           ))}
-        <Grid.Col span={12}>
-          <Button onClick={calculate}> Calculate</Button>
-        </Grid.Col>
-        <Grid.Col md={6}>
-          <TextInput
-            form={form}
-            type="number"
-            label={"Total Amount"}
-            placeholder={"Please Enter Amount"}
-            size="md"
-            {...form?.getInputProps("total")}
-          />
-        </Grid.Col>
-        <Grid.Col md={6}>
+
+        <Grid.Col md={12}>
           <TextInput
             form={form}
             type="number"
@@ -114,6 +114,24 @@ const LicenseForm = ({ form, setTotal }) => {
             size="md"
             {...form?.getInputProps("discount")}
           />
+        </Grid.Col>
+        <Grid.Col md={12}>
+          <Tooltip
+            label="Click on calculate button"
+            position="bottom-start"
+            color="blue"
+          >
+            <TextInput
+              form={form}
+              type="number"
+              label={"Total Amount"}
+              placeholder={"Please Enter Amount"}
+              size="md"
+              rightSection={<Button onClick={calculate}> Calculate</Button>}
+              rightSectionWidth={110}
+              {...form?.getInputProps("total")}
+            />
+          </Tooltip>
         </Grid.Col>
         <Grid.Col md={12}>
           <TextInput

@@ -1,4 +1,11 @@
-import { Button, Grid, MultiSelect, Select, TextInput } from "@mantine/core";
+import {
+  Button,
+  Grid,
+  MultiSelect,
+  Select,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
 import React from "react";
 
 const OtherServiceForm = ({ form, setTotal }) => {
@@ -31,6 +38,26 @@ const OtherServiceForm = ({ form, setTotal }) => {
       const valuefromFeilds = parseInt(form.values[dat]);
       collector = collector + valuefromFeilds;
     }
+    // Check if the entry permit field is selected
+    for (const offeredService of form.values.offered_services) {
+      // Check if the offered service is selected and has a value entered
+      const offeredServiceSelected =
+        form.values.offered_services.includes(offeredService);
+      const offeredServiceValueEntered =
+        form.values[offeredService + "Amount"] !== "";
+
+      // Calculate discount for the offered service
+      const discount = form.values.discount && parseInt(form.values.discount);
+      if (
+        offeredServiceSelected &&
+        offeredServiceValueEntered &&
+        discount > 0
+      ) {
+        const offeredServiceAmount = form.values[offeredService + "Amount"];
+        collector = collector - (discount / 100) * offeredServiceAmount;
+      }
+    }
+
     setTotal(collector);
     form.setFieldValue("total", collector);
   };
@@ -124,21 +151,8 @@ const OtherServiceForm = ({ form, setTotal }) => {
               </Grid.Col>
             </React.Fragment>
           ))}
-        <Grid.Col span={12}>
-          <Button onClick={calculate}> Calculate</Button>
-        </Grid.Col>
 
-        <Grid.Col md={6}>
-          <TextInput
-            form={form}
-            type="number"
-            label={"Total Amount"}
-            placeholder={"Please Enter Amount"}
-            size="md"
-            {...form?.getInputProps("total")}
-          />
-        </Grid.Col>
-        <Grid.Col md={6}>
+        <Grid.Col md={12}>
           <TextInput
             form={form}
             type="number"
@@ -147,6 +161,24 @@ const OtherServiceForm = ({ form, setTotal }) => {
             size="md"
             {...form?.getInputProps("discount")}
           />
+        </Grid.Col>
+        <Grid.Col md={12}>
+          <Tooltip
+            label="Click on calculate button"
+            position="bottom-start"
+            color="blue"
+          >
+            <TextInput
+              form={form}
+              type="number"
+              label={"Total Amount"}
+              placeholder={"Please Enter Amount"}
+              size="md"
+              rightSection={<Button onClick={calculate}> Calculate</Button>}
+              rightSectionWidth={110}
+              {...form?.getInputProps("total")}
+            />
+          </Tooltip>
         </Grid.Col>
         <Grid.Col md={12}>
           <TextInput

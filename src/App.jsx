@@ -122,8 +122,19 @@ function App() {
                 path={staffRoutes.addQuotation}
                 element={<AddQuotations />}
               />
-              <Route path={staffRoutes.addPaymentInvoice} element={<AddPaymentInvoice/>}/>
-              <Route path={staffRoutes.viewPaymentInvoice} element={<ViewPaymentInvoice/>}/>
+              <Route
+                path={staffRoutes.editQuotation}
+                element={<AddQuotations />}
+              />
+
+              <Route
+                path={staffRoutes.addPaymentInvoice}
+                element={<AddPaymentInvoice />}
+              />
+              <Route
+                path={staffRoutes.viewPaymentInvoice}
+                element={<ViewPaymentInvoice />}
+              />
             </Route>
           </Route>
         </Route>
