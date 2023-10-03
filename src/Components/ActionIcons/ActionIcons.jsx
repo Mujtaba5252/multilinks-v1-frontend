@@ -1,7 +1,16 @@
 import { ActionIcon, Flex, Progress, Title, Tooltip } from "@mantine/core";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChartBar, CircleCheck, CircleX, Edit, EditCircleOff, Eye, Printer, Trash } from "tabler-icons-react";
+import {
+  ChartBar,
+  CircleCheck,
+  CircleX,
+  Edit,
+  EditCircleOff,
+  Eye,
+  Printer,
+  Trash,
+} from "tabler-icons-react";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import { Amber, MainBlue, Red } from "../../Utils/ThemeColors";
 
@@ -11,7 +20,7 @@ const ActionIcons = ({
   editUrl,
   ModalTitle,
   ViewModalComponent,
-  viewModalSize="lg",
+  viewModalSize = "lg",
   progress,
   Delete,
   Approve,
@@ -26,7 +35,7 @@ const ActionIcons = ({
   DeleteModalTitle,
   DeleteModalComponent,
   disableApproveReject,
-  size="lg"
+  size = "lg",
 }) => {
   const navigate = useNavigate();
   const [openViewModal, setOpenViewModal] = useState(false);
@@ -40,32 +49,30 @@ const ActionIcons = ({
   const handleEdit = () => {
     navigate(editUrl);
   };
-  const handleProgress = () => {  
+  const handleProgress = () => {
     setOpenProgressModal(true);
-  }
+  };
 
   const handleDelete = () => {
     setOpenDeleteModal(true);
-  }
+  };
   const handleApprove = () => {
     setOpenApproveModal(true);
-  }
+  };
   const handleReject = () => {
     setOpenRejectModal(true);
-  }
+  };
   return (
     <>
       <Flex gap={5} align="center" justify="center">
         {/*for VIEW*/}
-        {
-          progress &&(
-            <Tooltip label={"Progress"}>
-              <ActionIcon onClick={handleProgress}>
-                <ChartBar color={Amber()} />
-              </ActionIcon>
-              </Tooltip>
-          )
-        }
+        {progress && (
+          <Tooltip label={"Progress"}>
+            <ActionIcon onClick={handleProgress}>
+              <ChartBar color={Amber()} />
+            </ActionIcon>
+          </Tooltip>
+        )}
         <Tooltip label="View">
           <ActionIcon onClick={handleView}>
             <Eye color="#0487FF" />
@@ -83,49 +90,44 @@ const ActionIcons = ({
             </ActionIcon>
           </Tooltip>
         )}
-        {
-          Delete &&(
-            <Tooltip label={"Progress"}>
-              <ActionIcon onClick={handleDelete}>
-                <Trash color={Red()} />
-              </ActionIcon>
-              </Tooltip>
-          )
-        }
-        {
-          Reject &&(
-            <Tooltip label={"Reject"}>
-              <ActionIcon onClick={handleReject} disabled={disableApproveReject}>
-                <CircleX color={disableApproveReject?'gray':Red()} />
-              </ActionIcon>
-              </Tooltip>
-          )
-        }
-        {
-          Approve &&(
-            <Tooltip label={"Approve"}>
-              <ActionIcon onClick={handleApprove} disabled={disableApproveReject}>
-                <CircleCheck color={disableApproveReject?'gray':'green'} />
-              </ActionIcon>
-              </Tooltip>
-          )
-        }
-        {
-          Print &&(
-            <Tooltip label={"Print"}>
-              <ActionIcon disabled={!disableApproveReject}>
-                <Printer color={!disableApproveReject?'gray':MainBlue()} />
-              </ActionIcon>
-              </Tooltip>
-          )
-        }
-        
+        {Delete && (
+          <Tooltip label={"Progress"}>
+            <ActionIcon onClick={handleDelete}>
+              <Trash color={Red()} />
+            </ActionIcon>
+          </Tooltip>
+        )}
+        {Reject && (
+          <Tooltip label={"Reject"}>
+            <ActionIcon onClick={handleReject} disabled={disableApproveReject}>
+              <CircleX color={disableApproveReject ? "gray" : Red()} />
+            </ActionIcon>
+          </Tooltip>
+        )}
+        {Approve && (
+          <Tooltip label={"Approve"}>
+            <ActionIcon onClick={handleApprove} disabled={disableApproveReject}>
+              <CircleCheck color={disableApproveReject ? "gray" : "green"} />
+            </ActionIcon>
+          </Tooltip>
+        )}
+        {Print && (
+          <Tooltip label={"Print"}>
+            <ActionIcon disabled={!disableApproveReject}>
+              <Printer color={!disableApproveReject ? "gray" : MainBlue()} />
+            </ActionIcon>
+          </Tooltip>
+        )}
       </Flex>
-      
+
       <ModalComponent //for view modal component
         opened={openViewModal}
         setOpened={setOpenViewModal}
-        title={<Title order={3} style={{position:'absolute'}}>{ModalTitle}</Title>}
+        title={
+          <Title order={3} style={{ position: "absolute" }}>
+            {ModalTitle}
+          </Title>
+        }
         size={size}
       >
         {ViewModalComponent}
@@ -154,6 +156,7 @@ const ActionIcons = ({
       >
         {ApproveModalComponent}
       </ModalComponent>
+
       <ModalComponent //for reject modal component
         opened={openRejectModal}
         setOpened={setOpenRejectModal}

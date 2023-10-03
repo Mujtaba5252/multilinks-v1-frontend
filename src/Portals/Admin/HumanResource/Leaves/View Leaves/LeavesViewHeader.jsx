@@ -1,7 +1,11 @@
 import { Badge } from "@mantine/core";
 import { Man } from "tabler-icons-react";
+import ActionIcons from "../../../../../Components/ActionIcons/ActionIcons";
+import LeaveApproveModal from "./LeaveApproveModal";
+import LeaveRejectModal from "./LeaveRejectModal";
+import ModalComponent from "../../../../../Components/ModalComponent/ModalComponent";
 
-export const LeavesViewHeader = () => {
+export const LeavesViewHeader = ({ setUpdate }) => {
   return [
     {
       name: "S.No",
@@ -49,16 +53,51 @@ export const LeavesViewHeader = () => {
     },
     {
       name: "Status",
+      center: true,
       selector: (row) => {
-        return <Badge checked variant="light" size='xs' color="yellow" style={{cursor:'default'}}>{row.status}</Badge>
+        return (
+          <Badge
+            checked
+            variant="light"
+            size="xs"
+            fullWidth
+            color={
+              row.status == "Approved"
+                ? "green"
+                : row.status == "Pending"
+                ? "yellow"
+                : row.status == "Rejected"
+                ? "red"
+                : "blue"
+            }
+            style={{ cursor: "default" }}
+          >
+            {row.status}
+          </Badge>
+        );
       },
       sortable: true,
       wrap: true,
     },
     {
       name: "Actions",
+      center: true,
       cell: (row) => {
-        return <Man />;
+        return (
+          <ActionIcons
+            Approve={row.status === "Pending" ? true : false}
+            Reject={row.status === "Pending" ? true : false}
+            ApproveModalTitle={"Approve Leave"}
+            RejectModalTitle={"Reject Leave"}
+            disableApproveReject={row.status == "Approved" ? true : false}
+            ApproveModalComponent={
+              <LeaveApproveModal Data={row} setUpdate={setUpdate} />
+            }
+            RejectModalComponent={
+              <LeaveRejectModal Data={row} setUpdate={setUpdate} />
+            }
+          />
+        );
       },
       sortable: true,
     },
