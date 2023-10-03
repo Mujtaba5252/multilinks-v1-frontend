@@ -4,6 +4,7 @@ import ActionIcons from "../../../../../Components/ActionIcons/ActionIcons";
 import LeaveApproveModal from "./LeaveApproveModal";
 import LeaveRejectModal from "./LeaveRejectModal";
 import ModalComponent from "../../../../../Components/ModalComponent/ModalComponent";
+import LeaveViewModal from "./LeaveViewModal";
 
 export const LeavesViewHeader = ({ setUpdate }) => {
   return [
@@ -85,14 +86,15 @@ export const LeavesViewHeader = ({ setUpdate }) => {
       cell: (row) => {
         return (
           <ActionIcons
+            ModalTitle={"Leave Details"}
+            ViewModalComponent={<LeaveViewModal row={row} />}
             Approve={row.status === "Pending" ? true : false}
-            Reject={row.status === "Pending" ? true : false}
             ApproveModalTitle={"Approve Leave"}
-            RejectModalTitle={"Reject Leave"}
-            disableApproveReject={row.status == "Approved" ? true : false}
             ApproveModalComponent={
               <LeaveApproveModal Data={row} setUpdate={setUpdate} />
             }
+            Reject={row.status === "Pending" ? true : false}
+            RejectModalTitle={"Reject Leave"}
             RejectModalComponent={
               <LeaveRejectModal Data={row} setUpdate={setUpdate} />
             }

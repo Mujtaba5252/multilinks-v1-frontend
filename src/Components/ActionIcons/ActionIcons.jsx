@@ -123,11 +123,7 @@ const ActionIcons = ({
       <ModalComponent //for view modal component
         opened={openViewModal}
         setOpened={setOpenViewModal}
-        title={
-          <Title order={3} style={{ position: "absolute" }}>
-            {ModalTitle}
-          </Title>
-        }
+        title={ModalTitle}
         size={size}
       >
         {ViewModalComponent}
