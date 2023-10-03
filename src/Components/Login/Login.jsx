@@ -34,7 +34,8 @@ const Login = () => {
   const isSmall = useMediaQuery("(max-width: 992px)");
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
-  const { setUser, setUserType, setIsAdmin, setIsStaff } =useContext(UserContext);
+  const { setUser, setUserType, setIsAdmin, setIsStaff } =
+    useContext(UserContext);
   const form = useForm({
     validateInputOnChange: true,
     initialValues: {
@@ -105,9 +106,9 @@ const Login = () => {
   };
   useEffect(() => {
     const token = Token();
-    const  role= Role();
-    if(token){
-      switch(role){
+    const role = Role();
+    if (token) {
+      switch (role) {
         case true:
           navigate("/admin/dashboard");
           break;
@@ -123,7 +124,11 @@ const Login = () => {
   return (
     <>
       <Grid
-        style={{ width: "100vw", height: "100vh", backgroundColor: MainBlue() }}
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: MainBlue(),
+        }}
       >
         {!isSmall && (
           <Grid.Col md={6}>

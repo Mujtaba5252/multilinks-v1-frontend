@@ -8,6 +8,7 @@ import {
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { numeric_to_word } from "../../../Utils/CommonFormatters";
 
 const VisaForm = ({ form, total, setTotal }) => {
   const params = useParams();
@@ -186,6 +187,13 @@ const VisaForm = ({ form, total, setTotal }) => {
             form={form}
             type="number"
             label={"Grand Total"}
+            onBlurCapture={() =>
+              form.setValues({
+                grand_total_in_words: numeric_to_word(
+                  form.values.grand_total_numeric
+                ),
+              })
+            }
             withAsterisk
             placeholder={"Please Enter Grand Total"}
             size="md"

@@ -170,6 +170,7 @@ const AddQuotations = () => {
               : "Quotation Added Successfully"
           );
           navigate(staffRoutes.viewQuotation);
+          localStorage.removeItem("clientData");
           setLoading(false);
         } else {
           toast.error("Quotation Already Exist");

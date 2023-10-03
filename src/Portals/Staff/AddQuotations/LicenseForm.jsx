@@ -7,6 +7,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import React from "react";
+import { numeric_to_word } from "../../../Utils/CommonFormatters";
 
 const LicenseForm = ({ form, setTotal }) => {
   const data = [
@@ -140,6 +141,13 @@ const LicenseForm = ({ form, setTotal }) => {
             label={"Grand Total"}
             placeholder={"Please Enter Grand Total"}
             size="md"
+            onBlurCapture={() =>
+              form.setValues({
+                grand_total_in_words: numeric_to_word(
+                  form.values.grand_total_numeric
+                ),
+              })
+            }
             {...form?.getInputProps("grand_total_numeric")}
           />
         </Grid.Col>
