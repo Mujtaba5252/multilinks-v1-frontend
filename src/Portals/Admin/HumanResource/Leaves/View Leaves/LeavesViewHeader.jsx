@@ -1,7 +1,12 @@
 import { Badge } from "@mantine/core";
 import { Man } from "tabler-icons-react";
+import ActionIcons from "../../../../../Components/ActionIcons/ActionIcons";
+import LeaveApproveModal from "./LeaveApproveModal";
+import LeaveRejectModal from "./LeaveRejectModal";
+import ModalComponent from "../../../../../Components/ModalComponent/ModalComponent";
+import LeaveViewModal from "./LeaveViewModal";
 
-export const LeavesViewHeader = () => {
+export const LeavesViewHeader = ({ setUpdate }) => {
   return [
     {
       name: "S.No",
@@ -49,16 +54,52 @@ export const LeavesViewHeader = () => {
     },
     {
       name: "Status",
+      center: true,
       selector: (row) => {
-        return <Badge checked variant="light" size='xs' color="yellow" style={{cursor:'default'}}>{row.status}</Badge>
+        return (
+          <Badge
+            checked
+            variant="light"
+            size="xs"
+            fullWidth
+            color={
+              row.status == "Approved"
+                ? "green"
+                : row.status == "Pending"
+                ? "yellow"
+                : row.status == "Rejected"
+                ? "red"
+                : "blue"
+            }
+            style={{ cursor: "default" }}
+          >
+            {row.status}
+          </Badge>
+        );
       },
       sortable: true,
       wrap: true,
     },
     {
       name: "Actions",
+      center: true,
       cell: (row) => {
-        return <Man />;
+        return (
+          <ActionIcons
+            ModalTitle={"Leave Details"}
+            ViewModalComponent={<LeaveViewModal row={row} />}
+            Approve={row.status === "Pending" ? true : false}
+            ApproveModalTitle={"Approve Leave"}
+            ApproveModalComponent={
+              <LeaveApproveModal Data={row} setUpdate={setUpdate} />
+            }
+            Reject={row.status === "Pending" ? true : false}
+            RejectModalTitle={"Reject Leave"}
+            RejectModalComponent={
+              <LeaveRejectModal Data={row} setUpdate={setUpdate} />
+            }
+          />
+        );
       },
       sortable: true,
     },
