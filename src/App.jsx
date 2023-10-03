@@ -26,6 +26,7 @@ import AddPaymentInvoice from "./Portals/Staff/AddPaymentInvoice/AddPaymentInvoi
 import ViewPaymentInvoice from "./Portals/Staff/ViewPaymentInvoice/ViewPaymentInvoice";
 import AddLeaveRequest from "./Portals/Staff/AddLeaveRequest/AddLeaveRequest";
 import ViewLeaveRequest from "./Portals/Staff/ViewLeaveRequest/ViewLeaveRequest";
+import AddStaff from "./Portals/Admin/HumanResource/Staff/Add Staff/AddStaff";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -55,14 +56,18 @@ function App() {
                 element={<AdminDashboard />}
               />
               <Route path={adminRoutes.humanResource}>
-                <Route index path={adminRoutes.staffView} element={<StaffView />}/>
-                <Route path={adminRoutes.addStaff} element={<AddStaff />}/>
-                <Route path={adminRoutes.leaves} element={<LeavesView/>}/>
+                <Route
+                  index
+                  path={adminRoutes.staffView}
+                  element={<StaffView />}
+                />
+                <Route path={adminRoutes.addStaff} element={<AddStaff />} />
+                <Route path={adminRoutes.leaves} element={<LeavesView />} />
               </Route>
               <Route path={adminRoutes.accounts}>
                 <Route
                   path={adminRoutes.qutotations}
-                  element={<QuotationView pending={'Pending'}/>}
+                  element={<QuotationView pending={"Pending"} />}
                 />
                 <Route
                   path={adminRoutes.invoices}
@@ -70,7 +75,7 @@ function App() {
                 />
                 <Route
                   path={adminRoutes.paymentsInvoice}
-                  element={<PaymentView isInvoice={true} pending={'Pending'} />}
+                  element={<PaymentView isInvoice={true} pending={"Pending"} />}
                 />
                 <Route
                   path={adminRoutes.clientExpenseInvoice}
@@ -86,11 +91,13 @@ function App() {
                 />
                 <Route
                   path={adminRoutes.approvedQuotationsReceipts}
-                  element={<QuotationView pending={'Approved'} />}
+                  element={<QuotationView pending={"Approved"} />}
                 />
                 <Route
                   path={adminRoutes.paymentsReceipts}
-                  element={<PaymentView isInvoice={false} pending={'Approved'} />}
+                  element={
+                    <PaymentView isInvoice={false} pending={"Approved"} />
+                  }
                 />
                 <Route
                   path={adminRoutes.clientExpenseReceipts}
