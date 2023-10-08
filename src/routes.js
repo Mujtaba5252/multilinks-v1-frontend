@@ -22,7 +22,9 @@ export const adminRoutes = {
   approvedQuotationsReceipts: "/admin/accounts/receipts/approvedQuotations",
   officeExpenseReceipts: "/admin/accounts/receipts/officeExpenses",
   salariesAndCommissions: "/admin/accounts/salariesAndCommissions",
-  licenses: "/admin/licenses",
+  addLicenses: "/admin/addLicenses",
+  editLicenses: "/admin/addLicenses/:editId",
+  viewLicenses: "/admin/viewLicenses",
 };
 export const staffRoutes = {
   staffDashboard: "/staff/dashboard",

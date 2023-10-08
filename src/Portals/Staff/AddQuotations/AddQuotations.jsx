@@ -97,6 +97,7 @@ const AddQuotations = () => {
           client_contact_number: data?.client?.client_contact_number,
           //quotation date is string so we need to convert it into date
           // quotation_date: DateFunction(parseISO(data?.quotation_date)),
+          quotation_date: new Date(data?.quotation_date),
 
           service_type: data?.service_type,
           offered_services: data?.offered_services?.map((item) => item.service),
