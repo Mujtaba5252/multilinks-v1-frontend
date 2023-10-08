@@ -33,7 +33,7 @@ const ViewLeaveRequest = () => {
         my={20}
         onClick={() => navigate(staffRoutes.addLeaveRequest)}
       >
-        <Button variant="filled">ADD CLIENT</Button>
+        <Button variant="filled">ADD LEAVE REQUEST</Button>
       </Group>
       <DataGrid
         columns={LeaveRequestHeader()}
