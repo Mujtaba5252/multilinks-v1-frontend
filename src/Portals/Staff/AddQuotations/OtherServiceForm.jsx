@@ -1,43 +1,81 @@
-import { Button, Grid, MultiSelect, Select, TextInput } from "@mantine/core";
-import React from "react";
+import {
+  Button,
+  Grid,
+  MultiSelect,
+  Select,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
+import React, { useEffect } from "react";
+import { numeric_to_word } from "../../../Utils/CommonFormatters";
 
 const OtherServiceForm = ({ form, setTotal }) => {
   const data = [
-    { value: "jobOfferLetteer", label: "Job Offer Letter" },
-    { value: "insurance", label: "Insurance" },
-    { value: "laborCardFee", label: "labor Card Fee" },
-    { value: "entryPermit", label: "Entry Permit" },
-    { value: "statusChange", label: "Status Change" },
-    { value: "medical", label: "Medical" },
-    { value: "emiratesId", label: "Emirates ID" },
-    { value: "stamping", label: "Stamping" },
-    { value: "towjeeh", label: "Towjeeh" },
-    { value: "intialApproval", label: "Intial Approval" },
-    { value: "ejari", label: "Ejari" },
-    { value: "selfProvided", label: "Self Provided" },
-    { value: "offerdServices", label: "Offered Services" },
-    { value: "finalSubmission", label: "Final Submission" },
-    { value: "voucher", label: "Voucher/DED Fee" },
-    { value: "imigrationCard", label: "Imigration Card" },
-    { value: "eSignatureCard", label: "E Signature Card" },
-    { value: "laborCard", label: "Labor Card" },
-    { value: "sponsorFee", label: "Sponsor Fee" },
-    { value: "laborUpdate", label: "Labor Update" },
+    { value: "Job Offer Letteer", label: "Job Offer Letter" },
+    { value: "Insurance", label: "Insurance" },
+    { value: "Labor Card Fee", label: "labor Card Fee" },
+    { value: "Entry Permit", label: "Entry Permit" },
+    { value: "Status Change", label: "Status Change" },
+    { value: "Medical", label: "Medical" },
+    { value: "Emirates Id", label: "Emirates ID" },
+    { value: "Stamping", label: "Stamping" },
+    { value: "Towjeeh", label: "Towjeeh" },
+    { value: "Intial Approval", label: "Intial Approval" },
+    { value: "Ejari", label: "Ejari" },
+    { value: "Self Provided", label: "Self Provided" },
+    { value: "Offerd Services", label: "Offered Services" },
+    { value: "Final Submission", label: "Final Submission" },
+    { value: "Voucher", label: "Voucher/DED Fee" },
+    { value: "Imigration Card", label: "Imigration Card" },
+    { value: "E-Signature Card", label: "E Signature Card" },
+    { value: "LaborCard", label: "Labor Card" },
+    { value: "SponsorFee", label: "Sponsor Fee" },
+    { value: "Labor Update", label: "Labor Update" },
   ];
-  const calculate = () => {
-    let collector = 0;
-    for (let i = 0; i < form.values.offered_services.length; i++) {
-      const dat = form.values.offered_services[i] + "Amount";
-      const valuefromFeilds = parseInt(form.values[dat]);
-      collector = collector + valuefromFeilds;
-    }
+  let collector = 0;
+  useEffect(() => {
+    collector = 0;
+    collector =
+      parseInt(form.values.service_charges) + parseInt(form.values.total) || 0;
     setTotal(collector);
-    form.setFieldValue("total", collector);
-  };
+    form.setFieldValue("grand_total_numeric", collector);
+    form.setFieldValue(
+      "grand_total_in_words",
+      numeric_to_word(parseInt(form.values.grand_total_numeric))
+    );
+  }, [
+    form.values.grand_total_numeric,
+    form.values.service_charges,
+    form.values.total,
+  ]);
+
+  // useEffect(() => {
+  //   if (form.values.offered_services) {
+  //     data.forEach((item) => {
+  //       if (!form.values.offered_services.includes(item.value)) {
+  //         form?.setFieldValue(`${item.value}Amount`, "");
+  //       }
+  //     });
+  //   }
+  //   form.setFieldValue(
+  //     "total",
+  //     Object.keys(form.values)
+
+  //       .filter((key) => key.endsWith("Amount"))
+  //       .reduce((acc, key) => {
+  //         return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+  //       }, 0)
+  //   );
+  // }, [
+  //   form.values.total,
+
+  //   form.values.offered_services.map((item) => item.amount),
+  // ]);
+
   return (
     <>
       <Grid>
-        <Grid.Col md={6}>
+        <Grid.Col md={12}>
           <Select
             form={form}
             label="Visa Status"
@@ -48,22 +86,10 @@ const OtherServiceForm = ({ form, setTotal }) => {
               { value: "NEW", label: "NEW" },
               { value: "Renewal", label: "Renewal" },
             ]}
-            {...form?.getInputProps("license_type")}
+            {...form?.getInputProps("visa_status")}
           />
         </Grid.Col>
-        <Grid.Col md={6}>
-          <TextInput
-            form={form}
-            mt={"md"}
-            type="number"
-            label={"Service Charges"}
-            placeholder="Enter Service Charges"
-            icon="Dhs"
-            size="md"
-            withAsterisk={true}
-            {...form?.getInputProps("service_charges")}
-          />
-        </Grid.Col>
+
         <Grid.Col md={12}>
           <MultiSelect
             form={form}
@@ -77,7 +103,7 @@ const OtherServiceForm = ({ form, setTotal }) => {
         {form.values.offered_services &&
           form.values.offered_services.map((item) => (
             <React.Fragment key={item}>
-              {item == "entryPermit" ? (
+              {item == "Entry Permit" ? (
                 <Grid.Col md={6}>
                   <Select
                     form={form}
@@ -86,11 +112,11 @@ const OtherServiceForm = ({ form, setTotal }) => {
                     size={"md"}
                     data={[
                       {
-                        value: "insideEntryPermit",
+                        value: "Inside Entry Permit",
                         label: "Inside Entry Permit",
                       },
                       {
-                        value: "outsideEntryPermit",
+                        value: "Outside Entry Permit",
                         label: "Outside Entry Permit",
                       },
                     ]}
@@ -118,15 +144,32 @@ const OtherServiceForm = ({ form, setTotal }) => {
                   icon="Dhs"
                   placeholder={"Amount"}
                   size="md"
+                  onBlurCapture={() => {
+                    if (form.values.offered_services) {
+                      data.forEach((item) => {
+                        if (
+                          !form.values.offered_services.includes(item.value)
+                        ) {
+                          form?.setFieldValue(`${item.value}Amount`, "");
+                        }
+                      });
+                    }
+                    form.setFieldValue(
+                      "total",
+                      Object.keys(form.values)
+
+                        .filter((key) => key.endsWith("Amount"))
+                        .reduce((acc, key) => {
+                          return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                        }, 0)
+                    );
+                  }}
                   withAsterisk={true}
                   {...form?.getInputProps(`${item}Amount`)}
                 />
               </Grid.Col>
             </React.Fragment>
           ))}
-        <Grid.Col span={12}>
-          <Button onClick={calculate}> Calculate</Button>
-        </Grid.Col>
 
         <Grid.Col md={6}>
           <TextInput
@@ -142,10 +185,12 @@ const OtherServiceForm = ({ form, setTotal }) => {
           <TextInput
             form={form}
             type="number"
-            label={"Discount(If Any)"}
-            placeholder={"Please Enter Discount"}
+            label={"Service Charges"}
+            placeholder="Enter Service Charges"
+            icon="Dhs"
             size="md"
-            {...form?.getInputProps("discount")}
+            withAsterisk={true}
+            {...form?.getInputProps("service_charges")}
           />
         </Grid.Col>
         <Grid.Col md={12}>
