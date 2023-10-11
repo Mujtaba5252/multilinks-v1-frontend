@@ -12,6 +12,8 @@ export const adminRoutes = {
   leaves: "/admin/humanResource/leaves",
   accounts: "/admin/accounts",
   qutotations: "/admin/accounts/qutotations",
+  addQutotations: "/admin/accounts/addQutotations",
+  editQutotations: "/admin/accounts/addQutotations/:editId",
   invoices: "/admin/accounts/invoices",
   paymentsInvoice: "/admin/accounts/invoices/payments",
   clientExpenseInvoice: "/admin/accounts/invoices/clientExpenses",

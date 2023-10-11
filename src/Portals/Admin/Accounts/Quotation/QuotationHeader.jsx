@@ -1,10 +1,14 @@
-import { Badge } from "@mantine/core";
-import { Man } from "tabler-icons-react";
+import { ActionIcon, Badge, Tooltip } from "@mantine/core";
+import { Man, Printer } from "tabler-icons-react";
 import ActionIcons from "../../../../Components/ActionIcons/ActionIcons";
 import ApproveModal from "./Modals/ApproveModal";
 import RejectModal from "./Modals/RejectModal";
+import ViewModal from "./Modals/ViewModal";
+import { adminRoutes } from "../../../../routes";
+import { MainBlue } from "../../../../Utils/ThemeColors";
+import QuotationPrint from "./QuotationPrint";
 
-export const QuotationViewHeader = ({setUpdate,pending}) => {
+export const QuotationViewHeader = ({ setUpdate, pending }) => {
   return [
     {
       name: "S.No",
@@ -21,7 +25,7 @@ export const QuotationViewHeader = ({setUpdate,pending}) => {
     },
     {
       name: "Client Name",
-      selector: (row) => row.client.client_name || 'N/A',
+      selector: (row) => row.client.client_name || "N/A",
       sortable: true,
       wrap: true,
     },
@@ -46,31 +50,62 @@ export const QuotationViewHeader = ({setUpdate,pending}) => {
     },
     {
       name: "Amount",
+      width: "120px",
       selector: (row) => row.grand_total_numeric,
       sortable: true,
       wrap: true,
     },
     {
       name: "Status",
-      selector: (row) => {return<Badge style={{cursor:'default'}} color={row.status=='Approved'?'green':(row.status=='Pending'?'yellow':(row.status=='Rejected'?'red':'blue'))}>{row.status}</Badge>},
+      width: "120px",
+      center: true,
+      selector: (row) => {
+        return (
+          <Badge
+            style={{ cursor: "default" }}
+            color={
+              row.status == "Approved"
+                ? "green"
+                : row.status == "Pending"
+                ? "yellow"
+                : row.status == "Rejected"
+                ? "red"
+                : "blue"
+            }
+          >
+            {row.status}
+          </Badge>
+        );
+      },
       sortable: true,
       wrap: true,
     },
     {
       name: "Actions",
+      center: true,
       cell: (row) => {
-        return(
-          <ActionIcons
-              Approve={pending=='Pending'?true:false}  
-              Reject={pending=='Pending'?true:false}
-              Print={pending=='Pending'?false:true}
-              disableApproveReject={pending=='Pending'?false:true}
-              ApproveModalTitle={"Approve Quotation"}
+        return (
+          <>
+            <ActionIcons
+              Approve={pending == "Pending" ? true : false}
+              Reject={pending == "Pending" ? true : false}
+              disableApproveReject={pending == "Pending" ? false : true}
               RejectModalTitle={"Reject Quotation"}
-              ApproveModalComponent={<ApproveModal Data={row} setUpdate={setUpdate} />}
-              RejectModalComponent={<RejectModal Data={row} setUpdate={setUpdate} />}
-          ></ActionIcons>
-        )
+              RejectModalComponent={
+                <RejectModal Data={row} setUpdate={setUpdate} />
+              }
+              ApproveModalTitle={"Approve Quotation"}
+              ApproveModalComponent={
+                <ApproveModal Data={row} setUpdate={setUpdate} />
+              }
+              ModalTitle={"View Quotation"}
+              ViewModalComponent={<ViewModal row={row} />}
+              edit={row.status === "Approved" ? false : true}
+              editUrl={`${adminRoutes.addQutotations}/${row.id}`}
+            />
+            {pending === "Approved" && <QuotationPrint rowData={row} />}
+          </>
+        );
       },
       sortable: true,
     },

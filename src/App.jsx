@@ -74,6 +74,14 @@ function App() {
                   element={<QuotationView pending={"Pending"} />}
                 />
                 <Route
+                  path={adminRoutes.editQutotations}
+                  element={<AddQuotations />}
+                />
+                <Route
+                  path={adminRoutes.addQutotations}
+                  element={<AddQuotations />}
+                />
+                <Route
                   path={adminRoutes.invoices}
                   element={<Index isInvoice={true} />}
                 />

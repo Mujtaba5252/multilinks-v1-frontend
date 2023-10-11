@@ -80,7 +80,7 @@ export const QuotationHeader = () => {
       cell: (row) => {
         return (
           <ActionIcons
-            edit={row.status=='Pending'?true:false}
+            edit={row.status == "Pending" ? true : false}
             blocked={false}
             editUrl={`${staffRoutes.addQuotation}/${row.id}`}
             ModalTitle={"Quotation Details"}
