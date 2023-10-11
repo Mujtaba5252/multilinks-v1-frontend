@@ -9,8 +9,9 @@ import Step1 from "./Step1";
 import VisaForm from "./VisaForm";
 import { axios_get, axios_post, axios_switch } from "../../../Utils/Axios";
 import toast from "react-hot-toast";
-import { staffRoutes } from "../../../routes";
+import { adminRoutes, staffRoutes } from "../../../routes";
 import CustomLoader from "../../../Components/CustomLoader/Customloader";
+import { Role, User } from "../../../Utils/UserDetails";
 
 const AddQuotations = () => {
   const param = useParams();
@@ -19,6 +20,7 @@ const AddQuotations = () => {
   const [active, setActive] = useState(0);
   const [total, setTotal] = useState(0);
   const [Loading, setLoading] = useState(false);
+  const role = Role();
   //for ssetting client data
   const clientData = location.state;
   if (location.state) {
@@ -34,7 +36,7 @@ const AddQuotations = () => {
       client_contact_number: !param.editId
         ? storedClientData?.client_contact_number
         : "",
-      quotation_date: !param.editId ? new Date() : null,
+      quotation_date: new Date(),
       service_type: "",
       offered_services: [],
       license_type: "",
@@ -166,7 +168,11 @@ const AddQuotations = () => {
               ? "Quotation Updated Successfully"
               : "Quotation Added Successfully"
           );
-          navigate(staffRoutes.viewQuotation);
+          {
+            role == true
+              ? navigate(adminRoutes.qutotations)
+              : navigate(staffRoutes.viewQuotation);
+          }
           localStorage.removeItem("clientData");
           setLoading(false);
         } else {
