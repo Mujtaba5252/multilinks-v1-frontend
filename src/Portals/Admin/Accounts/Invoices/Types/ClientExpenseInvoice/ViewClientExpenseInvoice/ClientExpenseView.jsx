@@ -5,31 +5,43 @@ import DataGrid from "../../../../../../../Components/DataTable/DataGrid";
 import PageWrapper from "../../../../../../../Components/PageWrapper/PageWrapper";
 import { axios_get } from "../../../../../../../Utils/Axios";
 import { ClientExpenseViewHeader } from "./ClientExpenseViewHeader";
+import ModalComponent from "../../../../../../../Components/ModalComponent/ModalComponent";
+import ApprovedQutationForExpense from "../AddClientExpense/Modal/ApprovedQutationsForExpense";
 
-function ClientExpenseView({ isInvoice }) {
-  const [clientExpenseData, setClientExpenseData] = useState({});
-  const [loading, setLoading] = useState(false);
+function ClientExpenseView({ isInvoice,pending }) {
+  const [clientExpenseData, setClientExpenseData] = useState([]);
+  const [addExpense, setAddExpense] = useState(false);
+  const [update, setUpdate] = useState(false); //for updating the data after adding the expense
   const fetchClientExpense = async () => {
-    setLoading(true);
     //url will be changed depending on the invoice or reciept using isInvoice
-    let url = "/invoice";
+    let url = "/client-expense?status="+pending;
     await axios_get({ url: url }).then((res) => {
       setClientExpenseData(res.data.data);
-      setLoading(false);
     });
   };
   useEffect(() => {
     fetchClientExpense();
-  }, []);
+    setUpdate(false);
+  }, [update]);
   return (
     <PageWrapper
       title={isInvoice ? "Client Expense Invoices" : "Client Expense Receipts"}
     >
+      <ModalComponent
+        opened={addExpense}
+        setOpened={setAddExpense}
+        radius
+        size={1200}
+        >
+          <ApprovedQutationForExpense />
+      </ModalComponent>
       <Grid>
         <Grid.Col span={12}>
           {isInvoice ? (
             <Flex justify="end">
-              <Button leftIcon={<CirclePlus />} variant="filled">
+              <Button leftIcon={<CirclePlus />} variant="filled" 
+                onClick={() => { setAddExpense(true) }}
+              >
                 Add Expense
               </Button>
             </Flex>
@@ -38,21 +50,11 @@ function ClientExpenseView({ isInvoice }) {
           )}
         </Grid.Col>
         <Grid.Col span={12}>
-          {loading ? (
-            <Loader />
-          ) : clientExpenseData.length > 0 ? (
             <DataGrid
-              columns={ClientExpenseViewHeader(true)}
+              columns={ClientExpenseViewHeader({isInvoice,setUpdate})}
               data={clientExpenseData}
               pagination={true}
             />
-          ) : (
-            <Text align="center">
-              {isInvoice
-                ? "No Client Expense Invoices to Display"
-                : "No Client Expense Recipts to Display"}
-            </Text>
-          )}
         </Grid.Col>
       </Grid>
     </PageWrapper>

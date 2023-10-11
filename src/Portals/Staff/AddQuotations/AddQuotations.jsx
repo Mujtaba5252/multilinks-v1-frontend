@@ -13,6 +13,7 @@ import { adminRoutes, staffRoutes } from "../../../routes";
 import CustomLoader from "../../../Components/CustomLoader/Customloader";
 import { Role, User } from "../../../Utils/UserDetails";
 
+import { v4 as uuidGenerator } from "uuid";
 const AddQuotations = () => {
   const param = useParams();
   const location = useLocation();
@@ -132,9 +133,10 @@ const AddQuotations = () => {
     setLoading(true);
     const values = {
       offered_services: formValues.offered_services?.map((item) => ({
+        UUID: uuidGenerator(),
         service: item === "entryPermit" ? formValues.entryPermit : item,
         amount: formValues[`${item}Amount`],
-        ispaid: false,
+        is_paid: false,
       })),
       quotation_ID: formValues.UID,
       quotation_date: formValues.quotation_date,

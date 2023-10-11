@@ -11,11 +11,7 @@ function ApproveModalPayment({Data,setUpdate}) {
     const handleApprove = async(id) => {
         let url='/invoice/'+id
         try{
-            console.log(url)
-            const values={
-                status:'Approved',
-            }
-            await axios_put({url:url, data:{values}}).then((res)=>{
+            await axios_put({url:url, data:{status:'Approved'}}).then((res)=>{
                 if(res.status === 200 || res.status==201){
                     toast.success('Payment Invoice Approved Successfully')
                     setUpdate(true)
@@ -25,7 +21,7 @@ function ApproveModalPayment({Data,setUpdate}) {
                     toast.error(res.data.message)
                 }
                 else{
-                    toast.error('Something went wrong')
+                    toast.error(res.data.message)
                 }
             })
         }

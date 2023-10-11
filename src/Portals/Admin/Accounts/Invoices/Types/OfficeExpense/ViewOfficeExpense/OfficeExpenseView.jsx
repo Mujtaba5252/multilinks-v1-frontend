@@ -4,19 +4,29 @@ import { Button, Flex, Grid, Loader, Text } from "@mantine/core";
 import { OfficeExpenseViewHeader } from "./OfficeExpenseViewHeader";
 import DataGrid from "../../../../../../../Components/DataTable/DataGrid";
 import { CirclePlus } from "tabler-icons-react";
-function OfficeExpenseView({ isInvoice }) {
-  const [officeExpenseData, setOfficeExpenseData] = useState({});
-  const [loading, setLoading] = useState(false);
+import { axios_get } from "../../../../../../../Utils/Axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { adminRoutes } from "../../../../../../../routes";
+
+function OfficeExpenseView({ isInvoice,pending }) {
+  const navigate=useNavigate();
+  const [officeExpenseData, setOfficeExpenseData] = useState([]);
+  let url="/office-expense?staus="+pending;
   const fetchOfficeExpense = async () => {
-    //api is not ready yet
-    setLoading(true);
-    //url will be changed depending on the invoice or reciept using isInvoice
-    setLoading(false);
+      await axios_get({url:url}).then((res)=>{
+        if(res.status===200){
+          setOfficeExpenseData(res.data.data)
+        }
+        else{
+          toast.error(res.data.message)
+        }
+      })
   };
 
   useEffect(() => {
     fetchOfficeExpense();
-  }, []);
+  }, [url]);
   return (
     <>
       <PageWrapper
@@ -28,7 +38,9 @@ function OfficeExpenseView({ isInvoice }) {
           <Grid.Col span={12}>
             {isInvoice ? (
               <Flex justify="end">
-                <Button leftIcon={<CirclePlus />} variant="filled">
+                <Button leftIcon={<CirclePlus />} variant="filled"
+                  onClick={()=>navigate(adminRoutes.addOfficeExpenseInvoice)}
+                >
                   Add Expense
                 </Button>
               </Flex>
@@ -37,21 +49,11 @@ function OfficeExpenseView({ isInvoice }) {
             )}
           </Grid.Col>
           <Grid.Col span={12}>
-            {loading ? (
-              <Loader />
-            ) : officeExpenseData.length > 0 ? (
               <DataGrid
-                coloum={OfficeExpenseViewHeader(true)}
+                coloum={OfficeExpenseViewHeader({isInvoice})}
                 data={officeExpenseData}
                 pagination={true}
               />
-            ) : (
-              <Text align="center">
-                {isInvoice
-                  ? "No Office Expense Invoices to Display"
-                  : "No Office Expense to Receipts Display"}
-              </Text>
-            )}
           </Grid.Col>
         </Grid>
       </PageWrapper>

@@ -30,7 +30,6 @@ import { backendUrl } from "../../Utils/Constants";
 import { toast } from "react-hot-toast";
 import { Role, Token } from "../../Utils/UserDetails";
 const Login = () => {
-  const theame = useMantineTheme();
   const isSmall = useMediaQuery("(max-width: 992px)");
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
@@ -125,8 +124,8 @@ const Login = () => {
     <>
       <Grid
         style={{
-          width: "100vw",
-          height: "100vh",
+          width: "100.5vw",
+          height: "101.1vh",
           backgroundColor: MainBlue(),
         }}
       >
@@ -134,7 +133,7 @@ const Login = () => {
           <Grid.Col md={6}>
             <Grid>
               <Grid.Col span={12}>
-                <Image src={logo} style={{ width: "200px" }} />
+                <Image mt={20} ml={10} src={logo} style={{ width: "200px" }} />
               </Grid.Col>
               <Grid.Col span={12}>
                 <Center mt={30}>

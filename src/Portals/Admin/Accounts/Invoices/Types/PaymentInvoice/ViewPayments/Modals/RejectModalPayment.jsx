@@ -7,16 +7,12 @@ import toast from 'react-hot-toast';
 import { adminRoutes } from '../../../../../../../../routes';
 
 
-function RejectModalPayment({Data}) {
+function RejectModalPayment({Data,setUpdate}) {
   const navigate = useNavigate();
   const handleReject = (id) => {
       let url='/invoice/'+id
       try{
-          console.log(url)
-          const values={
-            status:'Rejected',
-        }
-          axios_put({url:url, data:{values}}).then((res)=>{
+          axios_put({url:url, data:{ status:'Rejected',}}).then((res)=>{
               if(res.status === 200){
                   toast.success('Payment Invoice Rejected')
                   setUpdate(true)

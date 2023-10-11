@@ -69,7 +69,7 @@ export const PaymentViewHeader = ({isInvoice,setUpdate}) => {
                   RejectModalTitle={"Reject Payment Invoice"}
                   disableApproveReject={row.status=='Approved'?true:false}
                   ApproveModalComponent={<ApproveModalPayment Data={row} setUpdate={setUpdate}/>}
-                  RejectModalComponent={<RejectModalPayment Data={row} />}                 
+                  RejectModalComponent={<RejectModalPayment Data={row} setUpdate={setUpdate}/>}                 
                 >
 
                 </ActionIcons>:
