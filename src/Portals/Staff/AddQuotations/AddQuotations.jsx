@@ -10,8 +10,8 @@ import VisaForm from "./VisaForm";
 import { axios_get, axios_post, axios_switch } from "../../../Utils/Axios";
 import toast from "react-hot-toast";
 import { adminRoutes, staffRoutes } from "../../../routes";
-import CustomLoader from "../../../Components/CustomLoader/Customloader";
 import { Role, User } from "../../../Utils/UserDetails";
+import CustomLoader from "../../../Components/CustomLoader/CustomLoader";
 
 import { v4 as uuidGenerator } from "uuid";
 const AddQuotations = () => {
