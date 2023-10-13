@@ -7,6 +7,7 @@ import ViewModal from "./Modals/ViewModal";
 import { adminRoutes } from "../../../../routes";
 import { MainBlue } from "../../../../Utils/ThemeColors";
 import QuotationPrint from "./QuotationPrint";
+import { CurrencyFormatter } from "../../../../Utils/CommonFormatters";
 
 export const QuotationViewHeader = ({ setUpdate, pending }) => {
   return [
@@ -51,7 +52,7 @@ export const QuotationViewHeader = ({ setUpdate, pending }) => {
     {
       name: "Amount",
       width: "120px",
-      selector: (row) => row.grand_total_numeric,
+      selector: (row) => CurrencyFormatter(row.grand_total_numeric),
       sortable: true,
       wrap: true,
     },

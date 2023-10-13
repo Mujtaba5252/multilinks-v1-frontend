@@ -7,6 +7,7 @@ import ApproveModal from "./Modals/ApproveModal";
 import { MainBlue } from "../../../../../../../Utils/ThemeColors";
 import RejectModal from "./Modals/RejectModal";
 import ClientExpenseReceiptPrint from "./ClientExpenseReceiptPrint";
+import ClientExpenseViewModal from "./Modals/ClientExpenseViewModal";
 
 export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
   // const [openViewModal, setOpenViewModal] = useState(false);
@@ -21,7 +22,7 @@ export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
       name: "Client Expense ID",
       selector: (row) => row.client_expense_ID,
       sortable: true,
-      width: "130px",
+      width: "170px",
       wrap: true,
     },
     {
@@ -33,12 +34,14 @@ export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
     },
     {
       name: "Service Type",
+      width: "130px",
       selector: (row) => row.quotation.service_type,
       sortable: true,
       wrap: true,
     },
     {
       name: "Payment To",
+      width: "140px",
       selector: (row) => row.payment_to,
       sortable: true,
       wrap: true,
@@ -46,6 +49,7 @@ export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
     {
       name: "Payement For",
       selector: (row) => row.payment_for,
+      width: "140px",
       sortable: true,
       wrap: true,
     },
@@ -57,6 +61,7 @@ export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
     },
     {
       name: "Status",
+      center: true,
       selector: (row) => {
         return (
           <Badge
@@ -80,12 +85,15 @@ export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
     },
     {
       name: "Actions",
+      center: true,
       cell: (row) => {
         return (
           <>
             <ActionIcons
               Approve={isInvoice ? true : false}
               Reject={isInvoice ? true : false}
+              ModalTitle={"Client Expense Details"}
+              ViewModalComponent={<ClientExpenseViewModal row={row} />}
               ApproveModalTitle={
                 <Title order={3} style={{ fontSize: "20px" }}>
                   Remaining Client Balance:{" "}

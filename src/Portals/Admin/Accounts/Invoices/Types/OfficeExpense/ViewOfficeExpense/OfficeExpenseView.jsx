@@ -9,19 +9,18 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { adminRoutes } from "../../../../../../../routes";
 
-function OfficeExpenseView({ isInvoice,pending }) {
-  const navigate=useNavigate();
+function OfficeExpenseView({ isInvoice, pending }) {
+  const navigate = useNavigate();
   const [officeExpenseData, setOfficeExpenseData] = useState([]);
-  let url="/office-expense?staus="+pending;
+  let url = "/office-expense?staus=" + pending;
   const fetchOfficeExpense = async () => {
-      await axios_get({url:url}).then((res)=>{
-        if(res.status===200){
-          setOfficeExpenseData(res.data.data)
-        }
-        else{
-          toast.error(res.data.message)
-        }
-      })
+    await axios_get({ url: url }).then((res) => {
+      if (res.status === 200) {
+        setOfficeExpenseData(res.data.data);
+      } else {
+        toast.error(res.data.message);
+      }
+    });
   };
 
   useEffect(() => {
@@ -38,8 +37,10 @@ function OfficeExpenseView({ isInvoice,pending }) {
           <Grid.Col span={12}>
             {isInvoice ? (
               <Flex justify="end">
-                <Button leftIcon={<CirclePlus />} variant="filled"
-                  onClick={()=>navigate(adminRoutes.addOfficeExpenseInvoice)}
+                <Button
+                  leftIcon={<CirclePlus />}
+                  variant="filled"
+                  onClick={() => navigate(adminRoutes.addOfficeExpenseInvoice)}
                 >
                   Add Expense
                 </Button>
@@ -49,11 +50,11 @@ function OfficeExpenseView({ isInvoice,pending }) {
             )}
           </Grid.Col>
           <Grid.Col span={12}>
-              <DataGrid
-                coloum={OfficeExpenseViewHeader({isInvoice})}
-                data={officeExpenseData}
-                pagination={true}
-              />
+            <DataGrid
+              columns={OfficeExpenseViewHeader({ isInvoice })}
+              data={officeExpenseData}
+              pagination={true}
+            />
           </Grid.Col>
         </Grid>
       </PageWrapper>
