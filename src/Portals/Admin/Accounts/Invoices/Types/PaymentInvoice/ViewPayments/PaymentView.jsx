@@ -4,12 +4,12 @@ import { Grid, Loader, Text } from "@mantine/core";
 import { axios_get } from "../../../../../../../Utils/Axios";
 import { PaymentViewHeader } from "./PaymentViewHeader";
 import DataGrid from "../../../../../../../Components/DataTable/DataGrid";
-function PaymentView({ isInvoice,pending }) {
+function PaymentView({ isInvoice, pending }) {
   const [paymentData, setPaymentData] = useState([]);
   const [update, setUpdate] = useState(false);
-  let url = "/invoice?status="+pending;
+  let url = "/invoice?status=" + pending;
   const fetchPayment = async () => {
-    await axios_get({ url: url,withSNo:true }).then((res) => {
+    await axios_get({ url: url, withSNo: true }).then((res) => {
       setPaymentData(res.data.data);
       console.log(res.data.data);
     });
@@ -17,7 +17,7 @@ function PaymentView({ isInvoice,pending }) {
   useEffect(() => {
     fetchPayment();
     setUpdate(false);
-  }, [update,url]);
+  }, [update, url]);
   return (
     <>
       <PageWrapper title={isInvoice ? "Payment Invoices" : "Payment Receipts"}>
@@ -30,13 +30,11 @@ function PaymentView({ isInvoice,pending }) {
             )}
           </Grid.Col>
           <Grid.Col span={12}>
-            { paymentData.length > 0 ? (
-              <DataGrid
-                columns={PaymentViewHeader({isInvoice,setUpdate})}
-                data={paymentData}
-                pagination={true}
-              />)
-            : (<Text align="center">No Data Found</Text>)}
+            <DataGrid
+              columns={PaymentViewHeader({ isInvoice, setUpdate })}
+              data={paymentData}
+              pagination={true}
+            />
           </Grid.Col>
         </Grid>
       </PageWrapper>

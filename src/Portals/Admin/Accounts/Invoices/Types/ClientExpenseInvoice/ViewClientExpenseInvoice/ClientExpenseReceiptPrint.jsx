@@ -16,12 +16,12 @@ import {
   Title,
   Tooltip,
 } from "@mantine/core";
-import logo from "../../../../../../../assets/images/logo.png";
 import { MainBlue } from "../../../../../../../Utils/ThemeColors";
 import { CurrencyFormatter } from "../../../../../../../Utils/CommonFormatters";
 import ForwardRefWrapper from "../../../../../../../Components/ForwardRefWrapper/ForwardRefWrapper";
+import logo from "../../../../../../../assets/images/logo.png";
 
-const ReceiptPrint = ({ rowData }) => {
+const ClientExpenseReceiptPrint = ({ rowData }) => {
   const componentRef = useRef(null);
 
   const handlePrint = useReactToPrint({
@@ -66,7 +66,7 @@ const ReceiptPrint = ({ rowData }) => {
           <Divider my="sm" variant="dashed" />
           <Stack spacing={0}>
             <Text size={30} align="center" fw={"bold"}>
-              PAYMENT
+              EXPENSE
             </Text>
             <Text size={14} align="center">
               {rowData?.quotation_ID}
@@ -128,28 +128,40 @@ const ReceiptPrint = ({ rowData }) => {
                 <Text size={14}>{rowData?.staff.name}</Text>
               </Group>
             )}
+            {rowData?.payment_for && (
+              <Group spacing={10}>
+                <Text size={14} fw={"bold"}>
+                  Payment For
+                </Text>
+                <Text size={14}>{rowData?.payment_for}</Text>
+              </Group>
+            )}
+            {rowData?.payment_to && (
+              <Group spacing={10}>
+                <Text size={14} fw={"bold"}>
+                  Payment To
+                </Text>
+                <Text size={14}>{rowData?.payment_to}</Text>
+              </Group>
+            )}
           </SimpleGrid>
           <Divider my="sm" size={2} color="gray" />
 
           <Grid mt={20}>
-            <Grid.Col span={6}>
-              <Text size={18} fw={"bold"}>
-                Amount Received
-              </Text>
-            </Grid.Col>
-            <Grid.Col span={6}>
-              <Text size={18}>
-                {CurrencyFormatter(rowData?.amount_received)}
-              </Text>
-            </Grid.Col>
-            <Grid.Col span={6}>
-              <Text size={18} fw={"bold"}>
-                Amount Received (In Words)
-              </Text>
-            </Grid.Col>
-            <Grid.Col span={6}>
-              <Text size={18}>{rowData?.amount_received_in_words}</Text>
-            </Grid.Col>
+            {rowData?.expense_amount && (
+              <>
+                <Grid.Col span={6}>
+                  <Text size={18} fw={"bold"}>
+                    Expense Amount
+                  </Text>
+                </Grid.Col>
+                <Grid.Col span={6}>
+                  <Text size={18}>
+                    {CurrencyFormatter(rowData?.expense_amount)}
+                  </Text>
+                </Grid.Col>
+              </>
+            )}
           </Grid>
 
           <Flex direction={"column"} align={"flex-end"} mt={440}>
@@ -163,4 +175,4 @@ const ReceiptPrint = ({ rowData }) => {
     </>
   );
 };
-export default ReceiptPrint;
+export default ClientExpenseReceiptPrint;

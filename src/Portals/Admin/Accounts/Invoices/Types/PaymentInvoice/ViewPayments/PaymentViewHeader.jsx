@@ -4,6 +4,8 @@ import ApproveModalPayment from "./Modals/ApproveModalPayment";
 import RejectModalPayment from "./Modals/RejectModalPayment";
 import { CurrencyFormatter } from "../../../../../../../Utils/CommonFormatters";
 import ReceiptPrint from "../PDF/ReceiptPrint";
+import PaymentInvoiceModal from "./Modals/PaymentInvoiceModal";
+import PaymentReceiptModal from "./Modals/PaymentReceiptModal";
 export const PaymentViewHeader = ({ isInvoice, setUpdate }) => {
   return [
     {
@@ -46,6 +48,7 @@ export const PaymentViewHeader = ({ isInvoice, setUpdate }) => {
     },
     {
       name: "Invoice Amount",
+      width: "150px",
       selector: (row) => CurrencyFormatter(row.amount_received),
       sortable: true,
       wrap: true,
@@ -82,6 +85,8 @@ export const PaymentViewHeader = ({ isInvoice, setUpdate }) => {
               <ActionIcons
                 Approve={true}
                 Reject={true}
+                ModalTitle={"Payment Invoice"}
+                ViewModalComponent={<PaymentInvoiceModal />}
                 ApproveModalTitle={"Approve Payment Invoice"}
                 RejectModalTitle={"Reject Payment Invoice"}
                 disableApproveReject={row.status == "Approved" ? true : false}
@@ -91,10 +96,13 @@ export const PaymentViewHeader = ({ isInvoice, setUpdate }) => {
                 RejectModalComponent={
                   <RejectModalPayment Data={row} setUpdate={setUpdate} />
                 }
-              ></ActionIcons>
+              />
             ) : (
               <>
-                <ActionIcons />
+                <ActionIcons
+                  ModalTitle={"Payment Receipt"}
+                  ViewModalComponent={<PaymentReceiptModal row={row} />}
+                />
                 <ReceiptPrint rowData={row} />
               </>
             )}
