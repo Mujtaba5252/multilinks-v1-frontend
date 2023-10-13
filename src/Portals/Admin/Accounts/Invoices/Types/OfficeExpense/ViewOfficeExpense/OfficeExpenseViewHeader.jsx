@@ -1,6 +1,7 @@
 import { CircleCheck, CircleX, Eye, Printer } from "tabler-icons-react";
 import { CurrencyFormatter } from "../../../../../../../Utils/CommonFormatters";
 import ActionIcons from "../../../../../../../Components/ActionIcons/ActionIcons";
+import OfficeExpenseViewModal from "./Modal/OfficeExpenseViewModal";
 
 export const OfficeExpenseViewHeader = ({ isInvoice }) => {
   return [
@@ -38,7 +39,12 @@ export const OfficeExpenseViewHeader = ({ isInvoice }) => {
     {
       name: "Actions",
       cell: (row) => {
-        return <ActionIcons />;
+        return (
+          <ActionIcons
+            ModalTitle={"View Office Expense"}
+            ViewModalComponent={<OfficeExpenseViewModal row={row} />}
+          />
+        );
       },
       sortable: true,
     },
