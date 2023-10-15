@@ -1,4 +1,4 @@
-import { Button, Grid, Group, TextInput } from "@mantine/core";
+import { Button, Grid, Group, Input, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -12,11 +12,12 @@ import {
   phoneRegex,
 } from "../../../Components/Regex/Regex";
 import { UserContext } from "../../../Contexts/UserContext";
-import {
-  axios_get,
-  axios_switch
-} from "../../../Utils/Axios";
+import { axios_get, axios_switch } from "../../../Utils/Axios";
 import { staffRoutes } from "../../../routes";
+import { MIME_TYPES } from "@mantine/dropzone";
+import ImagesAndFileUpload from "../../../Components/ImagesAndFileUpload/ImagesAndFileUpload";
+import { uploadMultipleImages } from "../../../Components/FireBase/Firebase";
+
 // import  InputMask from "@react-input/mask";
 
 const AddClient = () => {
@@ -24,6 +25,7 @@ const AddClient = () => {
   const params = useParams();
   const [loader, setLoader] = useState(false);
   const { user } = useContext(UserContext);
+  const [attachments, setAttachments] = useState([]);
 
   //form initial values and validation
   const form = useForm({
@@ -40,7 +42,7 @@ const AddClient = () => {
           ? null
           : "Please Enter Valid Name",
       client_nationality: (value) =>
-        nameRegex.test(value) && value.length > 3
+        nameRegex.test(value) && value.length > 2
           ? null
           : "Please Enter Valid Nationality",
       client_email: (value) =>
@@ -51,7 +53,7 @@ const AddClient = () => {
   });
 
   //for edit data
-  const getCleintData = async () => {
+  const getClientData = async () => {
     setLoader(true);
     axios_get({ url: `/client/${params.editId}` })
       .then((res) => {
@@ -63,6 +65,7 @@ const AddClient = () => {
           client_contact_number: data?.client_contact_number,
           client_optional_contact: data?.client_optional_contact,
         });
+        setAttachments(data?.attachments || []);
         setLoader(false);
       })
       .catch((err) => {
@@ -72,14 +75,20 @@ const AddClient = () => {
   };
   useEffect(() => {
     if (params.editId) {
-      getCleintData();
+      getClientData();
     }
   }, [params.editId]);
 
   //handle submit
   const handleSubmit = async (formValues) => {
     setLoader(true);
-    const values = { ...formValues };
+    const attachments1 = await uploadMultipleImages(attachments, "client");
+    const values = {
+      ...formValues,
+
+      attachments: attachments1,
+    };
+    console.log("values", values);
     try {
       let url;
       if (params.editId) {
@@ -176,6 +185,17 @@ const AddClient = () => {
               />
             </Grid.Col>
           </Grid>
+          <Input.Wrapper>
+            <ImagesAndFileUpload
+              allMedia={attachments}
+              setAllMedia={setAttachments}
+              format={[MIME_TYPES.pdf]}
+              type="document"
+              cols={4}
+              multiple={true}
+              title="Attachments"
+            />
+          </Input.Wrapper>
           <Group position="right">
             <Button
               mt={"md"}
