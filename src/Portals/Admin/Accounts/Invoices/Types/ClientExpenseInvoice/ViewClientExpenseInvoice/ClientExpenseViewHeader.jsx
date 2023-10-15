@@ -8,9 +8,12 @@ import { MainBlue } from "../../../../../../../Utils/ThemeColors";
 import RejectModal from "./Modals/RejectModal";
 import ClientExpenseReceiptPrint from "./ClientExpenseReceiptPrint";
 import ClientExpenseViewModal from "./Modals/ClientExpenseViewModal";
+import AttachmentModal from "./Modals/AttachmentModal";
 
 export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
   // const [openViewModal, setOpenViewModal] = useState(false);
+  const [openRejectModal, setOpenRejectModal] = useState(false);
+  const [attachementModal, setAttachementModal] = useState(false);
   return [
     {
       name: "S.No",
@@ -110,7 +113,23 @@ export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
               }
               RejectModalTitle={"Reject Client Expense"}
               RejectModalComponent={
-                <RejectModal Data={row} setUpdate={setUpdate} />
+                <RejectModal
+                  Data={row}
+                  setUpdate={setUpdate}
+                  setOpenRejectModal={setOpenRejectModal}
+                />
+              }
+              setOpenRejectModal={setOpenRejectModal}
+              openRejectModal={openRejectModal}
+              attachementModal={attachementModal}
+              setAttachementModal={setAttachementModal}
+              attachment={true}
+              attachmentModalTitle={"Uploaded Attachments"}
+              AttachmentModalComponent={
+                <AttachmentModal
+                  row={row}
+                  setAttachmentModal={setAttachementModal}
+                />
               }
             />
             <ClientExpenseReceiptPrint rowData={row} />

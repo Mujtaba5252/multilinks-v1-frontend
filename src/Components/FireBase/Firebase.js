@@ -33,29 +33,20 @@ export const storage = getStorage(app);
 // Initialize Firebase
 // const analytics = getAnalytics(app);
 
-export const uploadSingleFile = ({
-  file,
-  folderName,
-  urlSetter,
-  setProgress,
-}) => {
+export const uploadSingleFile = async ({ file, folderName }) => {
   folderName = folderName || "uploads";
+  file = file[0];
   if (!file) return;
-  const storageRef = ref(storage, `/${folderName}/${file.name}`);
-  const uploadTask = uploadBytesResumable(storageRef, file);
-  uploadTask.on(
-    "state_changed",
-    (snapshot) => {
-      const prog = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
-      setProgress(prog);
-    },
-    (err) => console.log(err),
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((url) => urlSetter(url));
-    }
-  );
+  const storageRef = ref(storage, `/${folderName}/${uuidv4()}`);
+  const snapshot = await uploadBytes(storageRef, file);
+  const url = await getDownloadURL(snapshot.ref);
+  console.log("file", file);
+  return {
+    path: url,
+    name: file.name,
+    size: file.size,
+    uploaded: true,
+  };
 };
 export const uploadMultipleImages = async (files, folderName) => {
   const urls = [];
@@ -67,10 +58,7 @@ export const uploadMultipleImages = async (files, folderName) => {
       } else if (typeof file === "string") {
         urls.push(file);
       } else {
-        const storageRef = ref(
-          storage,
-          `${folderName}/${uuidv4() + file.name}`
-        );
+        const storageRef = ref(storage, `${folderName}/${uuidv4()}`);
         const snapshot = await uploadBytes(storageRef, file);
         const url = await getDownloadURL(snapshot.ref);
         urls.splice(ind, 0, url);
