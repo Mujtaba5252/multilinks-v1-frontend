@@ -1,4 +1,12 @@
-import { Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
+import {
+  Badge,
+  Group,
+  Image,
+  Paper,
+  SimpleGrid,
+  Stack,
+  Text,
+} from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import React from "react";
 import persons from "../../../assets/svgs/persons.svg";
@@ -62,11 +70,17 @@ const CardStats = () => {
             />
             <div>
               <Text fw={700} size={"md"} color="white">
-                Total Staff
+                CLIENTS
               </Text>
-              <Text color="white" size="xs" tt="uppercase" fw={700}>
-                No Of staff Person
-              </Text>
+              <Badge
+                color="yellow"
+                size="xs"
+                variant="filled"
+                tt="uppercase"
+                fw={700}
+              >
+                Active Clients
+              </Badge>
             </div>
             <div
               style={{
@@ -92,11 +106,17 @@ const CardStats = () => {
             />
             <div>
               <Text fw={700} size={"md"} color="white">
-                Total Staff
+                CLIENTS
               </Text>
-              <Text color="white" size="xs" tt="uppercase" fw={700}>
-                No Of staff Person
-              </Text>
+              <Badge
+                color="green"
+                variant="filled"
+                size="xs"
+                tt="uppercase"
+                fw={700}
+              >
+                Completed Clients
+              </Badge>
             </div>
             <div
               style={{
