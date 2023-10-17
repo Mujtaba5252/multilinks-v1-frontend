@@ -29,13 +29,26 @@ export const LeavesViewHeader = ({ setUpdate }) => {
     },
     {
       name: "Staff ID",
+      width: "130px",
       selector: (row) => row.staff.staff_ID,
       sortable: true,
       wrap: true,
     },
     {
       name: "Date",
-      selector: (row) => row.leave_date,
+      selector: (row) => new Date(row.createdAt).toDateString(),
+      sortable: true,
+      wrap: true,
+    },
+    {
+      name: "Leave Date",
+      width: "160px",
+      selector: (row) => {
+        const startDate = new Date(row.leave_date[0]);
+        const endDate = new Date(row.leave_date[1]);
+
+        return `${startDate.toDateString()} - ${endDate.toDateString()}`;
+      },
       sortable: true,
       wrap: true,
     },
