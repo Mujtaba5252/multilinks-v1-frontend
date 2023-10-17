@@ -48,10 +48,6 @@ const ModalComponent = ({
         inner: {
           padding: "0px",
         },
-
-        kea9ny: {
-          backgroundColor: "red",
-        },
       }}
     >
       <Container p="sm" size={"xl"}>

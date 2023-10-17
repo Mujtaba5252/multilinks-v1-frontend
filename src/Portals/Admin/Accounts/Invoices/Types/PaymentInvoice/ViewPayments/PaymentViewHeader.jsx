@@ -6,7 +6,10 @@ import { CurrencyFormatter } from "../../../../../../../Utils/CommonFormatters";
 import ReceiptPrint from "../PDF/ReceiptPrint";
 import PaymentInvoiceModal from "./Modals/PaymentInvoiceModal";
 import PaymentReceiptModal from "./Modals/PaymentReceiptModal";
+import AttachmentModal from "./Modals/AttachmentModal";
+import { useState } from "react";
 export const PaymentViewHeader = ({ isInvoice, setUpdate }) => {
+  const [attachementModal, setAttachementModal] = useState(false);
   return [
     {
       name: "S.No",
@@ -102,6 +105,9 @@ export const PaymentViewHeader = ({ isInvoice, setUpdate }) => {
                 <ActionIcons
                   ModalTitle={"Payment Receipt"}
                   ViewModalComponent={<PaymentReceiptModal row={row} />}
+                  attachment={true}
+                  attachmentModalTitle={"Uploaded Attachments"}
+                  AttachmentModalComponent={<AttachmentModal row={row} />}
                 />
                 <ReceiptPrint rowData={row} />
               </>

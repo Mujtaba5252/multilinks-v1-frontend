@@ -1,7 +1,18 @@
-import { Badge, Flex, Group, Paper, SimpleGrid, Text } from "@mantine/core";
+import {
+  Anchor,
+  Badge,
+  Divider,
+  Flex,
+  Grid,
+  Group,
+  Paper,
+  SimpleGrid,
+  Text,
+} from "@mantine/core";
 import React from "react";
 import {
   ClipboardTypography,
+  CloudUpload,
   CurrencyDirham,
   Exchange,
   Id,
@@ -9,8 +20,10 @@ import {
   StatusChange,
 } from "tabler-icons-react";
 import { CurrencyFormatter } from "../../../../../../../../Utils/CommonFormatters";
+import { useMediaQuery } from "@mantine/hooks";
 
 const PaymentReceiptModal = ({ row }) => {
+  const matches = useMediaQuery("(max-width: 768px)");
   return (
     <Paper>
       <Flex direction={"column"} align={"left"} w={"100%"}>
@@ -97,6 +110,27 @@ const PaymentReceiptModal = ({ row }) => {
           )}
         </SimpleGrid>
       </Flex>
+      <Grid>
+        <Grid.Col>
+          <Divider my={"xs"} />
+          {row?.attachments?.map((item, index) => {
+            return (
+              <Anchor href={item?.path} target="_blank">
+                <Group
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  {matches && <CloudUpload color="red" />}
+                  <Text size={"lg"} weight="bold" color="red">
+                    Payment Receipts Attachments ({index + 1})
+                  </Text>
+                </Group>
+              </Anchor>
+            );
+          })}
+        </Grid.Col>
+      </Grid>
     </Paper>
   );
 };

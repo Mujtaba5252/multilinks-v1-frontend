@@ -1,28 +1,29 @@
-import { Button, Group, Input, SimpleGrid } from "@mantine/core";
 import React, { useState } from "react";
-import ImagesAndFileUpload from "../../../../../../../../Components/ImagesAndFileUpload/ImagesAndFileUpload";
-import { MIME_TYPES } from "@mantine/dropzone";
-import { uploadMultipleImages } from "../../../../../../../../Components/FireBase/Firebase";
-import { axios_put } from "../../../../../../../../Utils/Axios";
-import toast from "react-hot-toast";
 import CustomLoader from "../../../../../../../../Components/CustomLoader/Customloader";
-import { adminRoutes } from "../../../../../../../../routes";
+import { Button, Group, Input } from "@mantine/core";
+import ImagesAndFileUpload from "../../../../../../../../Components/ImagesAndFileUpload/ImagesAndFileUpload";
 import { useNavigate } from "react-router-dom";
+import { axios_put } from "../../../../../../../../Utils/Axios";
+import { uploadMultipleImages } from "../../../../../../../../Components/FireBase/Firebase";
+import toast from "react-hot-toast";
+import { adminRoutes } from "../../../../../../../../routes";
+import { MIME_TYPES } from "@mantine/dropzone";
 
 const AttachmentModal = ({ row }) => {
   const [attachments, setAttachments] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  console.log(row);
   const handleSubmit = async () => {
     setLoading(true);
     const expenseAttachments = await uploadMultipleImages(
       attachments,
-      "expense"
+      "office-expense"
     );
     const existingAttachments = row?.attachments || [];
     try {
       axios_put({
-        url: `/client-expense/${row.id}`,
+        url: `/office-expense/${row.id}`,
         data: {
           attachments: [...existingAttachments, ...expenseAttachments],
           allow_me: true,
@@ -30,8 +31,8 @@ const AttachmentModal = ({ row }) => {
       }).then((res) => {
         if (res) {
           toast.success("Attachments Added Successfully");
+          navigate(adminRoutes.officeExpenseReceipts);
           setLoading(false);
-          navigate(adminRoutes.clientExpenseReceipts);
         } else {
           toast.error("Error while adding attachments");
           setLoading(false);
@@ -48,7 +49,7 @@ const AttachmentModal = ({ row }) => {
         <ImagesAndFileUpload
           allMedia={attachments}
           setAllMedia={setAttachments}
-          format={[MIME_TYPES.pdf]}
+          format={[MIME_TYPES.pdf, MIME_TYPES.doc, MIME_TYPES.docx]}
           type="document"
           cols={2}
           multiple={true}

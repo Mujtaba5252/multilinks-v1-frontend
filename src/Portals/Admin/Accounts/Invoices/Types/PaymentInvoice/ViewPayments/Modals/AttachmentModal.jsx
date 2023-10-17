@@ -1,28 +1,30 @@
-import { Button, Group, Input, SimpleGrid } from "@mantine/core";
 import React, { useState } from "react";
+import CustomLoader from "../../../../../../../../Components/CustomLoader/Customloader";
 import ImagesAndFileUpload from "../../../../../../../../Components/ImagesAndFileUpload/ImagesAndFileUpload";
-import { MIME_TYPES } from "@mantine/dropzone";
+import { Button, Group, Input } from "@mantine/core";
 import { uploadMultipleImages } from "../../../../../../../../Components/FireBase/Firebase";
+import { MIME_TYPES } from "@mantine/dropzone";
 import { axios_put } from "../../../../../../../../Utils/Axios";
 import toast from "react-hot-toast";
-import CustomLoader from "../../../../../../../../Components/CustomLoader/Customloader";
-import { adminRoutes } from "../../../../../../../../routes";
 import { useNavigate } from "react-router-dom";
+import { adminRoutes } from "../../../../../../../../routes";
 
 const AttachmentModal = ({ row }) => {
   const [attachments, setAttachments] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  console.log(row);
   const handleSubmit = async () => {
     setLoading(true);
+
     const expenseAttachments = await uploadMultipleImages(
       attachments,
-      "expense"
+      "invoice"
     );
-    const existingAttachments = row?.attachments || [];
+    const existingAttachments = row.attachments || [];
     try {
       axios_put({
-        url: `/client-expense/${row.id}`,
+        url: `/invoice/${row.id}`,
         data: {
           attachments: [...existingAttachments, ...expenseAttachments],
           allow_me: true,
@@ -30,8 +32,8 @@ const AttachmentModal = ({ row }) => {
       }).then((res) => {
         if (res) {
           toast.success("Attachments Added Successfully");
+          navigate(adminRoutes.paymentsReceipts);
           setLoading(false);
-          navigate(adminRoutes.clientExpenseReceipts);
         } else {
           toast.error("Error while adding attachments");
           setLoading(false);
@@ -48,7 +50,7 @@ const AttachmentModal = ({ row }) => {
         <ImagesAndFileUpload
           allMedia={attachments}
           setAllMedia={setAttachments}
-          format={[MIME_TYPES.pdf]}
+          format={[MIME_TYPES.pdf, MIME_TYPES.doc, MIME_TYPES.docx]}
           type="document"
           cols={2}
           multiple={true}

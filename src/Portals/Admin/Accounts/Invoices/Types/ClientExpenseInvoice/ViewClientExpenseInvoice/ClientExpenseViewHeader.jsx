@@ -121,16 +121,9 @@ export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
               }
               setOpenRejectModal={setOpenRejectModal}
               openRejectModal={openRejectModal}
-              attachementModal={attachementModal}
-              setAttachementModal={setAttachementModal}
               attachment={true}
               attachmentModalTitle={"Uploaded Attachments"}
-              AttachmentModalComponent={
-                <AttachmentModal
-                  row={row}
-                  setAttachmentModal={setAttachementModal}
-                />
-              }
+              AttachmentModalComponent={<AttachmentModal row={row} />}
             />
             <ClientExpenseReceiptPrint rowData={row} />
           </>

@@ -41,8 +41,7 @@ const ActionIcons = ({
   AttachmentModalComponent,
   openRejectModal,
   setOpenRejectModal,
-  attachementModal,
-  setAttachementModal,
+
   size = "lg",
 }) => {
   const navigate = useNavigate();
@@ -50,6 +49,7 @@ const ActionIcons = ({
   const [openProgressModal, setOpenProgressModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openApproveModal, setOpenApproveModal] = useState(false);
+  const [attachementModal, setAttachementModal] = useState(false);
 
   const handleView = () => {
     setOpenViewModal(true);
