@@ -38,7 +38,14 @@ const ImagesAndFileUpload = (props) => {
         name: "Document " + (index + 1),
         uploaded: true,
       };
+    } else if (typeof file === "object" && file?.uploaded) {
+      file = {
+        path: file.path,
+        name: file.name,
+        uploaded: true,
+      };
     }
+
     let display = file.path;
     if (!file?.uploaded) {
       display = URL?.createObjectURL(file);

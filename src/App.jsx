@@ -24,7 +24,7 @@ import ViewQuotations from "./Portals/Staff/ViewQuotations/ViewQuotations";
 import AddQuotations from "./Portals/Staff/AddQuotations/AddQuotations";
 import AddPaymentInvoice from "./Portals/Staff/AddPaymentInvoice/AddPaymentInvoice";
 import ViewPaymentInvoice from "./Portals/Staff/ViewPaymentInvoice/ViewPaymentInvoice";
-import AddClientExpenseInvoice from './Portals/Admin/Accounts/Invoices/Types/ClientExpenseInvoice/AddClientExpense/AddClientExpenseInvoice'
+import AddClientExpenseInvoice from "./Portals/Admin/Accounts/Invoices/Types/ClientExpenseInvoice/AddClientExpense/AddClientExpenseInvoice";
 import AddLeaveRequest from "./Portals/Staff/AddLeaveRequest/AddLeaveRequest";
 import ViewLeaveRequest from "./Portals/Staff/ViewLeaveRequest/ViewLeaveRequest";
 import AddStaff from "./Portals/Admin/HumanResource/Staff/Add Staff/AddStaff";
@@ -67,6 +67,7 @@ function App() {
                   element={<StaffView />}
                 />
                 <Route path={adminRoutes.addStaff} element={<AddStaff />} />
+                <Route path={adminRoutes.editStaff} element={<AddStaff />} />
                 <Route path={adminRoutes.leaves} element={<LeavesView />} />
               </Route>
               <Route path={adminRoutes.accounts}>
@@ -96,15 +97,19 @@ function App() {
                 />
                 <Route
                   path={adminRoutes.clientExpenseInvoice}
-                  element={<ClientExpenseView isInvoice={true} pending={'Pending'}/>}
+                  element={
+                    <ClientExpenseView isInvoice={true} pending={"Pending"} />
+                  }
                 />
                 <Route
                   path={adminRoutes.addClientExpenseInvoice}
-                  element={<AddClientExpenseInvoice/>}
+                  element={<AddClientExpenseInvoice />}
                 />
                 <Route
                   path={adminRoutes.officeExpenseInvoice}
-                  element={<OfficeExpenseView isInvoice={true} pending={'Pending'}/>}
+                  element={
+                    <OfficeExpenseView isInvoice={true} pending={"Pending"} />
+                  }
                 />
                 <Route
                   path={adminRoutes.addOfficeExpenseInvoice}
@@ -126,13 +131,17 @@ function App() {
                 />
                 <Route
                   path={adminRoutes.clientExpenseReceipts}
-                  element={<ClientExpenseView isInvoice={false} pending={'Approved'}/>}
+                  element={
+                    <ClientExpenseView isInvoice={false} pending={"Approved"} />
+                  }
                 />
                 <Route
                   path={adminRoutes.officeExpenseReceipts}
-                  element={<OfficeExpenseView isInvoice={false} pending={'Approved'}/>}
+                  element={
+                    <OfficeExpenseView isInvoice={false} pending={"Approved"} />
+                  }
                 />
-                
+
                 <Route path={adminRoutes.salariesAndCommissions} />
               </Route>
               <Route

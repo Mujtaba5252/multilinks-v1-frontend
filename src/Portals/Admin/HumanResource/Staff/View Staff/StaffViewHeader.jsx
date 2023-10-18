@@ -1,8 +1,9 @@
 import ActionIcons from "../../../../../Components/ActionIcons/ActionIcons";
 import ViewModal from "./Modal/ViewModal";
 import DeleteModal from "./Modal/DeleteModal";
+import { adminRoutes } from "../../../../../routes";
 
-export const StaffViewHeader = ({setUpdate}) => {
+export const StaffViewHeader = ({ setUpdate }) => {
   return [
     {
       name: "S.No",
@@ -45,7 +46,7 @@ export const StaffViewHeader = ({setUpdate}) => {
     {
       name: "Expiry Date",
       selector: (row) => {
-        return row.visa_expiry_date=row.visa_expiry_date.split('T')[0]
+        return (row.visa_expiry_date = row.visa_expiry_date.split("T")[0]);
       },
       sortable: true,
       wrap: true,
@@ -55,20 +56,22 @@ export const StaffViewHeader = ({setUpdate}) => {
       center: true,
       cell: (row) => {
         return (
-      <ActionIcons
-        edit={true}
-        editUrl={""}
-        Delete={true}
-        progress={true}
-        size={'90vw'}
-        ModalTitle={row.name+` (${row.staff_ID})`}
-        ProgressModalTitle={"Staff Progress"}
-        DeleteModalTitle={`Delete ${row.name} (${row.staff_ID})`}
-        ViewModalComponent={<ViewModal Data={row} />}
-        ProgressModalComponent={<div>Progress</div>}
-        DeleteModalComponent={<DeleteModal Data={row} setUpdate={setUpdate}/>}
-          // editUrl={}
-      />
+          <ActionIcons
+            edit={true}
+            editUrl={adminRoutes.addStaff + `/${row.id}`}
+            Delete={true}
+            progress={true}
+            size={"90vw"}
+            ModalTitle={row.name + ` (${row.staff_ID})`}
+            ProgressModalTitle={"Staff Progress"}
+            DeleteModalTitle={`Delete ${row.name} (${row.staff_ID})`}
+            ViewModalComponent={<ViewModal Data={row} />}
+            ProgressModalComponent={<div>Progress</div>}
+            DeleteModalComponent={
+              <DeleteModal Data={row} setUpdate={setUpdate} />
+            }
+            // editUrl={}
+          />
         );
       },
       sortable: true,

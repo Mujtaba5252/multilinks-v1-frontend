@@ -7,11 +7,15 @@ import {
   TextInput,
   Text,
   Input,
+  PasswordInput,
+  Avatar,
+  Group,
 } from "@mantine/core";
 import { Cloud, UserCircle } from "tabler-icons-react";
 import { MainBlue } from "../../../../../../Utils/ThemeColors";
 import ImagesAndFileUpload from "../../../../../../Components/ImagesAndFileUpload/ImagesAndFileUpload";
 import { MIME_TYPES } from "@mantine/dropzone";
+import { useMediaQuery } from "@mantine/hooks";
 
 function CreateLogin({
   form3,
@@ -21,7 +25,9 @@ function CreateLogin({
   setAttachments,
   profile,
   setProfile,
+  show,
 }) {
+  const matches = useMediaQuery("(max-width: 760px)");
   return (
     <Grid>
       <Grid.Col md={6} sm={12} style={{ height: "100%" }}>
@@ -47,22 +53,20 @@ function CreateLogin({
               />
             </Grid.Col>
             <Grid.Col md={12} sm={12}>
-              <TextInput
+              <PasswordInput
                 form={form3}
                 withAsterisk
                 {...form3?.getInputProps("login_password")}
                 size="md"
-                type="password"
                 label="Password"
                 placeholder="Enter Password"
               />
             </Grid.Col>
             <Grid.Col md={12} sm={12}>
-              <TextInput
+              <PasswordInput
                 withAsterisk
                 onChange={(event) => ConfirmPassword(event.target.value)}
                 size="md"
-                type="password"
                 label="Confirm Password"
                 placeholder="Confirm Password"
               />
@@ -74,19 +78,30 @@ function CreateLogin({
         </Container>
       </Grid.Col>
       <Grid.Col md={6} sm={12}>
-        <Input.Wrapper>
-          <ImagesAndFileUpload
-            allMedia={profile}
-            setAllMedia={setProfile}
-            format={[MIME_TYPES.jpeg, MIME_TYPES.png]}
-            type="image"
-            cols={3}
-            multiple={true}
-            title="Profile Picture"
-          />
-        </Input.Wrapper>
+        {!show ? (
+          <>
+            <Text color={MainBlue()} mb={10} fw={"bold"}>
+              Profile Picture
+            </Text>
+            <Input.Wrapper>
+              <ImagesAndFileUpload
+                allMedia={profile}
+                setAllMedia={setProfile}
+                format={[MIME_TYPES.jpeg, MIME_TYPES.png]}
+                type="image"
+                cols={3}
+                multiple={true}
+                title="Profile Picture"
+              />
+            </Input.Wrapper>
+          </>
+        ) : (
+          <Group position="center" mt={matches ? 30 : 60}>
+            <Avatar src={show} size={matches ? 200 : 300} radius={"50%"} />
+          </Group>
+        )}
       </Grid.Col>
-      <Grid.Col span={6} md={12} mt={20}>
+      <Grid.Col span={12} md={12} mt={20}>
         <Input.Wrapper>
           <ImagesAndFileUpload
             allMedia={attachments}

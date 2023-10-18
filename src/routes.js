@@ -9,6 +9,7 @@ export const adminRoutes = {
   humanResource: "/admin/humanResource",
   staffView: "/admin/humanResource/staff",
   addStaff: "/admin/humanResource/addStaff",
+  editStaff: "/admin/humanResource/addStaff/:editId",
   leaves: "/admin/humanResource/leaves",
   accounts: "/admin/accounts",
   qutotations: "/admin/accounts/qutotations",

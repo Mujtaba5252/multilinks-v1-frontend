@@ -229,10 +229,12 @@ function ViewModal({ Data }) {
                   justify="center"
                   align="center"
                   style={{ height: "100%", width: "100%" }}
+                  mt={10}
+                  mb={10}
                 >
                   <Avatar
                     size={200}
-                    radius={"xl"}
+                    radius={"50%"}
                     src={Data?.profile_picture?.path}
                   />
                 </Flex>
