@@ -3,7 +3,16 @@ import DataTable from "react-data-table-component";
 import { MainBlue } from "../../Utils/ThemeColors";
 import { Loader, Stack, Text } from "@mantine/core";
 import Pagination from "../Pagination/Pagination";
-const DataGrid = ({ columns, data, pagination, noDataComponent,currentUrl,setPagination,setData, ...props }) => {
+const DataGrid = ({
+  columns,
+  data,
+  pagination,
+  noDataComponent,
+  currentUrl,
+  setPagination,
+  setData,
+  ...props
+}) => {
   const customStyles = {
     headCells: {
       style: {
@@ -61,8 +70,12 @@ const DataGrid = ({ columns, data, pagination, noDataComponent,currentUrl,setPag
         }
         {...props}
       />
-      <Pagination  currentUrl={currentUrl} pagination={pagination} setData={setData} setPagination={setPagination}/>
-      
+      <Pagination
+        currentUrl={currentUrl}
+        pagination={pagination}
+        setData={setData}
+        setPagination={setPagination}
+      />
     </>
   );
 };

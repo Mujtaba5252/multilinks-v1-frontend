@@ -50,7 +50,6 @@ const CatModal = ({ row, setOpenCatModal, setUpdate }) => {
               {...form?.getInputProps("misc")}
             >
               <Group>
-                <Radio value="CAT 1" label="CAT 1" my={5} />
                 <Radio value="CAT 2" label="CAT 2" my={5} />
                 <Radio value="CAT 3" label="CAT 3" my={5} />
               </Group>
