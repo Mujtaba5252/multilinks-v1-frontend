@@ -2,6 +2,7 @@ import ActionIcons from "../../../../../Components/ActionIcons/ActionIcons";
 import ViewModal from "./Modal/ViewModal";
 import DeleteModal from "./Modal/DeleteModal";
 import { adminRoutes } from "../../../../../routes";
+import ProgressModal from "./Modal/ProgressModal";
 
 export const StaffViewHeader = ({ setUpdate }) => {
   return [
@@ -63,10 +64,10 @@ export const StaffViewHeader = ({ setUpdate }) => {
             progress={true}
             size={"90vw"}
             ModalTitle={row.name + ` (${row.staff_ID})`}
-            ProgressModalTitle={"Staff Progress"}
+            ProgressModalTitle={row?.name}
             DeleteModalTitle={`Delete ${row.name} (${row.staff_ID})`}
             ViewModalComponent={<ViewModal Data={row} />}
-            ProgressModalComponent={<div>Progress</div>}
+            ProgressModalComponent={<ProgressModal row={row} />}
             DeleteModalComponent={
               <DeleteModal Data={row} setUpdate={setUpdate} />
             }
