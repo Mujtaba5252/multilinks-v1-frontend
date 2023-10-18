@@ -1,30 +1,21 @@
 import React, { useEffect, useState } from "react";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
-import { Button, Group } from "@mantine/core";
+import { Button, Flex, Grid, Group } from "@mantine/core";
 import DataGrid from "../../../Components/DataTable/DataGrid";
-import { axios_get } from "../../../Utils/Axios";
 import { PaymentInvoiceHeader } from "./PaymentInvoiceHeader";
-import { staffRoutes } from "../../../routes";
-import { useNavigate } from "react-router";
 import ModalComponent from "../../../Components/ModalComponent/ModalComponent";
 import QuotationsForPaymentInvoice from "./Modals/QuotationsForPaymentInvoice";
+import { getPaymentInvoiceData } from "./PaymentFunctions";
+import FilterBarPaymentView from "../../Admin/Accounts/Invoices/Types/PaymentInvoice/ViewPayments/FilterBarPaymentView";
 
 const ViewPaymentInvoice = () => {
   const [PaymentInvoiceData, setPaymentInvoiceData] = useState([]);
   const [addPayment, setAddPayment] = useState(false);
-  const navigate = useNavigate();
-  const getPaymentInvoiceData = async () => {
-    axios_get({ url: "/invoice", withSNo: true })
-      .then((res) => {
-        console.log(res.data.data);
-        setPaymentInvoiceData(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const [pagination, setPagination] = useState([]);
+  let url = "/invoice";
+
   useEffect(() => {
-    getPaymentInvoiceData();
+    getPaymentInvoiceData({ url, setPaymentInvoiceData, setPagination });
   }, []);
 
   return (
@@ -34,20 +25,27 @@ const ViewPaymentInvoice = () => {
         setOpened={setAddPayment}
         radius
         size={1200}
-        >
-          <QuotationsForPaymentInvoice />
-      </ModalComponent>
-      <Group
-        position="right"
-        my={20}
       >
-        <Button onClick={() => {setAddPayment(true)}} variant="filled">ADD PAYMENT INVOICE</Button>
-        <DataGrid
-          columns={PaymentInvoiceHeader()}
-          data={PaymentInvoiceData}
-          pagination={true}
-        />
-      </Group>
+        <QuotationsForPaymentInvoice />
+      </ModalComponent>
+      <Grid my={15}>
+        <Grid.Col mb={10} span={12}>
+          <Flex justify={'end'}>
+            <Button  onClick={() => { setAddPayment(true) }} variant="filled">ADD PAYMENT INVOICE</Button>
+          </Flex >
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <FilterBarPaymentView currentUrl={url} setPaymentData={setPaymentInvoiceData} setPagination={setPagination} />
+        </Grid.Col>
+      </Grid>
+      <DataGrid
+        columns={PaymentInvoiceHeader()}
+        data={PaymentInvoiceData}
+        pagination={pagination}
+        currentUrl={url}
+        setPagination={setPagination}
+        setData={setPaymentInvoiceData}
+      />
     </PageWrapper>
   );
 };

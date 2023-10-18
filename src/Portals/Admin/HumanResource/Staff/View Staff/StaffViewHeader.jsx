@@ -1,7 +1,4 @@
-import { ChartBar, Eye, Man, Pencil, Trash } from "tabler-icons-react";
-import { Amber, MainBlue,Red } from "../../../../../Utils/ThemeColors";
 import ActionIcons from "../../../../../Components/ActionIcons/ActionIcons";
-import { adminRoutes } from "../../../../../routes";
 import ViewModal from "./Modal/ViewModal";
 import DeleteModal from "./Modal/DeleteModal";
 

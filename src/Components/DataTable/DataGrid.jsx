@@ -2,7 +2,8 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import { MainBlue } from "../../Utils/ThemeColors";
 import { Loader, Stack, Text } from "@mantine/core";
-const DataGrid = ({ columns, data, pagination, noDataComponent, ...props }) => {
+import Pagination from "../Pagination/Pagination";
+const DataGrid = ({ columns, data, pagination, noDataComponent,currentUrl,setPagination,setData, ...props }) => {
   const customStyles = {
     headCells: {
       style: {
@@ -45,21 +46,24 @@ const DataGrid = ({ columns, data, pagination, noDataComponent, ...props }) => {
   };
 
   return (
-    <DataTable
-      columns={columns}
-      data={data || []}
-      pagination={pagination || true}
-      customStyles={customStyles}
-      subHeaderWrap
-      // progressComponent={<Loader />}
-      noDataComponent={
-        <Stack>
-          <Loader color="#0487FF" style={{ margin: "auto" }} />
-          <Text align="center">Please wait for data to load</Text>
-        </Stack>
-      }
-      {...props}
-    />
+    <>
+      <DataTable
+        columns={columns}
+        data={data || []}
+        customStyles={customStyles}
+        subHeaderWrap
+        // progressComponent={<Loader />}
+        noDataComponent={
+          <Stack>
+            <Loader color="#0487FF" style={{ margin: "auto" }} />
+            <Text align={"center"}>Please wait for data to load</Text>
+          </Stack>
+        }
+        {...props}
+      />
+      <Pagination  currentUrl={currentUrl} pagination={pagination} setData={setData} setPagination={setPagination}/>
+      
+    </>
   );
 };
 

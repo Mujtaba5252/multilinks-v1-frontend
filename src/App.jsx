@@ -31,6 +31,7 @@ import AddStaff from "./Portals/Admin/HumanResource/Staff/Add Staff/AddStaff";
 import ViewLicenses from "./Portals/Admin/License/ViewLicenses/ViewLicenses";
 import AddLicense from "./Portals/Admin/License/AddLicense/AddLicense";
 import AddOfficeExpense from "./Portals/Admin/Accounts/Invoices/Types/OfficeExpense/AddOfficeExpense/AddOfficeExpense";
+import CommissionView from "./Portals/Admin/Accounts/Commissions/CommissionView";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -78,6 +79,10 @@ function App() {
                   element={<AddQuotations />}
                 />
                 <Route
+                  path={adminRoutes.commissions}
+                  element={<CommissionView />}
+                />
+                <Route
                   path={adminRoutes.addQutotations}
                   element={<AddQuotations />}
                 />
@@ -103,7 +108,7 @@ function App() {
                 />
                 <Route
                   path={adminRoutes.addOfficeExpenseInvoice}
-                  element={<AddOfficeExpense/>}
+                  element={<AddOfficeExpense />}
                 />
                 <Route
                   path={adminRoutes.receipts}
@@ -176,6 +181,10 @@ function App() {
               <Route
                 path={staffRoutes.viewLeaveRequest}
                 element={<ViewLeaveRequest />}
+              />
+              <Route
+                path={staffRoutes.commissions}
+                element={<CommissionView />}
               />
             </Route>
           </Route>

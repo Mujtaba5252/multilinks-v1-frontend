@@ -1,40 +1,46 @@
-import { Button, Group } from "@mantine/core";
+import { Button, Grid, Group } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DataGrid from "../../../Components/DataTable/DataGrid";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
-import { axios_get } from "../../../Utils/Axios";
 import { staffRoutes } from "../../../routes";
 import { ClientHeader } from "./ClientHeader";
+import { getCleintData } from "./ClientFunctions";
+import FilterBarClient from "./FilterBarClient";
 
 const ViewClients = () => {
   const navigate = useNavigate();
   const [ClientData, setClientData] = useState([]);
-
-  const getCleintData = async () => {
-    axios_get({ url: "/client", withSNo: true })
-      .then((res) => {
-        console.log(res.data.data);
-        setClientData(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const [pagination, setPagination] = useState([]);
+  let url = "/client";
   useEffect(() => {
-    getCleintData();
+    getCleintData({ url, setClientData, setPagination });
   }, []);
 
   return (
     <PageWrapper title="VIEW CLIENTS">
-      <Group
-        position="right"
-        my={20}
-        onClick={() => navigate(staffRoutes.addClient)}
-      >
-        <Button variant="filled">ADD CLIENT</Button>
-      </Group>
-      <DataGrid columns={ClientHeader()} data={ClientData} pagination={true} />
+      <Grid my={20}>
+        <Grid.Col mb={10} span={12}>
+          <Group
+            position="right"
+            onClick={() => navigate(staffRoutes.addClient)}
+          >
+            <Button variant="filled">ADD CLIENT</Button>
+          </Group>
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <FilterBarClient currentUrl={url} setClientData={setClientData} setPagination={setPagination} />
+        </Grid.Col>
+      </Grid>
+
+      <DataGrid
+        columns={ClientHeader()}
+        data={ClientData}
+        pagination={pagination}
+        currentUrl={url}
+        setPagination={setPagination}
+        setData={setClientData}
+      />
     </PageWrapper>
   );
 };

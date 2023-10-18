@@ -102,8 +102,7 @@ export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
                   Remaining Client Balance:{" "}
                   <span style={{ color: "black" }}>
                     {CurrencyFormatter(
-                      row.quotation.client_balance -
-                        row.quotation.client_expense
+                      row.quotation.client_balance -row.quotation.client_expense
                     )}
                   </span>
                 </Title>
@@ -125,7 +124,7 @@ export const ClientExpenseViewHeader = ({ isInvoice, setUpdate }) => {
               attachmentModalTitle={"Uploaded Attachments"}
               AttachmentModalComponent={<AttachmentModal row={row} />}
             />
-            <ClientExpenseReceiptPrint rowData={row} />
+            {!isInvoice&&<ClientExpenseReceiptPrint rowData={row} />}
           </>
         );
       },

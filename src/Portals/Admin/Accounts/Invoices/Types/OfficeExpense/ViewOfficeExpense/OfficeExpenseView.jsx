@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PageWrapper from "../../../../../../../Components/PageWrapper/PageWrapper";
-import { Button, Flex, Grid, Loader, Text } from "@mantine/core";
+import { Button, Flex, Grid, Switch } from "@mantine/core";
 import { OfficeExpenseViewHeader } from "./OfficeExpenseViewHeader";
 import DataGrid from "../../../../../../../Components/DataTable/DataGrid";
 import { CirclePlus } from "tabler-icons-react";
@@ -8,24 +8,20 @@ import { axios_get } from "../../../../../../../Utils/Axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { adminRoutes } from "../../../../../../../routes";
+import FilterBarOfficeExpense from "./FilterBarOfficeExpense";
+import { fetchOfficeExpense } from "./OfficeExpenseFunctions";
 
 function OfficeExpenseView({ isInvoice, pending }) {
   const navigate = useNavigate();
   const [officeExpenseData, setOfficeExpenseData] = useState([]);
-  let url = "/office-expense?staus=" + pending;
-  const fetchOfficeExpense = async () => {
-    await axios_get({ url: url }).then((res) => {
-      if (res.status === 200) {
-        setOfficeExpenseData(res.data.data);
-      } else {
-        toast.error(res.data.message);
-      }
-    });
-  };
+  const [update, setUpdate] = useState(false);
+  const [pagination, setPagination] = useState([]);
+  let url = "/office-expense?status=" + pending;
 
   useEffect(() => {
-    fetchOfficeExpense();
-  }, [url]);
+    fetchOfficeExpense({ url, setOfficeExpenseData, setPagination });
+    setUpdate(false);
+  }, [update, url]);
   return (
     <>
       <PageWrapper
@@ -35,7 +31,9 @@ function OfficeExpenseView({ isInvoice, pending }) {
       >
         <Grid>
           <Grid.Col span={12}>
-            {isInvoice ? (
+            <Grid m={0} my={15}>
+              {isInvoice && 
+            <Grid.Col span={12}>
               <Flex justify="end">
                 <Button
                   leftIcon={<CirclePlus />}
@@ -45,15 +43,20 @@ function OfficeExpenseView({ isInvoice, pending }) {
                   Add Expense
                 </Button>
               </Flex>
-            ) : (
-              <Text align="center">Office Expense Receipt Filters</Text>
-            )}
+              </Grid.Col>}
+              <Grid.Col mt={10} span={12}>
+                  <FilterBarOfficeExpense currentUrl={url} setOfficeExpenseData={setOfficeExpenseData} setPagination={setPagination} isInvoice={isInvoice} />
+              </Grid.Col>
+            </Grid>
           </Grid.Col>
           <Grid.Col span={12}>
             <DataGrid
-              columns={OfficeExpenseViewHeader({ isInvoice })}
+              columns={OfficeExpenseViewHeader({ isInvoice ,setUpdate })}
               data={officeExpenseData}
-              pagination={true}
+              pagination={pagination}
+              setPagination={setPagination}
+              currentUrl={url}
+              setData={setOfficeExpenseData}
             />
           </Grid.Col>
         </Grid>

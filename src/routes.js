@@ -25,7 +25,7 @@ export const adminRoutes = {
   clientExpenseReceipts: "/admin/accounts/receipts/clientExpenses",
   approvedQuotationsReceipts: "/admin/accounts/receipts/approvedQuotations",
   officeExpenseReceipts: "/admin/accounts/receipts/officeExpenses",
-  salariesAndCommissions: "/admin/accounts/salariesAndCommissions",
+  commissions: "/admin/accounts/commissions",
   addLicenses: "/admin/addLicenses",
   editLicenses: "/admin/addLicenses/:editId",
   viewLicenses: "/admin/viewLicenses",
@@ -42,4 +42,5 @@ export const staffRoutes = {
   viewPaymentInvoice: "/staff/viewPaymentInvoice",
   addLeaveRequest: "/staff/addLeaveRequest",
   viewLeaveRequest: "/staff/viewLeaveRequest",
+  commissions: "/staff/commissions",
 };

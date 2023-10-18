@@ -7,20 +7,18 @@ import { axios_get } from "../../../../../../../Utils/Axios";
 import { ClientExpenseViewHeader } from "./ClientExpenseViewHeader";
 import ModalComponent from "../../../../../../../Components/ModalComponent/ModalComponent";
 import ApprovedQutationForExpense from "../AddClientExpense/Modal/ApprovedQutationsForExpense";
+import FilterBarClientExpense from "./FilterBarClientExpense";
+import { fetchClientExpense } from "./ClientPaymentFunctions";
 
-function ClientExpenseView({ isInvoice,pending }) {
+function ClientExpenseView({ isInvoice, pending }) {
   const [clientExpenseData, setClientExpenseData] = useState([]);
   const [addExpense, setAddExpense] = useState(false);
-  const [update, setUpdate] = useState(false); //for updating the data after adding the expense
-  const fetchClientExpense = async () => {
-    //url will be changed depending on the invoice or reciept using isInvoice
-    let url = "/client-expense?status="+pending;
-    await axios_get({ url: url }).then((res) => {
-      setClientExpenseData(res.data.data);
-    });
-  };
+  const [pagination, setPagination] = useState([]);
+  const [update, setUpdate] = useState(false); 
+  let url = "/client-expense?status=" + pending;
+  
   useEffect(() => {
-    fetchClientExpense();
+    fetchClientExpense({ url, setClientExpenseData, setPagination });
     setUpdate(false);
   }, [update]);
   return (
@@ -32,29 +30,39 @@ function ClientExpenseView({ isInvoice,pending }) {
         setOpened={setAddExpense}
         radius
         size={1200}
-        >
-          <ApprovedQutationForExpense />
+      >
+        <ApprovedQutationForExpense />
       </ModalComponent>
       <Grid>
         <Grid.Col span={12}>
           {isInvoice ? (
-            <Flex justify="end">
-              <Button leftIcon={<CirclePlus />} variant="filled" 
-                onClick={() => { setAddExpense(true) }}
-              >
-                Add Expense
-              </Button>
-            </Flex>
+            <Grid m={0} my={10}>
+              <Grid.Col span={12}>
+              <Flex justify={"end"} mb={10}>  
+                  <Button leftIcon={<CirclePlus />} variant="filled"
+                    onClick={() => { setAddExpense(true) }}
+                  >
+                    Add Expense
+                  </Button>
+                </Flex>
+              </Grid.Col>
+              <Grid.Col span={12} >
+                <FilterBarClientExpense currentUrl={url} setPagination={setPagination} setClientExpenseData={setClientExpenseData}/>  
+              </Grid.Col>
+            </Grid>
           ) : (
             "Filter for reciepts"
           )}
         </Grid.Col>
         <Grid.Col span={12}>
-            <DataGrid
-              columns={ClientExpenseViewHeader({isInvoice,setUpdate})}
-              data={clientExpenseData}
-              pagination={true}
-            />
+          <DataGrid
+            columns={ClientExpenseViewHeader({ isInvoice, setUpdate })}
+            data={clientExpenseData}
+            currentUrl={url}
+            setData={setClientExpenseData}
+            pagination={pagination}
+            setPagination={setPagination}
+          />
         </Grid.Col>
       </Grid>
     </PageWrapper>

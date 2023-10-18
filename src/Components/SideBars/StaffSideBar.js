@@ -24,7 +24,7 @@ export const StaffSideBar = [
   },
   {
     label: "Commissions",
-    Link: staffRoutes.staffDashboard,
+    Link: staffRoutes.commissions,
     icon: CurrencyDollar,
   },
   {

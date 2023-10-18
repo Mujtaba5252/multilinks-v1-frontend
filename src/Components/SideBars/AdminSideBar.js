@@ -64,8 +64,8 @@ export const AdminSidebar = [
       },
       {
         order: 108,
-        label: "Salaries & Commissions",
-        Link: adminRoutes.salariesAndCommissions,
+        label: "Commissions",
+        Link: adminRoutes.commissions,
         icon: Cash,
       },
     ],

@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from "react";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
-import { Button, Group } from "@mantine/core";
-import { staffRoutes } from "../../../routes";
+import { Button, Grid, Group } from "@mantine/core";
 import DataGrid from "../../../Components/DataTable/DataGrid";
 import { QuotationHeader } from "./QuotationHeader";
-import { useNavigate } from "react-router-dom";
-import { axios_get } from "../../../Utils/Axios";
 import ModalComponent from "../../../Components/ModalComponent/ModalComponent";
 import AddQuotationModal from "../AddQuotations/AddQuotationModal";
-
+import { getQuotationData } from "./QuotationFunctions";
+import FilterBarQuotation from "../../Admin/Accounts/Quotation/FilterBarQuotation";
 const ViewQuotations = () => {
-  const navigate = useNavigate();
   const [QuotationData, setQuotationData] = useState([]);
   const [openViewModal, setOpenViewModal] = useState(false);
-
-  const getQuotationData = async () => {
-    axios_get({ url: "/quotation", withSNo: true }).then((res) => {
-      console.log(res.data.data);
-      setQuotationData(res.data.data);
-    });
-  };
+  const [pagination, setPagination] = useState([]);
+  let url = "/quotation";
   useEffect(() => {
-    getQuotationData();
+    getQuotationData({ url, setQuotationData, setPagination });
   }, []);
 
   return (
@@ -30,18 +22,28 @@ const ViewQuotations = () => {
         opened={openViewModal}
         setOpened={setOpenViewModal}
         radius
-        // title={"Add Quotation"}
         size={1200}
       >
-        <AddQuotationModal />
+        <AddQuotationModal/>
       </ModalComponent>
-      <Group position="right" my={20} onClick={() => setOpenViewModal(true)}>
-        <Button variant="filled">ADD Quotations</Button>
-      </Group>
+      <Grid my={15}>
+        <Grid.Col span={12} mb={10}>
+          <Group position="right" onClick={() => setOpenViewModal(true)}>
+            <Button variant="filled">ADD Quotations</Button>
+          </Group>
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <FilterBarQuotation currentUrl={url} setQuotationData={setQuotationData} setPagination={setPagination}/>
+        </Grid.Col>
+      </Grid>
+
       <DataGrid
         columns={QuotationHeader()}
         data={QuotationData}
-        pagination={true}
+        pagination={pagination}
+        currentUrl={url}
+        setPagination={setPagination}
+        setData={setQuotationData}
       />
     </PageWrapper>
   );
