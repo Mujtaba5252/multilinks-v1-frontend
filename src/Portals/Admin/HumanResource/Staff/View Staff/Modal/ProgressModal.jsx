@@ -35,9 +35,9 @@ const ProgressModal = ({ row }) => {
       <Grid.Col span={12}>
         <Grid mt={30}>
           <Grid.Col span={matches ? 12 : 4}>
-            <Stack align={"center"}>
+            <Stack align={"center"} spacing={0}>
               {" "}
-              <Text style={{ fontSize: "1.1rem", fontWeight: 800 }}>
+              <Text style={{ fontSize: "1.4rem", fontWeight: 800 }}>
                 Clients
               </Text>
               <RingProgress
@@ -50,7 +50,7 @@ const ProgressModal = ({ row }) => {
                   <Center
                     style={{
                       color: "black",
-                      fontSize: "1.1rem",
+                      fontSize: "1.8rem",
                       fontWeight: 800,
                     }}
                   >
@@ -58,7 +58,7 @@ const ProgressModal = ({ row }) => {
                   </Center>
                 }
               />
-              <Text style={{ fontSize: "1.1rem", fontWeight: 800 }}>Deals</Text>
+              <Text style={{ fontSize: "1.4rem", fontWeight: 800 }}>Deals</Text>
               <RingProgress
                 size={matches ? 160 : 200}
                 roundCaps
@@ -69,7 +69,7 @@ const ProgressModal = ({ row }) => {
                   <Center
                     style={{
                       color: "black",
-                      fontSize: "1.1rem",
+                      fontSize: "1.8rem",
                       fontWeight: 800,
                     }}
                   >
@@ -79,7 +79,7 @@ const ProgressModal = ({ row }) => {
               />
             </Stack>
           </Grid.Col>
-          <Grid.Col span={8}>
+          <Grid.Col span={matches ? 12 : 8}>
             <AmountChart />
           </Grid.Col>
         </Grid>

@@ -1,69 +1,70 @@
-import { Card, createStyles } from "@mantine/core";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import { Card, Select, useMantineTheme } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
+import React from "react";
 import Chart from "react-apexcharts";
+// import { axiosGet } from "../../../Helpers/AxiosHelper";
+export default function AllTimeVehicleGraph() {
+  const matches = useMediaQuery("(max-width: 768px)");
+  const [chartData, setChartData] = React.useState(null);
+  const theme = useMantineTheme();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-const AmountChart = ({ stats }) => {
-  const [chartData, setChartData] = useState(null);
-  const useStyles = createStyles((theme) => ({
-    legendColor: theme?.colorScheme === "dark" ? "#FFFFFF" : "#204051",
-  }));
+  const [labels, setLabels] = React.useState(days);
 
-  const { classes } = useStyles();
-  useEffect(() => {
+  const [selected, setSelected] = React.useState("weekly");
+  const [series, setSeries] = React.useState([
+    { name: "Total", data: [0, 0, 0, 0, 0, 0, 0] },
+    { name: "Remaining", data: [0, 0, 0, 0, 0, 0, 0] },
+  ]);
+  //   const stats = async () => {
+  //     await axiosGet({
+  //       url: `/graphicalStats?type=${selected}&fields=Vehicles Purchased,Vehicles Sold,Vehicles Added To System`,
+  //     })
+  //       .then((response) => {
+  //         let data = response.data.data[0].data;
+  //         if (selected === "weekly") {
+  //           setLabels(data.map((a) => days[new Date(a._id).getDay()]));
+  //         } else {
+  //           setLabels(data.map((a) => a._id));
+  //         }
+
+  //         setSeries(
+  //           response.data.data.map((a) => ({
+  //             name: a.collection,
+  //             data: a.data.map((b) => b.count),
+  //           }))
+  //         );
+  //       })
+
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
+
+  //   React.useEffect(() => {
+  //     stats();
+  //   }, [selected]);
+
+  React.useEffect(() => {
     setTimeout(() => {
       setChartData(options);
     }, 200);
-  }, [chartData]);
-  let showValue = 10;
-  const vehicleData = [
-    {
-      name: "Credit Application",
-      vehicles: stats?.inCredApplication_2 ?? showValue,
-      color: "#3498DB",
-    },
-    {
-      name: "Bank Approval",
-      vehicles: stats?.inBankApproval_3 ?? showValue,
-      color: "#E74C3C",
-    },
-    {
-      name: "Down Payment Collection",
-      vehicles: stats?.inDownPayment_4 ?? showValue,
-      color: "#27AE60",
-    },
-    {
-      name: "Buyer Order",
-      vehicles: stats?.inBuyerOrder_5 ?? showValue,
-      color: "#F4D03F",
-    },
-    {
-      name: "STIPs",
-      vehicles: stats?.inStips_6 ?? showValue,
-      color: "#797D7F",
-    },
-    {
-      name: "E-Contract",
-      vehicles: stats?.inEContract_7 ?? showValue,
-      color: "#BA4A00",
-    },
-    {
-      name: "You/We Owe",
-      vehicles: stats?.inEContract_7 ?? showValue,
-      color: "#258fff",
-    },
-    {
-      name: "Temp Tag and Title",
-      vehicles: stats?.inTagAndTitle_8 ?? showValue,
-      color: "#071c33",
-    },
-  ];
+  }, [selected, chartData, labels]);
 
   const options = {
     height: 400,
     type: "bar",
     options: {
       chart: {
+        stacked: true,
         toolbar: {
           show: false,
         },
@@ -71,52 +72,33 @@ const AmountChart = ({ stats }) => {
           enabled: true,
         },
       },
-      colors: vehicleData?.map((item) => item?.color),
 
       plotOptions: {
         bar: {
-          columnWidth: "35%",
-          distributed: true,
+          horizontal: false,
+          columnWidth: "50%",
         },
       },
       xaxis: {
         type: "category",
-        categories: vehicleData?.map((item) => item?.name),
-      },
-      yaxis: {
-        title: {
-          text: "Months",
-          style: {
-            fontSize: "14px",
-            fontWeight: 600,
-            color: "#7F7F7F",
-          },
-        },
-
-        axisBorder: {
-          show: true,
-          color: "#78909C",
-          offsetX: 0,
-          offsetY: 0,
-        },
+        categories: labels,
       },
       legend: {
-        show: false,
+        show: true,
         fontSize: "14px",
         fontFamily: `'Roboto', sans-serif`,
         position: "bottom",
         offsetX: 20,
         labels: {
-          // useSeriesColors: false,
-          colors: classes.legendColor,
+          useSeriesColors: false,
         },
         markers: {
-          width: 16,
-          height: 16,
-          radius: 5,
+          width: 20,
+          height: 20,
+          radius: 100,
         },
         itemMargin: {
-          horizontal: 15,
+          horizontal: 16,
           vertical: 8,
         },
       },
@@ -129,30 +111,87 @@ const AmountChart = ({ stats }) => {
       grid: {
         show: true,
       },
+      colors: ["#0487FF", "#FF0000"], // Add your desired colors here
     },
-    series: [
-      {
-        name: "Vehicles",
-        data: vehicleData?.map((item) => item?.vehicles),
-      },
-    ],
+    series: series,
   };
+
+  //   if (status === "loading" || isFetching) {
+  //     return (
+  //       <Box
+  //         style={{
+  //           height: "500px",
+  //           display: "flex",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //         }}
+  //       >
+  //         <Loader />
+  //       </Box>
+  //     );
+  //   }
+
   return (
     <Card
       style={{
         borderRadius: "5px",
         width: "100%",
-        border: "1px solid #e9e9e9",
-        // boxShadow: "0px 0px 10px rgb(2, 33, 255, 0.5)",
-        height: "auto",
+        // border: "1px solid gray",
+        boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
+        height: "100%",
         position: "relative",
         marginTop: "10px",
-        marginBottom: "10px",
       }}
     >
-      {chartData ? <Chart {...chartData} width="100%" /> : "Loading..."}
+      <Select
+        size={matches ? "xs" : "sm"}
+        placeholder="Pick one"
+        defaultValue={"yearly"}
+        value={selected}
+        onChange={setSelected}
+        data={[
+          { value: "weekly", label: "Weekly" },
+          { value: "monthly", label: "Monthly" },
+          { value: "yearly", label: "Yearly" },
+        ]}
+        style={{
+          position: "absolute",
+          top: "5px",
+          right: "5px",
+          zIndex: 1,
+          border: "1px solid gray",
+          borderRadius: "5px",
+        }}
+        styles={{
+          input: {
+            border: "none",
+            //change color on focus
+          },
+          item: {
+            "&:hover": {
+              backgroundColor: "#228be6",
+              color: "white",
+            },
+            //change color of selected item
+            "&[data-selected='true']": {
+              backgroundColor: "#0487FF",
+            },
+            //change color of selected item on hover
+            "&[data-selected='true']:hover": {
+              backgroundColor: "#228be6",
+            },
+          },
+        }}
+      />
+      {chartData ? (
+        <Chart
+          {...chartData}
+          width="100%"
+          type={chartData ? chartData?.type : "bar"}
+        />
+      ) : (
+        "Loading..."
+      )}
     </Card>
   );
-};
-
-export default AmountChart;
+}
