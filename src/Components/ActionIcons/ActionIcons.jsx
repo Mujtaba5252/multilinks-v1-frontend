@@ -5,6 +5,7 @@ import {
   ChartBar,
   CircleCheck,
   CircleX,
+  CloudDownload,
   Edit,
   EditCircleOff,
   Eye,
@@ -35,6 +36,12 @@ const ActionIcons = ({
   DeleteModalTitle,
   DeleteModalComponent,
   disableApproveReject,
+  attachment,
+  attachmentModalTitle,
+  AttachmentModalComponent,
+  openRejectModal,
+  setOpenRejectModal,
+
   size = "lg",
 }) => {
   const navigate = useNavigate();
@@ -42,7 +49,8 @@ const ActionIcons = ({
   const [openProgressModal, setOpenProgressModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openApproveModal, setOpenApproveModal] = useState(false);
-  const [openRejectModal, setOpenRejectModal] = useState(false);
+  const [attachementModal, setAttachementModal] = useState(false);
+
   const handleView = () => {
     setOpenViewModal(true);
   };
@@ -62,6 +70,10 @@ const ActionIcons = ({
   const handleReject = () => {
     setOpenRejectModal(true);
   };
+  const handleAttachment = () => {
+    setAttachementModal(true);
+  };
+
   return (
     <>
       <Flex gap={5} align="center" justify="center">
@@ -118,6 +130,13 @@ const ActionIcons = ({
             </ActionIcon>
           </Tooltip>
         )}
+        {attachment && (
+          <Tooltip label={"Attachments"}>
+            <ActionIcon onClick={handleAttachment}>
+              <CloudDownload color={MainBlue()} />
+            </ActionIcon>
+          </Tooltip>
+        )}
       </Flex>
 
       <ModalComponent //for view modal component
@@ -132,7 +151,7 @@ const ActionIcons = ({
         opened={openProgressModal}
         setOpened={setOpenProgressModal}
         title={ProgressModalTitle}
-        size={"lg"}
+        size={1200}
       >
         {ProgressModalComponent}
       </ModalComponent>
@@ -160,6 +179,15 @@ const ActionIcons = ({
         size={"lg"}
       >
         {RejectModalComponent}
+      </ModalComponent>
+
+      <ModalComponent //attachement modal component
+        opened={attachementModal}
+        setOpened={setAttachementModal}
+        title={attachmentModalTitle}
+        size={"lg"}
+      >
+        {AttachmentModalComponent}
       </ModalComponent>
     </>
   );

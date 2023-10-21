@@ -1,7 +1,7 @@
 import { Container, Loader, Paper, Text, useMantineTheme } from "@mantine/core";
 import React from "react";
 
-const PageWrapper = ({ children, title, loading }) => {
+const PageWrapper = ({ children, title, loading,button }) => {
   const theme = useMantineTheme();
   return (
     <Container fluid mx={0} p={0}>
@@ -28,7 +28,9 @@ const PageWrapper = ({ children, title, loading }) => {
           color="#0487FF"
         >
           {title}
+          <Container pos="absolute" right={20} top={86} >{button}</Container>
         </Text>
+        
 
         <Paper p="xs" m="xs" radius="md" withBorder>
           {children}

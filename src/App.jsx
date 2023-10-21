@@ -24,9 +24,14 @@ import ViewQuotations from "./Portals/Staff/ViewQuotations/ViewQuotations";
 import AddQuotations from "./Portals/Staff/AddQuotations/AddQuotations";
 import AddPaymentInvoice from "./Portals/Staff/AddPaymentInvoice/AddPaymentInvoice";
 import ViewPaymentInvoice from "./Portals/Staff/ViewPaymentInvoice/ViewPaymentInvoice";
+import AddClientExpenseInvoice from "./Portals/Admin/Accounts/Invoices/Types/ClientExpenseInvoice/AddClientExpense/AddClientExpenseInvoice";
 import AddLeaveRequest from "./Portals/Staff/AddLeaveRequest/AddLeaveRequest";
 import ViewLeaveRequest from "./Portals/Staff/ViewLeaveRequest/ViewLeaveRequest";
 import AddStaff from "./Portals/Admin/HumanResource/Staff/Add Staff/AddStaff";
+import ViewLicenses from "./Portals/Admin/License/ViewLicenses/ViewLicenses";
+import AddLicense from "./Portals/Admin/License/AddLicense/AddLicense";
+import AddOfficeExpense from "./Portals/Admin/Accounts/Invoices/Types/OfficeExpense/AddOfficeExpense/AddOfficeExpense";
+import CommissionView from "./Portals/Admin/Accounts/Commissions/CommissionView";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -57,17 +62,34 @@ function App() {
               />
               <Route path={adminRoutes.humanResource}>
                 <Route
+                 
                   index
+                 
                   path={adminRoutes.staffView}
+                 
                   element={<StaffView />}
+                
                 />
-                <Route path={adminRoutes.addStaff} element={<AddStaff />} />
-                <Route path={adminRoutes.leaves} element={<LeavesView />} />
+                <Route path={adminRoutes.addStaff} element={<AddStaff />}  />
+                <Route path={adminRoutes.editStaff} element={<AddStaff />} />
+                <Route path={adminRoutes.leaves} element={<LeavesView  />}  />
               </Route>
               <Route path={adminRoutes.accounts}>
                 <Route
                   path={adminRoutes.qutotations}
                   element={<QuotationView pending={"Pending"} />}
+                />
+                <Route
+                  path={adminRoutes.editQutotations}
+                  element={<AddQuotations />}
+                />
+                <Route
+                  path={adminRoutes.commissions}
+                  element={<CommissionView />}
+                />
+                <Route
+                  path={adminRoutes.addQutotations}
+                  element={<AddQuotations />}
                 />
                 <Route
                   path={adminRoutes.invoices}
@@ -79,11 +101,23 @@ function App() {
                 />
                 <Route
                   path={adminRoutes.clientExpenseInvoice}
-                  element={<ClientExpenseView isInvoice={true} />}
+                  element={
+                    <ClientExpenseView isInvoice={true} pending={"Pending"} />
+                  }
+                />
+                <Route
+                  path={adminRoutes.addClientExpenseInvoice}
+                  element={<AddClientExpenseInvoice />}
                 />
                 <Route
                   path={adminRoutes.officeExpenseInvoice}
-                  element={<OfficeExpenseView isInvoice={true} />}
+                  element={
+                    <OfficeExpenseView isInvoice={true} pending={"Pending"} />
+                  }
+                />
+                <Route
+                  path={adminRoutes.addOfficeExpenseInvoice}
+                  element={<AddOfficeExpense />}
                 />
                 <Route
                   path={adminRoutes.receipts}
@@ -101,15 +135,25 @@ function App() {
                 />
                 <Route
                   path={adminRoutes.clientExpenseReceipts}
-                  element={<ClientExpenseView isInvoice={false} />}
+                  element={
+                    <ClientExpenseView isInvoice={false} pending={"Approved"} />
+                  }
                 />
                 <Route
                   path={adminRoutes.officeExpenseReceipts}
-                  element={<OfficeExpenseView isInvoice={false} />}
+                  element={
+                    <OfficeExpenseView isInvoice={false} pending={"Approved"} />
+                  }
                 />
+
                 <Route path={adminRoutes.salariesAndCommissions} />
               </Route>
-              <Route path={adminRoutes.licenses} />
+              <Route
+                path={adminRoutes.viewLicenses}
+                element={<ViewLicenses />}
+              />
+              <Route path={adminRoutes.addLicenses} element={<AddLicense />} />
+              <Route path={adminRoutes.editLicenses} element={<AddLicense />} />
             </Route>
           </Route>
           <Route element={<RequireAuth allowedRole={["staff"]} />}>
@@ -150,6 +194,10 @@ function App() {
               <Route
                 path={staffRoutes.viewLeaveRequest}
                 element={<ViewLeaveRequest />}
+              />
+              <Route
+                path={staffRoutes.commissions}
+                element={<CommissionView />}
               />
             </Route>
           </Route>

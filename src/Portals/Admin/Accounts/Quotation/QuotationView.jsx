@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import PageWrapper from "../../../../Components/PageWrapper/PageWrapper";
-import { Button, Flex, Grid, Loader, Text } from "@mantine/core";
+import { Grid } from "@mantine/core";
 import DataGrid from "../../../../Components/DataTable/DataGrid";
 import { axios_get } from "../../../../Utils/Axios";
 import { QuotationViewHeader } from "./QuotationHeader";
+import FilterBarQuoatation from "./FilterBarQuotation";
+import { fetchQuotation } from "./QuotationFunctions";
 
 function QuotationView({pending}) {
   const [quotationData, setQuotationData] = useState([]);
+  const [pagination, setPagination] = useState([]);
   const [update, setUpdate] = useState(false);
   let url = "/quotation?status="+pending;
-  const fetchQuotation = async () => {
-    await axios_get({ url: url }).then((res) => {
-      setQuotationData(res.data.data);
-    });
-  };
-  useEffect(() => {
-    fetchQuotation();
+  useEffect(() => { 
+    fetchQuotation({ url, setQuotationData, setPagination});
     setUpdate(false);
   }, [update,url]);
 
@@ -23,14 +21,17 @@ function QuotationView({pending}) {
     <>
       <PageWrapper title="Qutations">
         <Grid>
-          <Grid.Col span={12}>
-            <Text align="center">Quotation filters</Text>
+          <Grid.Col my={15} span={12}>
+            <FilterBarQuoatation currentUrl={url} setPagination={setPagination} setQuotationData={setQuotationData}/>
           </Grid.Col>
           <Grid.Col span={12}>
               <DataGrid
                 columns={QuotationViewHeader({ setUpdate,pending })}
                 data={quotationData}
-                pagination={true}
+                pagination={pagination}
+                setPagination={setPagination}
+                currentUrl={url}
+                setData={setQuotationData}
               />
           </Grid.Col>
         </Grid>

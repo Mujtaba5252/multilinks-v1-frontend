@@ -2,6 +2,7 @@ import QuotationViewModal from "./QuotationViewModal";
 import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
 import { Badge } from "@mantine/core";
 import { staffRoutes } from "../../../routes";
+import { CurrencyFormatter } from "../../../Utils/CommonFormatters";
 
 export const QuotationHeader = () => {
   return [
@@ -39,7 +40,7 @@ export const QuotationHeader = () => {
     },
     {
       name: "Amount",
-      selector: (row) => row.grand_total_numeric || "N/A",
+      selector: (row) => CurrencyFormatter(row.grand_total_numeric) || "N/A",
       sortable: true,
       wrap: true,
     },
@@ -79,7 +80,7 @@ export const QuotationHeader = () => {
       cell: (row) => {
         return (
           <ActionIcons
-            edit={row.status=='Pending'?true:false}
+            edit={row.status == "Pending" ? true : false}
             blocked={false}
             editUrl={`${staffRoutes.addQuotation}/${row.id}`}
             ModalTitle={"Quotation Details"}

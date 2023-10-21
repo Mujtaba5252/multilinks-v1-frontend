@@ -11,7 +11,7 @@ import {
   UserPlus,
   Users,
 } from "tabler-icons-react";
-import { routes,adminRoutes } from "../../routes";
+import { routes, adminRoutes } from "../../routes";
 
 export const AdminSidebar = [
   {
@@ -64,8 +64,8 @@ export const AdminSidebar = [
       },
       {
         order: 108,
-        label: "Salaries & Commissions",
-        Link: adminRoutes.salariesAndCommissions,
+        label: "Commissions",
+        Link: adminRoutes.commissions,
         icon: Cash,
       },
     ],
@@ -73,7 +73,7 @@ export const AdminSidebar = [
   {
     order: 109,
     label: "Licenses",
-    Link: adminRoutes.licenses,
+    Link: adminRoutes.viewLicenses,
     icon: FileUnknown,
   },
 ];

@@ -1,6 +1,7 @@
 import {
   Button,
   Grid,
+  Group,
   MultiSelect,
   Select,
   TextInput,
@@ -8,56 +9,63 @@ import {
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { numeric_to_word } from "../../../Utils/CommonFormatters";
 
 const VisaForm = ({ form, total, setTotal }) => {
   const params = useParams();
-  let collector = 0;
   const data = [
-    { value: "jobOfferLetter", label: "Job Offer Letter" },
-    { value: "insurance", label: "Insurance" },
-    { value: "laborCardFee", label: "Labor Card Fee" },
-    { value: "entryPermit", label: "Entry Permit" },
-    { value: "statusChange", label: "Status Change" },
-    { value: "medical", label: "Medical" },
-    { value: "emiratesId", label: "Emirated ID" },
-    { value: "stamping", label: "Stamping" },
-    { value: "towjeeh", label: "Towjeeh" },
+    { value: "Job Offer Letter", label: "Job Offer Letter" },
+    { value: "Insurance", label: "Insurance" },
+    { value: "Labor Card Fee", label: "Labor Card Fee" },
+    { value: "Entry Permit", label: "Entry Permit" },
+    { value: "Status Change", label: "Status Change" },
+    { value: "Medical", label: "Medical" },
+    { value: "Emirates Id", label: "Emirated ID" },
+    { value: "Stamping", label: "Stamping" },
+    { value: "Towjeeh", label: "Towjeeh" },
   ];
-  const calculate = () => {
-    collector = 0;
-    for (let i = 0; i < form.values.offered_services.length; i++) {
-      const dat = form.values.offered_services[i] + "Amount";
-      const valuefromFeilds = parseInt(form.values[dat]);
-      collector = collector + valuefromFeilds;
-    }
-    // Check if the entry permit field is selected
-    for (const offeredService of form.values.offered_services) {
-      // Check if the offered service is selected and has a value entered
-      const offeredServiceSelected =
-        form.values.offered_services.includes(offeredService);
-      const offeredServiceValueEntered =
-        form.values[offeredService + "Amount"] !== "";
-
-      // Calculate discount for the offered service
-      const discount = form.values.discount && parseInt(form.values.discount);
-      if (
-        offeredServiceSelected &&
-        offeredServiceValueEntered &&
-        discount > 0
-      ) {
-        const offeredServiceAmount = form.values[offeredService + "Amount"];
-        collector = collector - (discount / 100) * offeredServiceAmount;
-      }
-    }
-    // Set total amount
+  let collector = 0;
+  useEffect(() => {
+    collector =
+      parseInt(form.values.service_charges) + parseInt(form.values.total) || 0;
     setTotal(collector);
-    form.setFieldValue("total", collector);
-  };
+    form.setFieldValue("grand_total_numeric", collector);
+    form.setFieldValue(
+      "grand_total_in_words",
+      numeric_to_word(parseInt(form.values.grand_total_numeric))
+    );
+  }, [
+    form.values.grand_total_numeric,
+    form.values.service_charges,
+    form.values.total,
+  ]);
 
+  // useEffect(() => {
+  //   if (form.values.offered_services) {
+  //     data.forEach((item) => {
+  //       if (!form.values.offered_services.includes(item.value)) {
+  //         form?.setFieldValue(`${item.value}Amount`, "");
+  //       }
+  //     });
+  //   }
+  //   form.setFieldValue(
+  //     "total",
+  //     Object.keys(form.values)
+
+  //       .filter((key) => key.endsWith("Amount"))
+  //       .reduce((acc, key) => {
+  //         return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+  //       }, 0)
+  //   );
+  // }, [
+  //   form.values.total,
+
+  //   form.values.offered_services.map((item) => item.amount),
+  // ]);
   return (
     <>
       <Grid>
-        <Grid.Col md={6}>
+        <Grid.Col md={12}>
           <Select
             form={form}
             label="Visa Status"
@@ -73,19 +81,7 @@ const VisaForm = ({ form, total, setTotal }) => {
             {...form?.getInputProps("visa_status")}
           />
         </Grid.Col>
-        <Grid.Col md={6}>
-          <TextInput
-            form={form}
-            mt={"md"}
-            type="number"
-            label={"Service Charges"}
-            placeholder="Enter Service Charges"
-            icon="Dhs"
-            size="md"
-            withAsterisk={true}
-            {...form?.getInputProps("service_charges")}
-          />
-        </Grid.Col>
+
         <Grid.Col md={12}>
           <MultiSelect
             form={form}
@@ -99,93 +95,115 @@ const VisaForm = ({ form, total, setTotal }) => {
           />
         </Grid.Col>
         {form.values.offered_services &&
-          form.values.offered_services.map((item) => (
-            <React.Fragment key={item}>
-              {item == "entryPermit" ? (
-                <Grid.Col md={6}>
-                  <Select
-                    form={form}
-                    label={data.find((el) => el.value === item)?.label}
-                    placeholder={data.find((el) => el.value === item)?.label}
-                    size={"md"}
-                    data={[
-                      {
-                        value: "insideEntryPermit",
-                        label: "Inside Entry Permit",
-                      },
-                      {
-                        value: "outsideEntryPermit",
-                        label: "Outside Entry Permit",
-                      },
-                    ]}
-                    withAsterisk={true}
-                    {...form?.getInputProps("entryPermit")}
-                  />
-                </Grid.Col>
-              ) : (
-                <Grid.Col md={6}>
-                  <TextInput
-                    form={form}
-                    label={data.find((el) => el.value === item)?.label}
-                    placeholder={data.find((el) => el.value === item)?.label}
-                    size="md"
-                    disabled
-                    {...form?.getInputProps(item)}
-                  />
-                </Grid.Col>
-              )}
-              <Grid.Col md={6}>
-                <TextInput
-                  form={form}
-                  type="number"
-                  label={"Amount"}
-                  icon="Dhs"
-                  placeholder={"Amount"}
-                  withAsterisk={true}
-                  size="md"
-                  {...form?.getInputProps(`${item}Amount`)}
-                />
-              </Grid.Col>
-            </React.Fragment>
-          ))}
-        {/* <Grid.Col span={12}>
-          <Button onClick={calculate}> Calculate</Button>
-        </Grid.Col> */}
-        <Grid.Col md={12}>
+          form.values.offered_services.map(
+            (item) => (
+              console.log(item),
+              (
+                <React.Fragment key={item}>
+                  {item == "Entry Permit" ? (
+                    <Grid.Col md={6}>
+                      <Select
+                        form={form}
+                        label={data.find((el) => el.value === item)?.label}
+                        placeholder={
+                          data.find((el) => el.value === item)?.label
+                        }
+                        size={"md"}
+                        data={[
+                          {
+                            value: "Inside Entry Permit",
+                            label: "Inside Entry Permit",
+                          },
+                          {
+                            value: "Outside Entry Permit",
+                            label: "Outside Entry Permit",
+                          },
+                        ]}
+                        withAsterisk={true}
+                        {...form?.getInputProps("entryPermit")}
+                      />
+                    </Grid.Col>
+                  ) : (
+                    <Grid.Col md={6}>
+                      <TextInput
+                        form={form}
+                        label={data.find((el) => el.value === item)?.label}
+                        placeholder={
+                          data.find((el) => el.value === item)?.label
+                        }
+                        size="md"
+                        disabled
+                        {...form?.getInputProps(item)}
+                      />
+                    </Grid.Col>
+                  )}
+                  <Grid.Col md={6}>
+                    <TextInput
+                      form={form}
+                      type="number"
+                      label={"Amount"}
+                      icon="Dhs"
+                      placeholder={"Amount"}
+                      withAsterisk={true}
+                      onBlurCapture={() => {
+                        if (form.values.offered_services) {
+                          data.forEach((item) => {
+                            if (
+                              !form.values.offered_services.includes(item.value)
+                            ) {
+                              form?.setFieldValue(`${item.value}Amount`, "");
+                            }
+                          });
+                        }
+                        form.setFieldValue(
+                          "total",
+                          Object.keys(form.values)
+
+                            .filter((key) => key.endsWith("Amount"))
+                            .reduce((acc, key) => {
+                              return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                            }, 0)
+                        );
+                      }}
+                      size="md"
+                      {...form?.getInputProps(`${item}Amount`)}
+                    />
+                  </Grid.Col>
+                </React.Fragment>
+              )
+            )
+          )}
+
+        <Grid.Col md={6}>
           <TextInput
             form={form}
             type="number"
-            label={"Discount(If Any)"}
-            placeholder={"Please Enter Discount"}
+            label={"Total Amount"}
+            readOnly
+            withAsterisk
+            placeholder={"Please Enter Amount"}
             size="md"
-            icon={"%"}
-            {...form?.getInputProps("discount")}
+            {...form?.getInputProps("total")}
           />
         </Grid.Col>
-        <Grid.Col md={12}>
-          <Tooltip
-            label="Click on calculate button"
-            position="bottom-start"
-            color="blue"
-          >
-            <TextInput
-              form={form}
-              type="number"
-              label={"Total Amount"}
-              withAsterisk
-              placeholder={"Please Enter Amount"}
-              size="md"
-              rightSection={<Button onClick={calculate}> Calculate</Button>}
-              rightSectionWidth={110}
-              {...form?.getInputProps("total")}
-            />
-          </Tooltip>
+        <Grid.Col md={6}>
+          <TextInput
+            form={form}
+            type="number"
+            label={"Service Charges"}
+            placeholder="Enter Service Charges"
+            icon="Dhs"
+            size="md"
+            withAsterisk={true}
+            {...form?.getInputProps("service_charges")}
+          />
         </Grid.Col>
+
         <Grid.Col md={12}>
           <TextInput
             form={form}
             type="number"
-            label={"Grand Total"}
+            label={"Grand Total(Total Amount + Service Charges)"}
             withAsterisk
             placeholder={"Please Enter Grand Total"}
             size="md"
@@ -198,6 +216,7 @@ const VisaForm = ({ form, total, setTotal }) => {
             withAsterisk
             label={"Grand Total(In Words)"}
             placeholder={"Please Enter Grand Total In Words"}
+            readOnly
             size="md"
             {...form?.getInputProps("grand_total_in_words")}
           />

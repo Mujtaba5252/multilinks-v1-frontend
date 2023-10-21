@@ -1,4 +1,16 @@
-import { CurrencyDollar, LayoutDashboard, Plus, Man } from "tabler-icons-react";
+import {
+  CurrencyDollar,
+  LayoutDashboard,
+  Plus,
+  Man,
+  File,
+  FileInvoice,
+  CurrencyDirham,
+  Cash,
+  DoorExit,
+  Blockquote,
+  UserPlus,
+} from "tabler-icons-react";
 import { routes, staffRoutes } from "../../routes";
 
 export const StaffSideBar = [
@@ -10,26 +22,26 @@ export const StaffSideBar = [
   {
     label: "My Client",
     Link: staffRoutes.viewClient,
-    icon: Man,
+    icon: UserPlus,
   },
   {
     label: "Quotations",
     Link: staffRoutes.viewQuotation,
-    icon: CurrencyDollar,
+    icon: Blockquote,
   },
   {
     label: "Payments Invoice",
     Link: staffRoutes.viewPaymentInvoice,
-    icon: CurrencyDollar,
+    icon: FileInvoice,
   },
   {
     label: "Commissions",
-    Link: staffRoutes.staffDashboard,
-    icon: CurrencyDollar,
+    Link: staffRoutes.commissions,
+    icon: Cash,
   },
   {
     label: "Leave Request",
     Link: staffRoutes.viewLeaveRequest,
-    icon: CurrencyDollar,
+    icon: DoorExit,
   },
 ];

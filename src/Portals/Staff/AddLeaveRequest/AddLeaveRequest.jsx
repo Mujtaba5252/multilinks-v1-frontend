@@ -3,7 +3,7 @@ import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
 import CustomLoader from "../../../Components/CustomLoader/CustomLoader";
 import { Button, Grid, Group, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { DateInput, DatePickerInput } from "@mantine/dates";
+import { DateInput, DatePicker, DatePickerInput } from "@mantine/dates";
 import { UserContext } from "../../../Contexts/UserContext";
 import { CircleCheck, CircleX } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";

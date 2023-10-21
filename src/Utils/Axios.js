@@ -39,17 +39,26 @@ export const axios_post = async ({ url, data, header, params }) => {
   } catch (error) {
     response = error.response;
   }
+  return response;
 };
 
 export const axios_put = async ({ url, data, header, params }) => {
   const token = Token();
-  const response = await axios.put(backendUrl + url, data, {
-    ...params,
-    headers: {
-      Authorization: "Bearer " + token,
-      ...header,
-    },
-  });
+  let response;
+  try {
+
+    response = await axios.put(backendUrl + url, data, {
+      ...params,
+      headers: {
+        Authorization: "Bearer " + token,
+        ...header,
+      },
+    });
+    return response;
+
+  } catch (error) {
+    response = error.response;
+  }
   return response;
 };
 

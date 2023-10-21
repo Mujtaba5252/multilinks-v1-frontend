@@ -23,8 +23,10 @@ import {
   StatusChange,
 } from "tabler-icons-react";
 import { MainBlue } from "../../../Utils/ThemeColors";
+import { useMediaQuery } from "@mantine/hooks";
 
 const QuotationViewModal = ({ row }) => {
+  const matches = useMediaQuery("(max-width: 768px)");
   return (
     <Paper>
       <Flex direction={"column"} align={"left"} w={"100%"}>
@@ -35,7 +37,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.client?.client_name && (
             <>
               <Group noWrap>
-                <Man />
+                {!matches && <Man />}
                 <Text color="#0487FF" fw={"md"}>
                   Client ID :
                 </Text>
@@ -46,7 +48,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.client?.client_name && (
             <>
               <Group noWrap>
-                <Man />
+                {!matches && <Man />}
                 <Text color="#0487FF" fw={"md"}>
                   Client Name :
                 </Text>
@@ -57,7 +59,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.client?.client_email && (
             <>
               <Group noWrap>
-                <Mail />
+                {!matches && <Mail />}
                 <Text color="#0487FF">Client Email :</Text>
               </Group>
               <Text>{row?.client?.client_email}</Text>{" "}
@@ -66,7 +68,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.client?.client_nationality && (
             <>
               <Group noWrap>
-                <Flag />
+                {!matches && <Flag />}
                 <Text color="#0487FF">Client Nationality :</Text>
               </Group>
               <Text>{row?.client?.client_nationality}</Text>
@@ -75,7 +77,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.client?.client_contact_number && (
             <>
               <Group noWrap>
-                <Phone />
+                {!matches && <Phone />}
                 <Text color="#0487FF">Client Number :</Text>
               </Group>
               <Text>{row?.client?.client_contact_number}</Text>
@@ -89,7 +91,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.status && (
             <>
               <Group noWrap>
-                <StatusChange />
+                {!matches && <StatusChange />}
                 <Text color="#0487FF" fw={"md"}>
                   Status :
                 </Text>
@@ -114,7 +116,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.quotation_ID && (
             <>
               <Group noWrap>
-                <Id />
+                {!matches && <Id />}
                 <Text color="#0487FF" fw={"md"}>
                   Quotation ID :
                 </Text>
@@ -125,7 +127,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.quotation_date && (
             <>
               <Group noWrap>
-                <Calendar />
+                {!matches && <Calendar />}
                 <Text color="#0487FF" fw={"md"}>
                   Quotation Date :
                 </Text>
@@ -137,7 +139,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.service_type_additional_fields?.visa_status && (
             <>
               <Group noWrap>
-                <Man />
+                {!matches && <Man />}
                 <Text color="#0487FF" fw={"md"}>
                   Visa Status :
                 </Text>
@@ -148,7 +150,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.service_type && (
             <>
               <Group noWrap>
-                <ClipboardTypography />
+                {!matches && <ClipboardTypography />}
                 <Text color="#0487FF" fw={"md"}>
                   Service Type :
                 </Text>
@@ -159,7 +161,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.service_charges !== undefined && (
             <>
               <Group noWrap>
-                <CurrencyDirham />
+                {!matches && <CurrencyDirham />}
                 <Text color="#0487FF" fw={"md"}>
                   Service Charges :
                 </Text>
@@ -172,10 +174,12 @@ const QuotationViewModal = ({ row }) => {
           <Accordion.Item value="offeredServices">
             <Accordion.Control
               color={"blue"}
-              icon={<Photo size={20} />}
+              icon={<Photo size={25} style={{ paddingLeft: "2px" }} />}
               p={2}
               pt={0}
               pb={0}
+              pr={10}
+              
               style={{
                 border: "0.5px solid #0487FF",
                 color: "white",
@@ -188,7 +192,7 @@ const QuotationViewModal = ({ row }) => {
             <Accordion.Panel>
               {row?.offered_services?.map((service) => {
                 return (
-                  <SimpleGrid cols={4}>
+                  <SimpleGrid cols={!matches ? 4 : 2}>
                     <Group noWrap>
                       <Text color="#0487FF" fw={"md"}>
                         Service :
@@ -211,7 +215,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.total !== undefined && (
             <>
               <Group noWrap>
-                <CurrencyDirham />
+                {!matches && <CurrencyDirham />}
 
                 <Text color="#0487FF" fw={"md"}>
                   Total :
@@ -223,7 +227,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.discount !== undefined && (
             <>
               <Group noWrap>
-                <CurrencyDirham />
+                {!matches && <CurrencyDirham />}
 
                 <Text color="#0487FF" fw={"md"}>
                   Discount :
@@ -235,7 +239,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.grand_total_numeric !== undefined && (
             <>
               <Group noWrap>
-                <CurrencyDirham />
+                {!matches && <CurrencyDirham />}
 
                 <Text color="red" fw={"md"}>
                   Grand Total :
@@ -247,7 +251,7 @@ const QuotationViewModal = ({ row }) => {
           {row?.grand_total_in_words !== undefined && (
             <>
               <Group noWrap>
-                <CurrencyDirham />
+                {!matches && <CurrencyDirham />}
 
                 <Text color="red" fw={"md"}>
                   Grand Total(In Words) :

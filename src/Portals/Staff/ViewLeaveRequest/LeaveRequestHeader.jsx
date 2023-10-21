@@ -34,7 +34,13 @@ export const LeaveRequestHeader = () => {
     },
     {
       name: "Leave Date",
-      selector: (row) => new Date(row.leave_date).toDateString() || "N/A",
+      width: "160px",
+      selector: (row) => {
+        const startDate = new Date(row.leave_date[0]);
+        const endDate = new Date(row.leave_date[1]);
+
+        return `${startDate.toDateString()} - ${endDate.toDateString()}`;
+      },
       sortable: true,
       wrap: true,
     },

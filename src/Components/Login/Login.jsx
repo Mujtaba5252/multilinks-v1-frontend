@@ -30,11 +30,11 @@ import { backendUrl } from "../../Utils/Constants";
 import { toast } from "react-hot-toast";
 import { Role, Token } from "../../Utils/UserDetails";
 const Login = () => {
-  const theame = useMantineTheme();
   const isSmall = useMediaQuery("(max-width: 992px)");
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
-  const { setUser, setUserType, setIsAdmin, setIsStaff } =useContext(UserContext);
+  const { setUser, setUserType, setIsAdmin, setIsStaff } =
+    useContext(UserContext);
   const form = useForm({
     validateInputOnChange: true,
     initialValues: {
@@ -105,9 +105,9 @@ const Login = () => {
   };
   useEffect(() => {
     const token = Token();
-    const  role= Role();
-    if(token){
-      switch(role){
+    const role = Role();
+    if (token) {
+      switch (role) {
         case true:
           navigate("/admin/dashboard");
           break;
@@ -123,13 +123,17 @@ const Login = () => {
   return (
     <>
       <Grid
-        style={{ width: "100vw", height: "100vh", backgroundColor: MainBlue() }}
+        style={{
+          width: "100.5vw",
+          height: "101.1vh",
+          backgroundColor: MainBlue(),
+        }}
       >
         {!isSmall && (
           <Grid.Col md={6}>
             <Grid>
               <Grid.Col span={12}>
-                <Image src={logo} style={{ width: "200px" }} />
+                <Image mt={20} ml={10} src={logo} style={{ width: "200px" }} />
               </Grid.Col>
               <Grid.Col span={12}>
                 <Center mt={30}>

@@ -9,9 +9,11 @@ import Step1 from "./Step1";
 import VisaForm from "./VisaForm";
 import { axios_get, axios_post, axios_switch } from "../../../Utils/Axios";
 import toast from "react-hot-toast";
-import { staffRoutes } from "../../../routes";
+import { adminRoutes, staffRoutes } from "../../../routes";
+import { Role, User } from "../../../Utils/UserDetails";
 import CustomLoader from "../../../Components/CustomLoader/CustomLoader";
 
+import { v4 as uuidGenerator } from "uuid";
 const AddQuotations = () => {
   const param = useParams();
   const location = useLocation();
@@ -19,6 +21,7 @@ const AddQuotations = () => {
   const [active, setActive] = useState(0);
   const [total, setTotal] = useState(0);
   const [Loading, setLoading] = useState(false);
+  const role = Role();
   //for ssetting client data
   const clientData = location.state;
   if (location.state) {
@@ -34,14 +37,13 @@ const AddQuotations = () => {
       client_contact_number: !param.editId
         ? storedClientData?.client_contact_number
         : "",
-      quotation_date: !param.editId ? new Date() : null,
+      quotation_date: new Date(),
       service_type: "",
       offered_services: [],
       license_type: "",
       service_charges: "",
       entryPermit: "",
       total: "",
-      discount: 0,
       grand_total_numeric: "",
       grand_total_in_words: "",
     },
@@ -98,6 +100,7 @@ const AddQuotations = () => {
           client_contact_number: data?.client?.client_contact_number,
           //quotation date is string so we need to convert it into date
           // quotation_date: DateFunction(parseISO(data?.quotation_date)),
+          quotation_date: new Date(data?.quotation_date),
 
           service_type: data?.service_type,
           offered_services: data?.offered_services?.map((item) => item.service),
@@ -106,7 +109,6 @@ const AddQuotations = () => {
           service_charges: data?.service_charges,
           entryPermit: data?.offered_services?.map((item) => item.service),
           total: data?.total,
-          discount: data?.discount,
           grand_total_numeric: data?.grand_total_numeric,
           grand_total_in_words: data?.grand_total_in_words,
           visa_status: data?.service_type_additional_fields?.visa_status,
@@ -131,9 +133,10 @@ const AddQuotations = () => {
     setLoading(true);
     const values = {
       offered_services: formValues.offered_services?.map((item) => ({
+        UUID: uuidGenerator(),
         service: item === "entryPermit" ? formValues.entryPermit : item,
         amount: formValues[`${item}Amount`],
-        ispaid: false,
+        is_paid: false,
       })),
       quotation_ID: formValues.UID,
       quotation_date: formValues.quotation_date,
@@ -145,7 +148,6 @@ const AddQuotations = () => {
       service_charges: formValues.service_charges,
       client: storedClientData?.id,
       total: formValues.total,
-      discount: formValues.discount,
       grand_total_numeric: formValues.grand_total_numeric,
       grand_total_in_words: formValues.grand_total_in_words,
     };
@@ -168,7 +170,12 @@ const AddQuotations = () => {
               ? "Quotation Updated Successfully"
               : "Quotation Added Successfully"
           );
-          navigate(staffRoutes.viewQuotation);
+          {
+            role == true
+              ? navigate(adminRoutes.qutotations)
+              : navigate(staffRoutes.viewQuotation);
+          }
+          localStorage.removeItem("clientData");
           setLoading(false);
         } else {
           toast.error("Quotation Already Exist");

@@ -22,12 +22,21 @@ export const DateFormatter = (date) => {
 }
 //AED currency formatter
 export const CurrencyFormatter = (amount) => {
-    if(!amount) return ('');
-    //formate amount into like AED 1,000.00
+    if(isNaN(amount)){
+        return '';
+    }
+    else if(amount === 0){
+        return 'AED 0.00';
+    }
     const formatter = new Intl.NumberFormat('en-AE', {
         style: 'currency',
         currency: 'AED',
         minimumFractionDigits: 2
     });
     return formatter.format(amount);
+}
+//camel case formatter
+export const camelCaseFormatter = (str) => {
+    if(!str) return '';
+    return str.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })
 }

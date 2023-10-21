@@ -16,6 +16,24 @@ import {
   Title,
   Image,
 } from "@mantine/core";
+import React, { useEffect, useState } from "react";
+import PageWrapper from "../../../../../Components/PageWrapper/PageWrapper";
+import {
+  Button,
+  Grid,
+  Group,
+  Stepper,
+  TextInput,
+  Text,
+  Select,
+  Textarea,
+  Switch,
+  Flex,
+  Container,
+  Stack,
+  Title,
+  Image,
+} from "@mantine/core";
 
 import { Calendar, Cloud, Percentage, UserCircle } from "tabler-icons-react";
 import { useMediaQuery } from "@mantine/hooks";
@@ -24,12 +42,22 @@ import { useForm } from "@mantine/form";
 import { toast } from "react-hot-toast";
 import added from "../../../../../assets/images/added.gif";
 import { emailRegex } from "../../../../../Components/Regex/Regex";
-import { axios_post } from "../../../../../Utils/Axios";
+import {
+  axios_get,
+  axios_post,
+  axios_switch,
+} from "../../../../../Utils/Axios";
 import { adminRoutes } from "../../../../../routes";
 import { useNavigate } from "react-router";
 import BasicInformation from "./StepperForms/BasicInformation";
 import AdditionalInformation from "./StepperForms/AdditionalInformation";
 import CreateLogin from "./StepperForms/CreateLogin";
+import {
+  uploadMultipleImages,
+  uploadSingleFile,
+} from "../../../../../Components/FireBase/Firebase";
+import { useParams } from "react-router-dom";
+import CustomLoader from "../../../../../Components/CustomLoader/CustomLoader";
 
 function AddStaff() {
   const isSmall = useMediaQuery("(max-width: 574px)");
@@ -37,6 +65,11 @@ function AddStaff() {
   const [active, setActive] = useState(0);
   const [emirateID, setEmirateID] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState(false);
+  const [attachments, setAttachments] = useState([]);
+  const [profile, setProfile] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(null);
+  const params = useParams();
   const form1 = useForm({
     initialValues: {
       name: "",
@@ -124,7 +157,6 @@ function AddStaff() {
     initialValues: {
       login_email: "",
       login_password: "",
-      profile_picture: "",
       attachments: [],
     },
     validate: {
@@ -133,24 +165,110 @@ function AddStaff() {
         value.length > 7 ? null : "Password must be 8 characters long",
     },
   });
-  const AddNewStaff = async () => {
+
+  // const imageUpload = async () => {
+  //   console.log(profile);
+  //   const profileImage = await uploadSingleFile({
+  //     file: profile,
+  //     folderName: "staff",
+  //   });
+  //   console.log(profileImage);
+  // };
+  const getStaffData = async () => {
+    setLoading(true);
+    axios_get({ url: `/user/${params.editId}` })
+      .then((res) => {
+        let data = res.data.data;
+        form1.setValues({
+          name: data?.name,
+          father_name: data?.father_name,
+          personal_email: data?.personal_email,
+          designation: data?.designation,
+          joining_date: new Date(data?.joining_date),
+          visa_status: data?.visa_status,
+          visa_expiry_date: new Date(data?.visa_expiry_date),
+          visa_issuance_date: new Date(data?.visa_issuance_date),
+          salary: data?.salary,
+          bank_name: data?.bank_name,
+          IBAN: data?.IBAN,
+          CNIC_NIN: data?.CNIC_NIN,
+          residence_address: data?.residence_address,
+        });
+        form2.setValues({
+          nationality: data?.nationality,
+          passport_number: data?.passport_number,
+          has_emirates_ID: data?.has_emirates_ID,
+          emirates_ID: data?.emirates_ID,
+          emirates_ID_expiry_date: new Date(data?.emirates_ID_expiry_date),
+          emirates_ID_issuance_date: new Date(data?.emirates_ID_issuance_date),
+          emergency_contact_name: data?.emergency_contact_name,
+          emergency_contact_number: data?.emergency_contact_number,
+          residence_address_in_UAE: data?.residence_address_in_UAE,
+          commission_percentage: data?.commission_percentage,
+        });
+        form3.setValues({
+          login_email: data?.login_email,
+          login_password: data?.login_password,
+        });
+        setAttachments(data?.attachments || []);
+        setShow(data?.profile_picture?.path || {});
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    if (params.editId) {
+      getStaffData();
+    }
+  }, [params.editId]);
+
+  const addNewStaff = async () => {
+    setLoading(true);
+    const profileImage = await uploadSingleFile({
+      file: profile,
+      folderName: "staff",
+    });
+    const attachments1 = await uploadMultipleImages(attachments, "staff");
+
     if (form3.validate() && confirmPassword) {
-      const value = { ...form1.values, ...form2.values, ...form3.values };
+      const value = {
+        ...form1.values,
+        ...form2.values,
+        ...form3.values,
+        profile_picture: profileImage,
+        attachments: attachments1,
+      };
       console.log(value);
-      let url = "/user";
-      await axios_post({ url: url, data: value }).then((res) => {
+      let url;
+      if (params.editId) {
+        url = `/user/${params.editId}`;
+      } else {
+        url = "/user";
+      }
+      await axios_switch(params.editId ? "put" : "post", {
+        url: url,
+        data: value,
+      }).then((res) => {
         console.log(res);
         if (res.status == 200) {
           nextStep();
           toast.success("Staff Added Successfully");
+
           setTimeout(() => {
             navigate(adminRoutes.staffView);
           }, 3000);
+          setLoading(false);
         } else if (res.status == 400) {
           console.log(res.data);
           toast.error(res.data.message);
+          setLoading(false);
         } else {
           toast.error("Something went wrong");
+          setLoading(false);
         }
       });
     } else {
@@ -158,6 +276,7 @@ function AddStaff() {
       confirmPassword
         ? toast.error("Please fill all the fields")
         : toast.error("Password Not Matched");
+      setLoading(false);
     }
   };
   const nextStep = () =>
@@ -194,7 +313,7 @@ function AddStaff() {
     }
   };
   return (
-    <>
+    <CustomLoader loading={loading}>
       <PageWrapper title="Add Staff">
         <Stepper active={active} onStepClick={setActive} breakpoint>
           <Stepper.Step
@@ -236,6 +355,12 @@ function AddStaff() {
                 form3={form3}
                 confirmPassword={confirmPassword}
                 ConfirmPassword={ConfirmPassword}
+                attachments={attachments}
+                setAttachments={setAttachments}
+                profile={profile}
+                setProfile={setProfile}
+                show={show}
+                setShow={setShow}
               />
             </form>
           </Stepper.Step>
@@ -252,6 +377,9 @@ function AddStaff() {
         </Stepper>
 
         <Group position="right" mt="xl">
+          {/* <Button w={140} variant="default" onClick={imageUpload}>
+            IMAGE
+          </Button> */}
           {active == 0 ? null : active > 2 ? null : (
             <Button w={140} variant="default" onClick={prevStep}>
               Back
@@ -259,7 +387,7 @@ function AddStaff() {
           )}
           {active > 1 ? (
             active == 2 ? (
-              <Button w={140} onClick={() => AddNewStaff()}>
+              <Button w={140} onClick={() => addNewStaff()}>
                 Create
               </Button>
             ) : null
@@ -270,7 +398,7 @@ function AddStaff() {
           )}
         </Group>
       </PageWrapper>
-    </>
+    </CustomLoader>
   );
 }
 
