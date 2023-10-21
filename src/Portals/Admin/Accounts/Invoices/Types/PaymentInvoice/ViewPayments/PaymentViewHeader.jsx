@@ -89,7 +89,7 @@ export const PaymentViewHeader = ({ isInvoice, setUpdate }) => {
                 Approve={true}
                 Reject={true}
                 ModalTitle={"Payment Invoice"}
-                ViewModalComponent={<PaymentInvoiceModal />}
+                ViewModalComponent={<PaymentInvoiceModal row={row} />}
                 ApproveModalTitle={"Approve Payment Invoice"}
                 RejectModalTitle={"Reject Payment Invoice"}
                 disableApproveReject={row.status == "Approved" ? true : false}

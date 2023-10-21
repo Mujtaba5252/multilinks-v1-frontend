@@ -50,10 +50,10 @@ export const OfficeExpenseViewHeader = ({ isInvoice, setUpdate }) => {
               row.status == "Approved"
                 ? "green"
                 : row.status == "Pending"
-                  ? "yellow"
-                  : row.status == "Rejected"
-                    ? "red"
-                    : "blue"
+                ? "yellow"
+                : row.status == "Rejected"
+                ? "red"
+                : "blue"
             }
           >
             {row.status}
@@ -66,19 +66,25 @@ export const OfficeExpenseViewHeader = ({ isInvoice, setUpdate }) => {
     {
       name: "Actions",
       cell: (row) => {
-        return <ActionIcons
-          Approve={isInvoice ? true : false}
-          Reject={isInvoice ? true : false}
-          ApproveModalTitle={"Approve Office Expense"}
-          RejectModalTitle={"Reject Office Expense"}
-          ApproveModalComponent={<ApproveOfficeExpense Data={row} setUpdate={setUpdate} />}
-          RejectModalComponent={<RejectOfficeExpense Data={row} setUpdate={setUpdate} />}
-          ModalTitle={"View Office Expense"}
-          ViewModalComponent={<OfficeExpenseViewModal row={row} />}
-          attachment={true}
-          attachmentModalTitle={"Uploaded Attachments"}
-          AttachmentModalComponent={<AttachmentModal row={row} />}
-        />;
+        return (
+          <ActionIcons
+            Approve={isInvoice ? true : false}
+            Reject={isInvoice ? true : false}
+            ApproveModalTitle={"Approve Office Expense"}
+            RejectModalTitle={"Reject Office Expense"}
+            ApproveModalComponent={
+              <ApproveOfficeExpense Data={row} setUpdate={setUpdate} />
+            }
+            RejectModalComponent={
+              <RejectOfficeExpense Data={row} setUpdate={setUpdate} />
+            }
+            ModalTitle={"View Office Expense"}
+            ViewModalComponent={<OfficeExpenseViewModal row={row} />}
+            attachment={!isInvoice ? true : false}
+            attachmentModalTitle={"Uploaded Attachments"}
+            AttachmentModalComponent={<AttachmentModal row={row} />}
+          />
+        );
       },
       sortable: true,
     },

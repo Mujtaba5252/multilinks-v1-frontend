@@ -131,7 +131,7 @@ const ActionIcons = ({
           </Tooltip>
         )}
         {attachment && (
-          <Tooltip label={"Print"}>
+          <Tooltip label={"Attachments"}>
             <ActionIcon onClick={handleAttachment}>
               <CloudDownload color={MainBlue()} />
             </ActionIcon>

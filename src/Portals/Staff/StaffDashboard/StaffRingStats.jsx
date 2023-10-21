@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import React from "react";
-import { ArrowDownRight, ArrowUpRight } from "tabler-icons-react";
+import { ArrowDownRight, ArrowUpRight, DoorExit } from "tabler-icons-react";
 
 const StaffRingStats = () => {
   const matches = useMediaQuery("(max-width: 768px)");
@@ -23,7 +23,7 @@ const StaffRingStats = () => {
 
   return (
     <Grid>
-      <Grid.Col span={!matches ? 5 : 12}>
+      <Grid.Col span={!matches ? 6 : 12}>
         <Grid.Col h={"33.33%"} p={0}>
           <Paper withBorder radius="md" p="xs" bg={"#0487FF"}>
             <Group position="apart">
@@ -35,7 +35,7 @@ const StaffRingStats = () => {
                   fw={900}
                   align="center"
                 >
-                  Total Received
+                  Total Quotations
                 </Text>
                 <Badge
                   fw={700}
@@ -79,7 +79,7 @@ const StaffRingStats = () => {
                   fw={900}
                   align="center"
                 >
-                  Total Pending
+                  Approved Quotations
                 </Text>
                 <Badge
                   fw={700}
@@ -123,7 +123,7 @@ const StaffRingStats = () => {
                   fw={900}
                   align="center"
                 >
-                  Total Client Expense
+                  Total Commission
                 </Text>
                 <Badge fw={700} size="xl" color="white" align="center">
                   AED 1009999
@@ -151,7 +151,7 @@ const StaffRingStats = () => {
           </Paper>
         </Grid.Col>
       </Grid.Col>
-      <Grid.Col span={!matches ? 3 : 6}>
+      <Grid.Col span={!matches ? 6 : 12}>
         <Grid.Col h={"50%"} p={0}>
           <Paper
             withBorder
@@ -168,41 +168,26 @@ const StaffRingStats = () => {
               <div>
                 <Text
                   c="white"
-                  size="md"
+                  size={30}
                   tt="uppercase"
                   fw={700}
                   align="center"
                 >
-                  Total Commission
+                  Leaves Requested
                 </Text>
-                <Badge
-                  fw={700}
-                  size="md"
-                  variant="filled"
-                  color="red"
-                  align="center"
-                  fullWidth
-                >
-                  AED 100
-                </Badge>
-              </div>
-              <RingProgress
-                size={100}
-                roundCaps
-                thickness={10}
-                sections={[{ value: 100, color: "red" }]}
-                label={
-                  <Center
-                    style={{
-                      color: "white",
-                      fontSize: "1.1rem",
-                      fontWeight: 800,
-                    }}
+                <Group position="center">
+                  <DoorExit size={30} color="white" />
+                  <Text
+                    c="white"
+                    size={30}
+                    tt="uppercase"
+                    fw={700}
+                    align="center"
                   >
-                    91%
-                  </Center>
-                }
-              />
+                    10
+                  </Text>
+                </Group>
+              </div>
             </Stack>
           </Paper>
         </Grid.Col>
@@ -221,92 +206,29 @@ const StaffRingStats = () => {
               <div>
                 <Text
                   c="white"
-                  size="md"
+                  size={30}
                   tt="uppercase"
                   fw={700}
                   align="center"
                 >
-                  Total Office Expense
+                  Leaves Approved
                 </Text>
-                <Badge
-                  fw={700}
-                  size="md"
-                  variant="filled"
-                  color="yellow"
-                  align="center"
-                  fullWidth
-                >
-                  AED 100
-                </Badge>
-              </div>
-              <RingProgress
-                size={100}
-                roundCaps
-                thickness={10}
-                sections={[{ value: 100, color: "yellow" }]}
-                label={
-                  <Center
-                    style={{
-                      color: "white",
-                      fontSize: "1.1rem",
-                      fontWeight: 800,
-                    }}
+                <Group position="center">
+                  <DoorExit size={30} color="white" />
+                  <Text
+                    c="white"
+                    size={30}
+                    tt="uppercase"
+                    fw={700}
+                    align="center"
                   >
-                    91%
-                  </Center>
-                }
-              />
+                    10
+                  </Text>
+                </Group>
+              </div>
             </Stack>
           </Paper>
         </Grid.Col>
-      </Grid.Col>
-      <Grid.Col span={!matches ? 4 : 6}>
-        {" "}
-        <Paper
-          withBorder
-          radius="md"
-          p="xs"
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-          bg={"#0487FF"}
-        >
-          <Stack align="center" spacing={0}>
-            <div>
-              <Text c="white" size={30} tt="uppercase" fw={700} align="center">
-                Total Profit
-              </Text>
-              <Badge
-                fw={700}
-                size="lg"
-                variant="filled"
-                color="green"
-                align="center"
-                fullWidth
-              >
-                AED 100
-              </Badge>
-            </div>
-            <RingProgress
-              size={190}
-              roundCaps
-              thickness={20}
-              sections={[{ value: 100, color: "green" }]}
-              label={
-                <Center
-                  style={{
-                    color: "white",
-                    fontSize: "1.6rem",
-                    fontWeight: 800,
-                  }}
-                >
-                  91%
-                </Center>
-              }
-            />
-          </Stack>
-        </Paper>
       </Grid.Col>
     </Grid>
   );
