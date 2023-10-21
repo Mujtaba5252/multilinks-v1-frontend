@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CustomLoader from "../../../../../../../../Components/CustomLoader/Customloader";
+import CustomLoader from "../../../../../../../../Components/CustomLoader/CustomLoader";
 import ImagesAndFileUpload from "../../../../../../../../Components/ImagesAndFileUpload/ImagesAndFileUpload";
 import { Button, Group, Input } from "@mantine/core";
 import { uploadMultipleImages } from "../../../../../../../../Components/FireBase/Firebase";

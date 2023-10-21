@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CustomLoader from "../../../../../Components/CustomLoader/Customloader";
+import CustomLoader from "../../../../../Components/CustomLoader/CustomLoader";
 import { Button, Group, Input } from "@mantine/core";
 import ImagesAndFileUpload from "../../../../../Components/ImagesAndFileUpload/ImagesAndFileUpload";
 import { MIME_TYPES } from "@mantine/dropzone";
