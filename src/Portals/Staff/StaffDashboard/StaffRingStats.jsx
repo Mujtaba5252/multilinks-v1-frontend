@@ -27,7 +27,7 @@ const StaffRingStats = ({ data }) => {
       <Grid.Col span={!matches ? 6 : 12}>
         <Grid.Col h={"33.33%"} p={0}>
           <Paper withBorder radius="md" p="xs" bg={"#0487FF"} h={100}>
-            <Group position="apart">
+            <Group position="apart" mt={14}>
               <div>
                 <Text
                   color="white"
@@ -47,7 +47,7 @@ const StaffRingStats = ({ data }) => {
         </Grid.Col>
         <Grid.Col h={"33.33%"} p={0}>
           <Paper withBorder radius="md" p="xs" bg={"#0487FF"} h={100}>
-            <Group position="apart">
+            <Group position="apart" mt={14}>
               <div>
                 <Text
                   color="white"
@@ -67,7 +67,7 @@ const StaffRingStats = ({ data }) => {
         </Grid.Col>
         <Grid.Col h={"33.33%"} p={0}>
           <Paper withBorder radius="md" p="xs" bg={"#0487FF"} h={100}>
-            <Group position="apart">
+            <Group position="apart" mt={14}>
               <div
                 style={{
                   display: "flex",
