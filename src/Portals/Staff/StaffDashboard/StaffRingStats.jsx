@@ -13,8 +13,9 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import React from "react";
 import { ArrowDownRight, ArrowUpRight, DoorExit } from "tabler-icons-react";
+import { CurrencyFormatter } from "../../../Utils/CommonFormatters";
 
-const StaffRingStats = () => {
+const StaffRingStats = ({ data }) => {
   const matches = useMediaQuery("(max-width: 768px)");
   const icons = {
     up: ArrowUpRight,
@@ -25,7 +26,7 @@ const StaffRingStats = () => {
     <Grid>
       <Grid.Col span={!matches ? 6 : 12}>
         <Grid.Col h={"33.33%"} p={0}>
-          <Paper withBorder radius="md" p="xs" bg={"#0487FF"}>
+          <Paper withBorder radius="md" p="xs" bg={"#0487FF"} h={100}>
             <Group position="apart">
               <div>
                 <Text
@@ -37,39 +38,15 @@ const StaffRingStats = () => {
                 >
                   Total Quotations
                 </Text>
-                <Badge
-                  fw={700}
-                  size="xl"
-                  variant="filled"
-                  color="orange"
-                  align="center"
-                >
-                  AED 1009999
-                </Badge>
               </div>
-              <RingProgress
-                size={90}
-                roundCaps
-                color="white"
-                thickness={7}
-                sections={[{ value: 100, color: "orange" }]}
-                label={
-                  <Center
-                    style={{
-                      color: "white",
-                      fontSize: "1.1rem",
-                      fontWeight: 800,
-                    }}
-                  >
-                    100%
-                  </Center>
-                }
-              />
+              <Text fw={700} size={30} color="white">
+                {data.total_quotations || 0}
+              </Text>
             </Group>
           </Paper>
         </Grid.Col>
         <Grid.Col h={"33.33%"} p={0}>
-          <Paper withBorder radius="md" p="xs" bg={"#0487FF"}>
+          <Paper withBorder radius="md" p="xs" bg={"#0487FF"} h={100}>
             <Group position="apart">
               <div>
                 <Text
@@ -81,41 +58,24 @@ const StaffRingStats = () => {
                 >
                   Approved Quotations
                 </Text>
-                <Badge
-                  fw={700}
-                  size="xl"
-                  color="green"
-                  align="center"
-                  variant="filled"
-                >
-                  AED 1009999
-                </Badge>
               </div>
-              <RingProgress
-                size={90}
-                roundCaps
-                color="white"
-                thickness={7}
-                sections={[{ value: 100, color: "green" }]}
-                label={
-                  <Center
-                    style={{
-                      color: "white",
-                      fontSize: "1.1rem",
-                      fontWeight: 800,
-                    }}
-                  >
-                    100%
-                  </Center>
-                }
-              />
+              <Text fw={700} size={30} color="white">
+                {data.total_approved_quotations || 0}
+              </Text>
             </Group>
           </Paper>
         </Grid.Col>
         <Grid.Col h={"33.33%"} p={0}>
-          <Paper withBorder radius="md" p="xs" bg={"#0487FF"}>
+          <Paper withBorder radius="md" p="xs" bg={"#0487FF"} h={100}>
             <Group position="apart">
-              <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+
+                  alignContent: "center",
+                }}
+              >
                 <Text
                   color="white"
                   size="md"
@@ -125,28 +85,10 @@ const StaffRingStats = () => {
                 >
                   Total Commission
                 </Text>
-                <Badge fw={700} size="xl" color="white" align="center">
-                  AED 1009999
-                </Badge>
               </div>
-              <RingProgress
-                size={90}
-                roundCaps
-                color="white"
-                thickness={7}
-                sections={[{ value: 100, color: "white" }]}
-                label={
-                  <Center
-                    style={{
-                      color: "white",
-                      fontSize: "1.1rem",
-                      fontWeight: 800,
-                    }}
-                  >
-                    100%
-                  </Center>
-                }
-              />
+              <Text fw={700} size={30} color="white">
+                {data.total_commission || 0}
+              </Text>
             </Group>
           </Paper>
         </Grid.Col>
@@ -184,7 +126,7 @@ const StaffRingStats = () => {
                     fw={700}
                     align="center"
                   >
-                    10
+                    {data.total_approved_leave_requests || 0}
                   </Text>
                 </Group>
               </div>
@@ -222,7 +164,7 @@ const StaffRingStats = () => {
                     fw={700}
                     align="center"
                   >
-                    10
+                    {data.total_leave_requests || 0}
                   </Text>
                 </Group>
               </div>

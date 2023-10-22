@@ -11,7 +11,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import React from "react";
 import persons from "../../../assets/svgs/persons.svg";
 
-const CardStats = () => {
+const CardStats = ({ data }) => {
   const matches = useMediaQuery("(max-width: 768px)");
 
   return (
@@ -52,7 +52,7 @@ const CardStats = () => {
             }}
           >
             <Text fw={700} size={matches ? 30 : 50} color="white">
-              10
+              {data.total_staff || 0}
             </Text>
           </div>
         </Group>
@@ -89,7 +89,7 @@ const CardStats = () => {
               }}
             >
               <Text fw={700} size={30} color="white">
-                10
+                {data.active_clients}
               </Text>
             </div>
           </Group>
@@ -125,7 +125,7 @@ const CardStats = () => {
               }}
             >
               <Text fw={700} size={30} color="white">
-                10
+                {data.completed_clients}
               </Text>
             </div>
           </Group>

@@ -13,14 +13,32 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import React from "react";
 import { ArrowDownRight, ArrowUpRight } from "tabler-icons-react";
+import { CurrencyFormatter } from "../../../Utils/CommonFormatters";
 
-const RingStats = () => {
+const RingStats = ({ data }) => {
   const matches = useMediaQuery("(max-width: 768px)");
   const icons = {
     up: ArrowUpRight,
     down: ArrowDownRight,
   };
 
+  const received = data.total_revenue - data.total_pending_revenue;
+  const totalReceived =
+    (received / data.total_revenue) * data.total_revenue || 0;
+
+  const totalPending =
+    (data.total_pending_revenue / data.total_revenue) * 100 || 0;
+  const totalClientExpesne =
+    (data.total_client_expense / data.total_revenue) * 100 || 0;
+
+  const totalCommssion =
+    (data.total_commission_to_be_paid / data.total_revenue) * 100 || 0;
+
+  const totalOfficeExpense =
+    (data.total_office_expense / data.total_revenue) * 100 || 0;
+
+  const profit = data.total_client_expense - data.total_revenue;
+  const totalProfit = (profit / data.total_revenue) * 100 || 0;
   return (
     <Grid>
       <Grid.Col span={!matches ? 5 : 12}>
@@ -44,7 +62,7 @@ const RingStats = () => {
                   color="orange"
                   align="center"
                 >
-                  AED 1009999
+                  {CurrencyFormatter(data.total_revenue || 0)}
                 </Badge>
               </div>
               <RingProgress
@@ -52,7 +70,7 @@ const RingStats = () => {
                 roundCaps
                 color="white"
                 thickness={7}
-                sections={[{ value: 100, color: "orange" }]}
+                sections={[{ value: totalReceived, color: "orange" }]}
                 label={
                   <Center
                     style={{
@@ -61,7 +79,7 @@ const RingStats = () => {
                       fontWeight: 800,
                     }}
                   >
-                    100%
+                    {totalReceived}%
                   </Center>
                 }
               />
@@ -88,7 +106,7 @@ const RingStats = () => {
                   align="center"
                   variant="filled"
                 >
-                  AED 1009999
+                  {CurrencyFormatter(data.total_revenue_to_be_generated || 0)}
                 </Badge>
               </div>
               <RingProgress
@@ -96,7 +114,7 @@ const RingStats = () => {
                 roundCaps
                 color="white"
                 thickness={7}
-                sections={[{ value: 100, color: "green" }]}
+                sections={[{ value: totalPending, color: "green" }]}
                 label={
                   <Center
                     style={{
@@ -105,7 +123,7 @@ const RingStats = () => {
                       fontWeight: 800,
                     }}
                   >
-                    100%
+                    {totalPending}%
                   </Center>
                 }
               />
@@ -126,7 +144,7 @@ const RingStats = () => {
                   Total Client Expense
                 </Text>
                 <Badge fw={700} size="xl" color="white" align="center">
-                  AED 1009999
+                  {CurrencyFormatter(data.total_client_expense || 0)}
                 </Badge>
               </div>
               <RingProgress
@@ -134,7 +152,7 @@ const RingStats = () => {
                 roundCaps
                 color="white"
                 thickness={7}
-                sections={[{ value: 100, color: "white" }]}
+                sections={[{ value: totalClientExpesne, color: "red" }]}
                 label={
                   <Center
                     style={{
@@ -143,7 +161,7 @@ const RingStats = () => {
                       fontWeight: 800,
                     }}
                   >
-                    100%
+                    {totalClientExpesne}%
                   </Center>
                 }
               />
@@ -183,14 +201,14 @@ const RingStats = () => {
                   align="center"
                   fullWidth
                 >
-                  AED 100
+                  {CurrencyFormatter(data.total_commission_to_be_paid || 0)}
                 </Badge>
               </div>
               <RingProgress
                 size={100}
                 roundCaps
                 thickness={10}
-                sections={[{ value: 100, color: "red" }]}
+                sections={[{ value: totalCommssion, color: "red" }]}
                 label={
                   <Center
                     style={{
@@ -199,7 +217,7 @@ const RingStats = () => {
                       fontWeight: 800,
                     }}
                   >
-                    91%
+                    {totalCommssion}%
                   </Center>
                 }
               />
@@ -236,14 +254,14 @@ const RingStats = () => {
                   align="center"
                   fullWidth
                 >
-                  AED 100
+                  {CurrencyFormatter(data.total_office_expense || 0)}
                 </Badge>
               </div>
               <RingProgress
                 size={100}
                 roundCaps
                 thickness={10}
-                sections={[{ value: 100, color: "yellow" }]}
+                sections={[{ value: totalOfficeExpense, color: "yellow" }]}
                 label={
                   <Center
                     style={{
@@ -252,7 +270,7 @@ const RingStats = () => {
                       fontWeight: 800,
                     }}
                   >
-                    91%
+                    {totalOfficeExpense}%
                   </Center>
                 }
               />
@@ -285,14 +303,14 @@ const RingStats = () => {
                 align="center"
                 fullWidth
               >
-                AED 100
+                {CurrencyFormatter(profit || 0)}
               </Badge>
             </div>
             <RingProgress
               size={190}
               roundCaps
               thickness={20}
-              sections={[{ value: 100, color: "green" }]}
+              sections={[{ value: totalProfit, color: "green" }]}
               label={
                 <Center
                   style={{
@@ -301,7 +319,7 @@ const RingStats = () => {
                     fontWeight: 800,
                   }}
                 >
-                  91%
+                  {totalProfit}%
                 </Center>
               }
             />
