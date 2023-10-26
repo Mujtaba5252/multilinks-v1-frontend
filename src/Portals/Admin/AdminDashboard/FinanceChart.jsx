@@ -76,8 +76,6 @@ const FinanceChart = ({ stats }) => {
     height: 500,
     type: "bar",
     options: {
-      // labels: vehicleData?.map((item) => item?.name),
-
       stacked: true,
 
       chart: {
@@ -87,23 +85,11 @@ const FinanceChart = ({ stats }) => {
         zoom: {
           enabled: true,
         },
-        // events: {
-        //   dataPointSelection: function (
-        //     event,
-        //     chartContext,
-        //     { dataPointIndex }
-        //   ) {
-        //     const { route } = vehicleData[dataPointIndex];
-        //     navigate(route);
-        //   },
-        // },
       },
-      // colors: vehicleData?.map((item) => item?.color),
 
       plotOptions: {
         bar: {
           columnWidth: "100%",
-          // distributed: true,
         },
       },
       xaxis: {
@@ -158,31 +144,25 @@ const FinanceChart = ({ stats }) => {
         data: stats?.MonthWiseData?.map((item) => item.quotationCount),
       },
       {
-        name: "Quotation Grand Total",
-        data: stats?.MonthWiseData?.map((item) => item.quotation_grand_total),
+        name: "Staff Count",
+        data: stats?.MonthWiseData?.map((item) => item.staffCount),
       },
       {
         name: "Invoice Count",
         data: stats?.MonthWiseData?.map((item) => item.invoiceCount),
       },
       {
+        name: "Quotation Grand Total",
+        data: stats?.MonthWiseData?.map((item) => item.quotation_grand_total),
+      },
+
+      {
         name: "Invoice Amount",
         data: stats?.MonthWiseData?.map((item) => item.invoice_amount_received),
       },
-      {
-        name: "Staff Count",
-        data: stats?.MonthWiseData?.map((item) => item.staffCount),
-      },
     ],
   };
-  // document
-  //   .querySelectorAll(".apexcharts-legend-text")
-  //   .forEach((label, index) => {
-  //     label.addEventListener("click", () => {
-  //       const { route } = vehicleData[index];
-  //       navigate(route);
-  //     });
-  //   });
+
   React.useEffect(() => {
     setTimeout(() => {
       setChartData(options);
@@ -194,7 +174,6 @@ const FinanceChart = ({ stats }) => {
         borderRadius: "5px",
         width: "100%",
         border: "1px solid #e9e9e9",
-        // boxShadow: "0px 0px 10px rgb(2, 33, 255, 0.5)",
         height: "auto",
         position: "relative",
         marginTop: "10px",
