@@ -46,7 +46,6 @@ export const axios_put = async ({ url, data, header, params }) => {
   const token = Token();
   let response;
   try {
-
     response = await axios.put(backendUrl + url, data, {
       ...params,
       headers: {
@@ -55,7 +54,6 @@ export const axios_put = async ({ url, data, header, params }) => {
       },
     });
     return response;
-
   } catch (error) {
     response = error.response;
   }

@@ -16,48 +16,7 @@ const FinanceChart = ({ stats }) => {
     }, 200);
   }, [chartData]);
   let showValue = 10;
-  const vehicleData = [
-    {
-      name: "Credit Application",
-      vehicles: stats?.inCredApplication_2 ?? showValue,
-      color: "#3498DB",
-    },
-    {
-      name: "Bank Approval",
-      vehicles: stats?.inBankApproval_3 ?? showValue,
-      color: "#E74C3C",
-    },
-    {
-      name: "Down Payment Collection",
-      vehicles: stats?.inDownPayment_4 ?? showValue,
-      color: "#27AE60",
-    },
-    {
-      name: "Buyer Order",
-      vehicles: stats?.inBuyerOrder_5 ?? showValue,
-      color: "#F4D03F",
-    },
-    {
-      name: "STIPs",
-      vehicles: stats?.inStips_6 ?? showValue,
-      color: "#797D7F",
-    },
-    {
-      name: "E-Contract",
-      vehicles: stats?.inEContract_7 ?? showValue,
-      color: "#BA4A00",
-    },
-    {
-      name: "You/We Owe",
-      vehicles: stats?.inEContract_7 ?? showValue,
-      color: "#258fff",
-    },
-    {
-      name: "Temp Tag and Title",
-      vehicles: stats?.inTagAndTitle_8 ?? showValue,
-      color: "#071c33",
-    },
-  ];
+
 
   const options = {
     height: 500,

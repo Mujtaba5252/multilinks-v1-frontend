@@ -52,7 +52,7 @@ const CardStats = ({ data }) => {
             }}
           >
             <Text fw={700} size={matches ? 30 : 50} color="white">
-              {data.total_staff || 0}
+              {data?.total_staff || 0}
             </Text>
           </div>
         </Group>
@@ -89,7 +89,7 @@ const CardStats = ({ data }) => {
               }}
             >
               <Text fw={700} size={30} color="white">
-                {data.active_clients}
+                {data.active_clients || 0}
               </Text>
             </div>
           </Group>
@@ -125,7 +125,7 @@ const CardStats = ({ data }) => {
               }}
             >
               <Text fw={700} size={30} color="white">
-                {data.completed_clients}
+                {data.completed_clients || 0}
               </Text>
             </div>
           </Group>

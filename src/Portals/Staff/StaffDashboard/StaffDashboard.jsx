@@ -13,7 +13,7 @@ const StaffDashboard = () => {
     await axios_get({ url: url, withSNo: true })
       .then((res) => {
         console.log(res);
-        setData(res.data);
+        setData(res.data.data);
       })
       .catch((err) => {
         console.log(err);
