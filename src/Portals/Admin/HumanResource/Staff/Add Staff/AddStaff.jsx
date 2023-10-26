@@ -23,7 +23,7 @@ import { MainBlue } from "../../../../../Utils/ThemeColors";
 import { useForm } from "@mantine/form";
 import { toast } from "react-hot-toast";
 import added from "../../../../../assets/images/added.gif";
-import { emailRegex } from "../../../../../Components/Regex/Regex";
+import { cnicRegex, emailRegex, emiratesIdRegex } from "../../../../../Components/Regex/Regex";
 import {
   axios_get,
   axios_post,
@@ -89,7 +89,7 @@ function AddStaff() {
       IBAN: (value) =>
         value.length > 3 ? null : "IBAN must be 4 characters long",
       CNIC_NIN: (value) =>
-        value.length > 3 ? null : "CNIC must be 4 characters long",
+        cnicRegex.test(value) ? null : "CNIC must be 15 characters long",
       residence_address: (value) =>
         value.length > 3 ? null : "Residence Address must be 4 characters long",
     },
@@ -108,11 +108,11 @@ function AddStaff() {
       commission_percentage: null,
     },
     validate: {
-      nationality: (value) => (value ? null : "Please Enter Nationality"),
+      nationality: (value) => (value.length > 3 ? null : "Please Enter Nationality"),
       passport_number: (value) =>
         value ? null : "Please Enter Passport Number",
       emirates_ID: (value) =>
-        emirateID ? (value ? null : "Please Enter Emirates ID") : null,
+        emirateID ? (emiratesIdRegex.test(value) ? null : "Please Enter Valid Emirates ID") : null,
       emirates_ID_expiry_date: (value) =>
         emirateID
           ? value
@@ -128,7 +128,7 @@ function AddStaff() {
       emergency_contact_name: (value) =>
         value ? null : "Please Enter Emergency Contact Name",
       commission_percentage: (value) =>
-        value ? null : "Please Enter Commission Percentage",
+        (value>=1 && value<=50) ? null : "Commission Should be in between 1 to 50 percent",
       emergency_contact_number: (value) =>
         value ? null : "Please Enter Emergency Contact Number",
       residence_address_in_UAE: (value) =>
@@ -195,6 +195,7 @@ function AddStaff() {
         setAttachments(data?.attachments || []);
         setShow(data?.profile_picture?.path || {});
         setLoading(false);
+        
       })
       .catch((err) => {
         console.log(err);

@@ -7,3 +7,5 @@ export const emailRegex = new RegExp(
 //uae phone number regex
 export const phoneRegex = new RegExp("^\\+971\\d{9}$");
 export const nameRegex = new RegExp("^[A-Za-z]+(?: [A-Za-z]+)*$");
+export const cnicRegex=new RegExp("^\\d{5}-\\d{7}-\\d$")
+export const emiratesIdRegex=new RegExp("^\\d{3}-\\d{4}-\\d{7}-\\d$")

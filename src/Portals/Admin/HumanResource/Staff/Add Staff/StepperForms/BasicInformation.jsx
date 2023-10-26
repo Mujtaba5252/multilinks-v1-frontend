@@ -1,6 +1,7 @@
 import { Grid, TextInput,Select,Textarea,Text } from '@mantine/core'
 import { DatePickerInput } from '@mantine/dates';
 import { Calendar } from 'tabler-icons-react';
+import InputMask from 'react-input-mask';
 import { MainBlue } from '../../../../../../Utils/ThemeColors';
 import React from 'react'
 
@@ -23,7 +24,7 @@ function BasicInformation({ form1 }) {
                 <DatePickerInput form={form1} withAsterisk {...form1?.getInputProps('joining_date')} rightSection={<Calendar color={MainBlue()} />} size='xs' label={<Text display={'inline'} size={'sm'}>Joining Date</Text>} placeholder="Enter Joining Date" />
             </Grid.Col>
             <Grid.Col lg={4} md={6} sm={12}>
-                <Select form={form1} withAsterisk {...form1?.getInputProps('visa_status')} data={['Active', 'Expired']} placeholder='Select VISA Status' label='VISA Status' />
+                <TextInput form={form1} withAsterisk {...form1?.getInputProps('visa_status')} data={['Active', 'Expired']} placeholder='Select VISA Status' label='VISA Status' />
             </Grid.Col>
             <Grid.Col lg={4} md={6} sm={12}>
                 <DatePickerInput form={form1} withAsterisk {...form1?.getInputProps('visa_issuance_date')} rightSection={<Calendar color={MainBlue()} />} size='xs' label={<Text display={'inline'} size={'sm'}>VISA Issuance Date</Text>} placeholder="Enter VISA Issuance Date" />
@@ -32,10 +33,10 @@ function BasicInformation({ form1 }) {
                 <DatePickerInput form={form1} withAsterisk {...form1?.getInputProps('visa_expiry_date')} rightSection={<Calendar color={MainBlue()} />} size='xs' label={<Text display={'inline'} size={'sm'}>VISA Expiry Date</Text>} placeholder="Enter VISA Expiry Date" />
             </Grid.Col>
             <Grid.Col lg={4} md={6} sm={12}>
-                <TextInput form={form1} withAsterisk {...form1?.getInputProps('CNIC_NIN')} label="CNIC" placeholder="Enter CNIC" />
+                <TextInput form={form1} withAsterisk component={InputMask} mask={'99999-9999999-9'} {...form1?.getInputProps('CNIC_NIN')} label="CNIC" placeholder="Enter CNIC" />
             </Grid.Col>
             <Grid.Col lg={4} md={6} sm={12}>
-                <TextInput form={form1} withAsterisk {...form1?.getInputProps('salary')} label="Salary" placeholder="Enter Salary" />
+                <TextInput type='number' form={form1} withAsterisk {...form1?.getInputProps('salary')} label="Salary" placeholder="Enter Salary" />
             </Grid.Col>
             <Grid.Col lg={4} md={6} sm={12}>
                 <TextInput form={form1} withAsterisk {...form1?.getInputProps('bank_name')} label="Bank Name" placeholder="Enter Bank Name" />
