@@ -27,8 +27,8 @@ function AdditionalInformation({ form2, emirateID, setEmirateID }) {
                 onChange={() => {
                   setEmirateID(!emirateID);
                   form2?.setFieldValue("emirates_ID", "");
-                  form2?.setFieldValue("emirates_ID_issuance_date", null);
-                  form2?.setFieldValue("emirates_ID_expiry_date", null);
+                  form2?.setFieldValue("emirates_ID_issuance_date", undefined);
+                  form2?.setFieldValue("emirates_ID_expiry_date", undefined);
                 }}
               />
             </Group>
