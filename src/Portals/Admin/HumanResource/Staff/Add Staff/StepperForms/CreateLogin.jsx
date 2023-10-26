@@ -56,6 +56,7 @@ function CreateLogin({
               <PasswordInput
                 form={form3}
                 withAsterisk
+                onInput={() => ConfirmPassword(undefined)}
                 {...form3?.getInputProps("login_password")}
                 size="md"
                 label="Password"
@@ -65,7 +66,7 @@ function CreateLogin({
             <Grid.Col md={12} sm={12}>
               <PasswordInput
                 withAsterisk
-                onChange={(event) => ConfirmPassword(event.target.value)}
+                onInput={(event) => ConfirmPassword(event.target.value)}
                 size="md"
                 label="Confirm Password"
                 placeholder="Confirm Password"

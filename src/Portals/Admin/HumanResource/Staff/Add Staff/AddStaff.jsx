@@ -23,7 +23,7 @@ import { MainBlue } from "../../../../../Utils/ThemeColors";
 import { useForm } from "@mantine/form";
 import { toast } from "react-hot-toast";
 import added from "../../../../../assets/images/added.gif";
-import { cnicRegex, emailRegex, emiratesIdRegex } from "../../../../../Components/Regex/Regex";
+import { cnicRegex, emailRegex, emiratesIdRegex, passwordRegex, phoneRegex } from "../../../../../Components/Regex/Regex";
 import {
   axios_get,
   axios_post,
@@ -126,13 +126,13 @@ function AddStaff() {
             : "Please Select Emirates ID Issuance Date"
           : null,
       emergency_contact_name: (value) =>
-        value ? null : "Please Enter Emergency Contact Name",
+        value.length>3 ? null : "Please Enter Emergency Contact Name",
       commission_percentage: (value) =>
         (value>=1 && value<=50) ? null : "Commission Should be in between 1 to 50 percent",
       emergency_contact_number: (value) =>
-        value ? null : "Please Enter Emergency Contact Number",
+        phoneRegex.test(value) ? null : "Please Enter Emergency Contact Number",
       residence_address_in_UAE: (value) =>
-        value ? null : "Please Enter Residence Address in UAE",
+        value.length>3 ? null : "Please Enter Residence Address in UAE",
     },
   });
   const form3 = useForm({
@@ -144,18 +144,11 @@ function AddStaff() {
     validate: {
       login_email: (value) => (emailRegex.test(value) ? null : "Invalid Email"),
       login_password: (value) =>
-        value.length > 7 ? null : "Password must be 8 characters long",
+        passwordRegex.test(value)? null : "Password must contain 1 uppercase, 1 lowercase, 1 number, 1 special character and must be 8 characters long",
     },
   });
 
-  // const imageUpload = async () => {
-  //   console.log(profile);
-  //   const profileImage = await uploadSingleFile({
-  //     file: profile,
-  //     folderName: "staff",
-  //   });
-  //   console.log(profileImage);
-  // };
+  
   const getStaffData = async () => {
     setLoading(true);
     axios_get({ url: `/user/${params.editId}` })
@@ -298,7 +291,7 @@ function AddStaff() {
   return (
     <CustomLoader loading={loading}>
       <PageWrapper title="Add Staff">
-        <Stepper active={active} onStepClick={setActive} breakpoint>
+        <Stepper active={active} allowNextStepsSelect={false} onStepClick={setActive} breakpoint>
           <Stepper.Step
             label={isSmall ? "" : <Text size={"sm"}>Basic Information</Text>}
             description={
