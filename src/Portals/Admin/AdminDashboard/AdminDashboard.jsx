@@ -11,22 +11,31 @@ const AdminDashboard = () => {
   const [data, setData] = useState([]);
   const getStats = async () => {
     let url = "/dashboard/admin";
-    await axios_get({ url: url, withSNo: true })
+    console.log("url", url);
+    await axios_get({ url: url })
       .then((res) => {
-        console.log(res);
-        setData(res.data);
+        console.log(res.data.data);
+        setData(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  //   await axios_get({ url: url, withSNo: true })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   useEffect(() => {
     getStats();
   }, []);
   return (
     <div>
       <CardStats data={data} />
-      <FinanceChart data={data} />
+      <FinanceChart stats={data} />
       <RingStats data={data} />
     </div>
   );
