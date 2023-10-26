@@ -17,7 +17,6 @@ const FinanceChart = ({ stats }) => {
   }, [chartData]);
   let showValue = 10;
 
-
   const options = {
     height: 500,
     type: "bar",
@@ -30,7 +29,7 @@ const FinanceChart = ({ stats }) => {
           enabled: true,
         },
       },
-      colors: vehicleData?.map((item) => item?.color),
+      // colors: vehicleData?.map((item) => item?.color),
 
       plotOptions: {
         bar: {
@@ -40,7 +39,7 @@ const FinanceChart = ({ stats }) => {
       },
       xaxis: {
         type: "category",
-        categories: vehicleData?.map((item) => item?.name),
+        // categories: vehicleData?.map((item) => item?.name),
       },
       yaxis: {
         title: {
@@ -92,7 +91,7 @@ const FinanceChart = ({ stats }) => {
     series: [
       {
         name: "Vehicles",
-        data: vehicleData?.map((item) => item?.vehicles),
+        // data: vehicleData?.map((item) => item?.vehicles),
       },
     ],
   };

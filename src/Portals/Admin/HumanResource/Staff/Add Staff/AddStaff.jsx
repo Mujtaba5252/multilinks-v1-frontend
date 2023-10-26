@@ -110,7 +110,7 @@ function AddStaff() {
     validate: {
       nationality: (value) => (value.length > 3 ? null : "Please Enter Nationality"),
       passport_number: (value) =>
-        value ? null : "Please Enter Passport Number",
+        value.length>3 ? null : "Please Enter Passport Number",
       emirates_ID: (value) =>
         emirateID ? (emiratesIdRegex.test(value) ? null : "Please Enter Valid Emirates ID") : null,
       emirates_ID_expiry_date: (value) =>
