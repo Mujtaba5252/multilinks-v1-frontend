@@ -7,6 +7,9 @@ export const numeric_to_word = (num) => {
     else if(isNaN(num)){
         return '';
     }
+    else if(num === 0){
+        return null;
+    }
     else{
         return "Invalid Number";
     }

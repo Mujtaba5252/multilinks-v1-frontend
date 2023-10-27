@@ -32,6 +32,7 @@ import ViewLicenses from "./Portals/Admin/License/ViewLicenses/ViewLicenses";
 import AddLicense from "./Portals/Admin/License/AddLicense/AddLicense";
 import AddOfficeExpense from "./Portals/Admin/Accounts/Invoices/Types/OfficeExpense/AddOfficeExpense/AddOfficeExpense";
 import CommissionView from "./Portals/Admin/Accounts/Commissions/CommissionView";
+import Configure from "./Portals/Staff/AddQuotations/Configure";
 const isValidToken = () => {
   const token = Token();
   return !!token;
@@ -168,7 +169,7 @@ function App() {
               />
               <Route
                 path={staffRoutes.addQuotation}
-                element={<AddQuotations />}
+                element={<Configure />}
               />
               <Route
                 path={staffRoutes.editQuotation}

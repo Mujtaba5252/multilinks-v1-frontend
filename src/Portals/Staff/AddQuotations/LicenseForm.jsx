@@ -131,7 +131,26 @@ const LicenseForm = ({ form, setTotal }) => {
                     );
                   }}
                   //clear the amount field if the service is removed
-
+                  onMouseLeave={() => {
+                    if (form.values.offered_services) {
+                      data.forEach((item) => {
+                        if (
+                          !form.values.offered_services.includes(item.value)
+                        ) {
+                          form?.setFieldValue(`${item.value}Amount`, "");
+                        }
+                      });
+                    }
+                    form.setFieldValue(
+                      "total",
+                      // add all the amount values and store it in the total field
+                      Object.keys(form.values)
+                        .filter((key) => key.endsWith("Amount")) // Filter by keys ending with "Amount"
+                        .reduce((acc, key) => {
+                          return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                        }, 0)
+                    );
+                  }}
                   {...form?.getInputProps(`${item}Amount`)}
                 />
               </Grid.Col>
@@ -173,6 +192,7 @@ const LicenseForm = ({ form, setTotal }) => {
             label={"Grand Total"}
             placeholder={"Please Enter Grand Total"}
             size="md"
+            readOnly
             {...form?.getInputProps("grand_total_numeric")}
           />
         </Grid.Col>

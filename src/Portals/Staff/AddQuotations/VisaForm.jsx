@@ -13,6 +13,7 @@ import { numeric_to_word } from "../../../Utils/CommonFormatters";
 
 const VisaForm = ({ form, total, setTotal }) => {
   const params = useParams();
+  const [calculate, setCalculate] = useState(false);
   const data = [
     { value: "Job Offer Letter", label: "Job Offer Letter" },
     { value: "Insurance", label: "Insurance" },
@@ -38,6 +39,7 @@ const VisaForm = ({ form, total, setTotal }) => {
     form.values.grand_total_numeric,
     form.values.service_charges,
     form.values.total,
+    calculate
   ]);
 
   // useEffect(() => {
@@ -90,6 +92,7 @@ const VisaForm = ({ form, total, setTotal }) => {
             withAsterisk={true}
             placeholder="Select Offered Services"
             size="md"
+            
             disabled={params.editId}
             {...form?.getInputProps("offered_services")}
           />
@@ -97,7 +100,6 @@ const VisaForm = ({ form, total, setTotal }) => {
         {form.values.offered_services &&
           form.values.offered_services.map(
             (item) => (
-              console.log(item),
               (
                 <React.Fragment key={item}>
                   {item == "Entry Permit" ? (
@@ -165,6 +167,26 @@ const VisaForm = ({ form, total, setTotal }) => {
                             }, 0)
                         );
                       }}
+                      onMouseMove={() => {
+                        if (form.values.offered_services) {
+                          data.forEach((item) => {
+                            if (
+                              !form.values.offered_services.includes(item.value)
+                            ) {
+                              form?.setFieldValue(`${item.value}Amount`, "");
+                            }
+                          });
+                        }
+                        form.setFieldValue(
+                          "total",
+                          Object.keys(form.values)
+
+                            .filter((key) => key.endsWith("Amount"))
+                            .reduce((acc, key) => {
+                              return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                            }, 0)
+                        );
+                      }}
                       size="md"
                       {...form?.getInputProps(`${item}Amount`)}
                     />
@@ -207,6 +229,7 @@ const VisaForm = ({ form, total, setTotal }) => {
             withAsterisk
             placeholder={"Please Enter Grand Total"}
             size="md"
+            readOnly
             {...form?.getInputProps("grand_total_numeric")}
           />
         </Grid.Col>

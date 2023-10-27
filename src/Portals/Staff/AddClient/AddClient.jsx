@@ -17,6 +17,7 @@ import { staffRoutes } from "../../../routes";
 import { MIME_TYPES } from "@mantine/dropzone";
 import ImagesAndFileUpload from "../../../Components/ImagesAndFileUpload/ImagesAndFileUpload";
 import { uploadMultipleImages } from "../../../Components/FireBase/Firebase";
+import InputMask  from "react-input-mask";
 
 // import  InputMask from "@react-input/mask";
 
@@ -166,6 +167,8 @@ const AddClient = () => {
                 form={form}
                 mt={"md"}
                 mb={"md"}
+                component={InputMask}
+                mask={"+\\9\\71999999999"}
                 label={"Client Contact Number"}
                 placeholder="Enter Client Contact Number"
                 size="md"
@@ -178,6 +181,8 @@ const AddClient = () => {
                 form={form}
                 mt={"md"}
                 mb={"md"}
+                component={InputMask}
+                mask={"+\\9\\71999999999"}
                 label={"Client Optional Contact Number"}
                 placeholder="Enter Client Contact No."
                 size="md"
