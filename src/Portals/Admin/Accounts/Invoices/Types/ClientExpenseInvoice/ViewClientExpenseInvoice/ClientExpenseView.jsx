@@ -51,7 +51,9 @@ function ClientExpenseView({ isInvoice, pending }) {
               </Grid.Col>
             </Grid>
           ) : (
-            "Filter for reciepts"
+            <Grid.Col span={12} my={15} >
+                <FilterBarClientExpense currentUrl={url} setPagination={setPagination} setClientExpenseData={setClientExpenseData}/>  
+              </Grid.Col>
           )}
         </Grid.Col>
         <Grid.Col span={12}>

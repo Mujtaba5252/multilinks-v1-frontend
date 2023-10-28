@@ -49,7 +49,7 @@ const AddPaymentInvoice = () => {
         navigate(staffRoutes.viewPaymentInvoice);
       }
       else if (response.status == 400) {
-        toast.error("Invoice Already Added");
+        toast.error(response.data.message);
       }
       else {
         toast.error("Something Went Wrong");

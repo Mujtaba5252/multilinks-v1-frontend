@@ -92,7 +92,9 @@ const VisaForm = ({ form, total, setTotal }) => {
             withAsterisk={true}
             placeholder="Select Offered Services"
             size="md"
-            
+            onSelect={(event)=>{
+              console.log(event)
+            }}
             disabled={params.editId}
             {...form?.getInputProps("offered_services")}
           />

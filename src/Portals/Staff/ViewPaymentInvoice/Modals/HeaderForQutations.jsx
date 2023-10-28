@@ -4,6 +4,7 @@ import { Badge } from "@mantine/core";
 import { MainBlue } from "../../../../Utils/ThemeColors";
 import { useNavigate } from "react-router-dom";
 import { staffRoutes } from "../../../../routes";
+import { CurrencyFormatter } from "../../../../Utils/CommonFormatters";
 
 export const HeaderForQutation = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export const HeaderForQutation = () => {
     },
     {
       name: "Amount",
-      selector: (row) => row.grand_total_numeric || "N/A",
+      selector: (row) => CurrencyFormatter(row.grand_total_numeric) || "N/A",
       sortable: true,
       wrap: true,
     },

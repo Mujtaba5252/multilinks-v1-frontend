@@ -2,6 +2,7 @@ import {  Badge } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
 import ViewInvoiceModal from "./Modals/ViewInvoiceModal";
+import { CurrencyFormatter } from "../../../Utils/CommonFormatters";
 
 export const PaymentInvoiceHeader = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export const PaymentInvoiceHeader = () => {
 
     {
       name: "Invoice Amount",
-      selector: (row) => row.amount_received,
+      selector: (row) => CurrencyFormatter(row.amount_received),
       sortable: true,
       wrap: true,
     },
