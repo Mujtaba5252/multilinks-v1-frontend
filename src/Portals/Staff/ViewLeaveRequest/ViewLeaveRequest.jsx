@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { axios_get } from "../../../Utils/Axios";
 import { getLeaveRequests } from "./LeaveFunction";
 import FilterBarLeaves from "../../Admin/HumanResource/Leaves/View Leaves/FilterBarLeaves"
+import { CirclePlus } from "tabler-icons-react";
 
 const ViewLeaveRequest = () => {
   const navigate = useNavigate();
@@ -21,29 +22,30 @@ const ViewLeaveRequest = () => {
 
   return (
     <PageWrapper title={"VIEW LEAVE REQUESTS"}>
-      <Grid my={20}>
-        <Grid.Col span={12}>
+      <Grid>
+        <Grid.Col mt={10} span={12}>
           <Group
             position="right"
             mb={10}
             onClick={() => navigate(staffRoutes.addLeaveRequest)}
           >
-            <Button variant="filled">ADD LEAVE REQUEST</Button>
+            <Button w={200} leftIcon={<CirclePlus/>} variant="filled">ADD LEAVE REQUEST</Button>
           </Group>
         </Grid.Col>
-        <Grid.Col span={12}>
+        <Grid.Col mb={10} span={12}>
           <FilterBarLeaves currentUrl={url} setLeavesData={setLeaveData} setPagination={setPagination} />
         </Grid.Col>
+        <Grid.Col span={12}>
+          <DataGrid
+            columns={LeaveRequestHeader()}
+            data={getLeaveData}
+            pagination={pagination}
+            currentUrl={url}
+            setPagination={setPagination}
+            setData={setLeaveData}
+          />
+        </Grid.Col>
       </Grid>
-
-      <DataGrid
-        columns={LeaveRequestHeader()}
-        data={getLeaveData}
-        pagination={pagination}
-        currentUrl={url}
-        setPagination={setPagination}
-        setData={setLeaveData}
-      />
     </PageWrapper>
   );
 };

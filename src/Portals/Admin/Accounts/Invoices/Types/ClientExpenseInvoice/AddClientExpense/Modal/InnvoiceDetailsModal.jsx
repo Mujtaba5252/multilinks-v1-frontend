@@ -46,9 +46,7 @@ function InnvoiceDetailsModal({ Data, genrateInvoice, setGenrateInvoice }) {
             form.validate()
         }
     }
-    useEffect(() => {
-        console.log(Data)
-    }, [])
+
     return (
         <>
             <Grid>

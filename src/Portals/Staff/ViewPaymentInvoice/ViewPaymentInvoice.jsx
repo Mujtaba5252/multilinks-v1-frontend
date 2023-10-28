@@ -20,32 +20,34 @@ const ViewPaymentInvoice = () => {
 
   return (
     <PageWrapper title={"VIEW PAYMENT INVOICE"}>
-      <ModalComponent
-        opened={addPayment}
-        setOpened={setAddPayment}
-        radius
-        size={1200}
-      >
-        <QuotationsForPaymentInvoice />
-      </ModalComponent>
-      <Grid my={15}>
-        <Grid.Col mb={10} span={12}>
+      <Grid>
+        <ModalComponent
+          opened={addPayment}
+          setOpened={setAddPayment}
+          radius
+          size={1200}
+        >
+          <QuotationsForPaymentInvoice />
+        </ModalComponent>
+        <Grid.Col mt={10} span={12} mb={10}>
           <Flex justify={'end'}>
-            <Button  onClick={() => { setAddPayment(true) }} variant="filled">ADD PAYMENT INVOICE</Button>
+            <Button w={200} onClick={() => { setAddPayment(true) }} variant="filled">ADD PAYMENT INVOICE</Button>
           </Flex >
         </Grid.Col>
-        <Grid.Col span={12}>
+        <Grid.Col mb={10} span={12}>
           <FilterBarPaymentView currentUrl={url} setPaymentData={setPaymentInvoiceData} setPagination={setPagination} />
         </Grid.Col>
+        <Grid.Col span={12}>
+          <DataGrid
+            columns={PaymentInvoiceHeader()}
+            data={PaymentInvoiceData}
+            pagination={pagination}
+            currentUrl={url}
+            setPagination={setPagination}
+            setData={setPaymentInvoiceData}
+          />
+        </Grid.Col>
       </Grid>
-      <DataGrid
-        columns={PaymentInvoiceHeader()}
-        data={PaymentInvoiceData}
-        pagination={pagination}
-        currentUrl={url}
-        setPagination={setPagination}
-        setData={setPaymentInvoiceData}
-      />
     </PageWrapper>
   );
 };

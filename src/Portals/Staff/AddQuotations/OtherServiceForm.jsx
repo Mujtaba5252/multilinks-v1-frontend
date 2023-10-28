@@ -77,6 +77,7 @@ const OtherServiceForm = ({ form, setTotal }) => {
       <Grid>
         <Grid.Col md={12}>
           <Select
+            clearable
             form={form}
             label="Visa Status"
             mt={"md"}
@@ -98,7 +99,7 @@ const OtherServiceForm = ({ form, setTotal }) => {
             placeholder="Select Offered Services"
             onChange={(value) => {
               data.forEach(element => {
-                if(!value.includes(element.value)){
+                if (!value.includes(element.value)) {
                   console.log(element.value)
                   form.setFieldValue(`${element.value}Amount`, "")
                 }

@@ -25,9 +25,9 @@ function StaffView() {
     <>
       <PageWrapper title="Staff Members">
         <Grid >
-          <Grid.Col span={12}>
-            <Flex justify="flex-end" mt={10}  mb={10}>
-              <Button leftIcon={<CirclePlus />} onClick={() => navigate(adminRoutes.addStaff)}>Add Staff</Button>
+          <Grid.Col span={12} mt={10}  mb={10}>
+            <Flex justify="flex-end" >
+              <Button w={200} leftIcon={<CirclePlus />} onClick={() => navigate(adminRoutes.addStaff)}>Add Staff</Button>
             </Flex>
           </Grid.Col>
           <Grid.Col span={12} mb={10}>

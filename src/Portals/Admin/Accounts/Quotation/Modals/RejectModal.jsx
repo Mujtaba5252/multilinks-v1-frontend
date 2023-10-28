@@ -11,7 +11,6 @@ function RejectModal({ Data, setUpdate }) {
   const handleReject = (id) => {
     let url = "/quotation/" + id;
     try {
-      console.log(url);
       axios_put({ url: url, data: { status: "Rejected" } }).then((res) => {
         if (res.status === 200) {
           toast.success("Quotation Approved Successfully");
@@ -35,11 +34,11 @@ function RejectModal({ Data, setUpdate }) {
         Quotation will be Discarded.
       </Text>
       <Flex justify={"center"} mt={15}>
-        <Button w={"50%"} color={"red"} variant="light" ml={5} mr={5}>
+        {/* <Button w={"50%"} color={"red"} variant="light" ml={5} mr={5}>
           Cancel
-        </Button>
+        </Button> */}
         <Button
-          w={"50%"}
+          w={"100%"}
           ml={5}
           mr={5}
           color={"red"}

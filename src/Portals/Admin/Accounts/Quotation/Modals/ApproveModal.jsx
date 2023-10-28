@@ -11,7 +11,6 @@ function ApproveModal({Data,setUpdate}) {
     const handleApprove = async(id) => {
         let url='/quotation/'+id
         try{
-            console.log(url)
             await axios_put({url:url, data:{status:'Approved'}}).then((res)=>{
                 if(res.status === 200){
                     toast.success('Quotation Approved Successfully')
@@ -34,8 +33,8 @@ function ApproveModal({Data,setUpdate}) {
     <>
         <Text fw={300} style={{fontSize:"14px"}} align='center'>Approve Quotation for "{Data.client.client_name} ({Data.client.UID})"? By Approving this Quotation Your will be unable to edit this Qutation.</Text>
         <Flex justify={'center'} mt={15}>
-            <Button w={'50%'} color={MainBlue()} variant='light' ml={5} mr={5}>Cancel</Button>
-            <Button w={'50%'} ml={5} mr={5} color={MainBlue()} onClick={()=>handleApprove(Data.id)}>Approve</Button>
+            {/* <Button w={'50%'} color={MainBlue()} variant='light' ml={5} mr={5}>Cancel</Button> */}
+            <Button w={'100%'} ml={5} mr={5} color={MainBlue()} onClick={()=>handleApprove(Data.id)}>Approve</Button>
         </Flex>
     </>
   )

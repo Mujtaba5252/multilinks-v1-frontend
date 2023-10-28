@@ -7,6 +7,7 @@ import { staffRoutes } from "../../../routes";
 import { ClientHeader } from "./ClientHeader";
 import { getCleintData } from "./ClientFunctions";
 import FilterBarClient from "./FilterBarClient";
+import { CirclePlus } from "tabler-icons-react";
 
 const ViewClients = () => {
   const navigate = useNavigate();
@@ -19,28 +20,30 @@ const ViewClients = () => {
 
   return (
     <PageWrapper title="VIEW CLIENTS">
-      <Grid my={20}>
-        <Grid.Col mb={10} span={12}>
+      <Grid>
+        <Grid.Col mt={10} span={12} mb={10}>
           <Group
             position="right"
             onClick={() => navigate(staffRoutes.addClient)}
           >
-            <Button variant="filled">ADD CLIENT</Button>
+            <Button w={200} leftIcon={<CirclePlus/>} variant="filled">ADD CLIENT</Button>
           </Group>
         </Grid.Col>
-        <Grid.Col span={12}>
+        <Grid.Col mb={10} span={12}>
           <FilterBarClient currentUrl={url} setClientData={setClientData} setPagination={setPagination} />
         </Grid.Col>
-      </Grid>
+        <Grid.Col span={12}>
 
-      <DataGrid
-        columns={ClientHeader()}
-        data={ClientData}
-        pagination={pagination}
-        currentUrl={url}
-        setPagination={setPagination}
-        setData={setClientData}
-      />
+          <DataGrid
+            columns={ClientHeader()}
+            data={ClientData}
+            pagination={pagination}
+            currentUrl={url}
+            setPagination={setPagination}
+            setData={setClientData}
+          />
+        </Grid.Col>
+      </Grid>
     </PageWrapper>
   );
 };

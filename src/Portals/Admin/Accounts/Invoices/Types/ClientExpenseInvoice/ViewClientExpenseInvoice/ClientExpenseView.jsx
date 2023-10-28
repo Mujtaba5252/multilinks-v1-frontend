@@ -39,7 +39,7 @@ function ClientExpenseView({ isInvoice, pending }) {
             <Grid m={0} my={10}>
               <Grid.Col span={12}>
               <Flex justify={"end"} mb={10}>  
-                  <Button leftIcon={<CirclePlus />} variant="filled"
+                  <Button w={200} leftIcon={<CirclePlus />} variant="filled"
                     onClick={() => { setAddExpense(true) }}
                   >
                     Add Expense

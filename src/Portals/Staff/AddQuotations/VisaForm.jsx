@@ -69,6 +69,7 @@ const VisaForm = ({ form, total, setTotal }) => {
       <Grid>
         <Grid.Col md={12}>
           <Select
+            clearable
             form={form}
             label="Visa Status"
             mt={"md"}

@@ -20,7 +20,6 @@ function AddClientExpenseInvoice() {
       ClientData.offered_services.forEach((clientExpense) => {
         if (clientExpense.ispaid) {
           setPaidAmount(prevState => prevState + parseInt(clientExpense.amount))
-          console.log(remainingAmout)
         } else {
           setRemainingAmout(prevState => prevState + parseInt(clientExpense.amount))
         }

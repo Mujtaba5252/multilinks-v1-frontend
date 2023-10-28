@@ -10,7 +10,6 @@ import {
 } from "tabler-icons-react";
 import "./Link.css";
 const Links = ({ icon, label, color }) => {
-  console.log("icon", icon);
   const theme = useTheme();
   const data = [
     {

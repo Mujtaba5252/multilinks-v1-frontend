@@ -78,6 +78,7 @@ const Step1 = ({ form, loading }) => {
       </Grid.Col>
       <Grid.Col md={12}>
         <Select
+          clearable
           label="Select Service Type"
           placeholder="Select Service Type"
           withAsterisk={true}

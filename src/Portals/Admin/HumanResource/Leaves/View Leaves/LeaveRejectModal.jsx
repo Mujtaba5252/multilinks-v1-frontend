@@ -13,7 +13,6 @@ const LeaveRejectModal = ({ Data, setUpdate }) => {
     setLoading(true);
     let url = "/leave-request/" + id;
     try {
-      console.log(url);
       await axios_put({ url: url, data: { status: "Rejected" } }).then(
         (res) => {
           if (res.data.data) {
@@ -38,11 +37,11 @@ const LeaveRejectModal = ({ Data, setUpdate }) => {
         By Rejecting this leave, the leave will be Rejected.
       </Text>
       <Flex justify={"center"} mt={15}>
-        <Button w={"50%"} color={"red"} variant="light" ml={5} mr={5}>
+        {/* <Button w={"50%"} color={"red"} variant="light" ml={5} mr={5}>
           Cancel
-        </Button>
+        </Button> */}
         <Button
-          w={"50%"}
+          w={"100%"}
           ml={5}
           mr={5}
           color={"red"}

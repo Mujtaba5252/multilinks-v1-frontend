@@ -31,11 +31,12 @@ function OfficeExpenseView({ isInvoice, pending }) {
       >
         <Grid>
           <Grid.Col span={12}>
-            <Grid m={0} my={15}>
+            <Grid m={0} my={10}>
               {isInvoice && 
             <Grid.Col span={12}>
               <Flex justify="end">
                 <Button
+                  w={200}
                   leftIcon={<CirclePlus />}
                   variant="filled"
                   onClick={() => navigate(adminRoutes.addOfficeExpenseInvoice)}

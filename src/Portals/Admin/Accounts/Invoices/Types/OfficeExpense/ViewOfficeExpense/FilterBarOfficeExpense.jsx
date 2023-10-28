@@ -17,7 +17,7 @@ function FilterBarOfficeExpense({ currentUrl, setOfficeExpenseData, setPaginatio
     return (
         <>
             <Grid>
-                <Grid.Col sm={3} span={8}>
+                <Grid.Col sm={4} span={8}>
                     <Flex>
                         <Input w={"100%"} placeholder="Search" onChange={(e) => {
                             setSearch(e.target.value)

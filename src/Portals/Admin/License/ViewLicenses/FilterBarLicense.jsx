@@ -33,7 +33,7 @@ function FilterBarLicense({ currentUrl, setLicenseData, setPagination }) {
             <Grid>
                 <Grid.Col sm={4} span={12}>
                     <Flex>
-                        <Input placeholder="Search" onChange={(e) => 
+                        <Input w={"100%"} placeholder="Search" onChange={(e) => 
                             {
                                 setSearch(e.target.value);
                                 if(e.target.value === "")

@@ -12,7 +12,6 @@ function ApprovedQutationForExpense() {
   let url = "/quotation?status=Approved"
   useEffect(() => {
     fetchApprovedQutation({ url, setApprovedQutation,setPagination})
-    console.log("approvedQutation", approvedQutation)
   }, [])
 
   return (

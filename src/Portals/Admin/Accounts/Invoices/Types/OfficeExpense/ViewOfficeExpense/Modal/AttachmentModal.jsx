@@ -13,7 +13,6 @@ const AttachmentModal = ({ row }) => {
   const [attachments, setAttachments] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  console.log(row);
   const handleSubmit = async () => {
     setLoading(true);
     const expenseAttachments = await uploadMultipleImages(

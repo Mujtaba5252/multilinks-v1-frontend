@@ -76,7 +76,6 @@ const AppHeader = ({ user }) => {
                     </Text>
                   </Flex>
                 </MediaQuery>
-                {console.log("WAAAH", user?.profile_picture?.path)}
                 <Avatar
                   src={user?.profile_picture?.path || <Man />}
                   radius="xl"

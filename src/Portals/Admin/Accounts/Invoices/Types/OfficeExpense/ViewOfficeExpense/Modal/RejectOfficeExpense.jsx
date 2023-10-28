@@ -32,8 +32,8 @@ function RejectOfficeExpense({ Data, setUpdate}) {
     <>
       <Text fw={300} style={{ fontSize: "14px" }} align='center'>Approve Office Expense Invoice for "{Data.payment_for} ({Data.office_expense_ID})" to "({Data.payment_to})" ?</Text>
       <Flex justify={'center'} mt={15}>
-        <Button w={'50%'} color={'red'} variant='light' ml={5} mr={5}>Cancel</Button>
-        <Button w={'50%'} ml={5} mr={5} color={'red'} onClick={() => handleReject(Data.id)}>Reject</Button>
+        {/* <Button w={'50%'} color={'red'} variant='light' ml={5} mr={5}>Cancel</Button> */}
+        <Button w={'100%'} ml={5} mr={5} color={'red'} onClick={() => handleReject(Data.id)}>Reject</Button>
       </Flex>
     </>
   )

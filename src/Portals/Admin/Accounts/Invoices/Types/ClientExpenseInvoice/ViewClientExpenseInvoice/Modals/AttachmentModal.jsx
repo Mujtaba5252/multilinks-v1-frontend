@@ -38,7 +38,6 @@ const AttachmentModal = ({ row }) => {
         }
       });
     } catch (err) {
-      console.log(err.message);
       setLoading(false);
     }
   };

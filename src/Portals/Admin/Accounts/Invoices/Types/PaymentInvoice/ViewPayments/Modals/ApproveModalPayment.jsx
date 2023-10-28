@@ -1,5 +1,5 @@
 import { Button, Flex, Text } from '@mantine/core'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { MainBlue } from '../../../../../../../../Utils/ThemeColors'
 import { useNavigate } from 'react-router-dom';
 import { axios_put } from '../../../../../../../../Utils/Axios';
@@ -29,15 +29,12 @@ function ApproveModalPayment({Data,setUpdate}) {
             console.log(err)
         }
     }
-    useEffect(() => {
-        console.log(Data)
-    },[])   
     return (
         <>
             <Text fw={300} style={{ fontSize: "14px" }} align='center'>Approve Payment Invoice for "{Data.client.client_name} ({Data.client.UID})" with Quotation ID "({Data.quotation.quotation_ID})" ?</Text>
             <Flex justify={'center'} mt={15}>
-                <Button w={'50%'} color={MainBlue()} variant='light' ml={5} mr={5}>Cancel</Button>
-                <Button w={'50%'} ml={5} mr={5} color={MainBlue()} onClick={()=>handleApprove(Data.id)}>Approve</Button>
+                {/* <Button w={'50%'} color={MainBlue()} variant='light' ml={5} mr={5}>Cancel</Button> */}
+                <Button w={'100%'} ml={5} mr={5} color={MainBlue()} onClick={()=>handleApprove(Data.id)}>Approve</Button>
             </Flex>
         </>
   )

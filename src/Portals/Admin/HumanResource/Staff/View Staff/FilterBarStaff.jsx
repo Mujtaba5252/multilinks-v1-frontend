@@ -49,7 +49,7 @@ function FilterBarStaff({ currentUrl, setStaffData, setPagination }) {
     return (
         <>
             <Grid>
-                <Grid.Col xs={3} span={12}>
+                <Grid.Col xs={4} span={12}>
                     <Flex>
                         <Input w={"100%"} placeholder="Search"
                             onChange={(e) => {
@@ -61,10 +61,10 @@ function FilterBarStaff({ currentUrl, setStaffData, setPagination }) {
                         <Button color={MainBlue} onClick={searchFilter} p={8} style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0, marginLeft: -2 }}><Search size={20} /></Button>
                     </Flex>
                 </Grid.Col>
-                <Grid.Col m={0} xs={9} span={12}>
+                <Grid.Col m={0} xs={8} span={12}>
                     <Flex justify="end">
-                        <MultiSelect
-                            maxSelectedValues={1} 
+                        <Select
+                            clearable
                             w={200} 
                             placeholder='Commission' 
                             data={commission_percentage}

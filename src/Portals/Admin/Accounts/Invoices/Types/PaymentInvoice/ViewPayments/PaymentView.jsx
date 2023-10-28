@@ -33,10 +33,10 @@ function PaymentView({ isInvoice, pending }) {
             ) : (
               <>
                 <Grid my={10}>
-                  <Grid.Col span={10}>
+                  <Grid.Col span={12}>
                     <FilterBarPaymentView currentUrl={url} setPagination={setPagination} setPaymentData={setPaymentData} />
                   </Grid.Col>
-                  <Grid.Col span={2}>
+                  {/* <Grid.Col span={2}>
                     <Flex justify={'end'}>
                       <Switch
                         label={statusFilter ? "Approved" : "Rejected"}
@@ -47,7 +47,7 @@ function PaymentView({ isInvoice, pending }) {
                         styles={{ track: { backgroundColor: "red" } }}
                       />
                     </Flex>
-                  </Grid.Col>
+                  </Grid.Col> */}
                 </Grid>
 
               </>

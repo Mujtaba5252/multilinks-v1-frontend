@@ -63,7 +63,6 @@ const Login = () => {
           login_password: values.password,
         })
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             const userType = response.data.data.isAdmin;
             setIsAdmin(userType === true);
@@ -73,7 +72,6 @@ const Login = () => {
             localStorage.setItem("user", JSON.stringify(response.data.data));
             switch (userType) {
               case true:
-                console.log("navigating to dashboard");
                 navigate(adminRoutes.adminDashboard, { replace: true });
                 toast.success("Login Successful");
                 break;
@@ -93,7 +91,6 @@ const Login = () => {
         });
     } catch (err) {
       toast.error("Invalid Credentials");
-      console.log(err);
       setLoader(false);
     }
   };
@@ -124,7 +121,9 @@ const Login = () => {
     <>
       <Grid
         style={{
-          width: "100.5vw",
+          position: "fixed",
+          overflow: "hidden",
+          width: isSmall?"102.5vw":"101vw",
           height: "101.1vh",
           backgroundColor: MainBlue(),
         }}
@@ -169,7 +168,7 @@ const Login = () => {
               p={0}
               bg={White()}
               style={{
-                width: isSmall ? "98%" : "70%",
+                width: isSmall ? "90%" : "70%",
                 borderRadius: "20px",
                 boxShadow: "1px 1px 20px 2px #696969 ",
               }}

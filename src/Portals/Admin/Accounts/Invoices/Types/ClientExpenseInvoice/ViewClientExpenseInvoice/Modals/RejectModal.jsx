@@ -10,7 +10,6 @@ function RejectModal({ Data, setUpdate, setOpenRejectModal }) {
   const handleReject = async (id) => {
     let url = "/client-expense/" + id;
     await axios_put({ url: url, data: { status: "Rejected" } }).then((res) => {
-      console.log(res);
       if (res.status === 200 || res.status == 201) {
         toast.success("Client Expense Invoice Approved Successfully");
         setUpdate(true);
@@ -30,7 +29,7 @@ function RejectModal({ Data, setUpdate, setOpenRejectModal }) {
         {CurrencyFormatter(Data.expense_amount)}" ?
       </Text>
       <Flex justify={"center"} mt={15}>
-        <Button
+        {/* <Button
           w={"50%"}
           color={"red"}
           variant="light"
@@ -41,9 +40,9 @@ function RejectModal({ Data, setUpdate, setOpenRejectModal }) {
           }}
         >
           Cancel
-        </Button>
+        </Button> */}
         <Button
-          w={"50%"}
+          w={"100%"}
           ml={5}
           mr={5}
           color={"red"}

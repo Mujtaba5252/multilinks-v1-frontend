@@ -29,14 +29,13 @@ const UserProvider = (props) => {
       })
 
       .catch((err) => {
-        console.log(err);
       });
   };
   useEffect(() => {
     if (token) {
       getMyData();
     } else {
-      console.log("no token");
+    
     }
   }, []);
 

@@ -34,8 +34,8 @@ function RejectModalPayment({Data,setUpdate}) {
     <>
       <Text fw={300} style={{ fontSize: "14px" }} align='center'>Reject Payment for "{Data.client.client_name} ({Data.client.UID})" with Quoatation ID "({Data.quotation.quotation_ID})"? By Rejecting this, Payment Invoice will be Discarded.</Text>
       <Flex justify={'center'} mt={15}>
-        <Button w={'50%'} color={'red'} variant='light' ml={5} mr={5}>Cancel</Button>
-        <Button w={'50%'} ml={5} mr={5} color={'red'} onClick={() => handleReject(Data.id)}>Reject</Button>
+        {/* <Button w={'50%'} color={'red'} variant='light' ml={5} mr={5}>Cancel</Button> */}
+        <Button w={'100%'} ml={5} mr={5} color={'red'} onClick={() => handleReject(Data.id)}>Reject</Button>
       </Flex>
     </>
   )

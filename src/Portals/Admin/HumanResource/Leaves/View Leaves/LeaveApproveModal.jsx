@@ -14,7 +14,6 @@ const LeaveApproveModal = ({ Data, setUpdate }) => {
     setLoading(true);
     let url = "/leave-request/" + id;
     try {
-      console.log(url);
       await axios_put({ url: url, data: { status: "Approved" } }).then(
         (res) => {
           if (res.data.data) {
@@ -39,7 +38,7 @@ const LeaveApproveModal = ({ Data, setUpdate }) => {
         Approving this leave, the leave will be Approved.
       </Text>
       <Flex justify={"center"} mt={15}>
-        <Button
+        {/* <Button
           w={"50%"}
           color={"green"}
           variant="light"
@@ -50,9 +49,9 @@ const LeaveApproveModal = ({ Data, setUpdate }) => {
           }}
         >
           Cancel
-        </Button>
+        </Button> */}
         <Button
-          w={"50%"}
+          w={"100%"}
           ml={5}
           mr={5}
           color={"green"}

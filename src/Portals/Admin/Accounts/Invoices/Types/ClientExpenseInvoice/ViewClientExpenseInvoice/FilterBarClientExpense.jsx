@@ -37,7 +37,7 @@ function FilterBarClientExpense({ currentUrl, setClientExpenseData, setPaginatio
             <Grid>
                 <Grid.Col sm={4} span={12}>
                     <Flex>
-                        <Input placeholder="Search" onChange={(e) => 
+                        <Input placeholder="Search" w={"100%"} onChange={(e) => 
                             {
                                 setSearch(e.target.value);
                                 if(e.target.value === "")

@@ -8,6 +8,7 @@ import { LicenseHeader } from "./LicenseHeader";
 import { adminRoutes } from "../../../../routes";
 import { getLicenseData } from "./LicenseFunctions";
 import FilterBarLicense from "./FilterBarLicense";
+import { CirclePlus } from "tabler-icons-react";
 
 const ViewLicenses = () => {
   const navigate = useNavigate();
@@ -23,25 +24,29 @@ const ViewLicenses = () => {
 
   return (
     <PageWrapper title="VIEW LICENSES">
-      <Group
-        position="right"
-        onClick={() => navigate(adminRoutes.addLicenses)}
-      >
-        <Button variant="filled">ADD LICENSE</Button>
-      </Group>
       <Grid>
-        <Grid.Col span={12} my={20}>
-          <FilterBarLicense currentUrl={url} setLicenseData={setLicenseData} setPagination={setPagination}/>
+        <Grid.Col span={12} mt={10} mb={10}>
+          <Group
+            position="right"
+            onClick={() => navigate(adminRoutes.addLicenses)}
+          >
+            <Button w={200} leftIcon={<CirclePlus/>} variant="filled">ADD LICENSE</Button>
+          </Group>
+        </Grid.Col>
+        <Grid.Col span={12} mb={10}>
+          <FilterBarLicense currentUrl={url} setLicenseData={setLicenseData} setPagination={setPagination} />
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <DataGrid
+            columns={LicenseHeader({ setUpdate })}
+            data={licenseData}
+            pagination={pagination}
+            currentUrl={url}
+            setPagination={setPagination}
+            setData={setLicenseData}
+          />
         </Grid.Col>
       </Grid>
-      <DataGrid
-        columns={LicenseHeader({ setUpdate })}
-        data={licenseData}
-        pagination={pagination}
-        currentUrl={url}
-        setPagination={setPagination}
-        setData={setLicenseData}
-      />
     </PageWrapper>
   );
 };

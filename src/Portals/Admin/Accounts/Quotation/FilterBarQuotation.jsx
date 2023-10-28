@@ -38,7 +38,7 @@ function FilterBarQuoatation({currentUrl, setQuotationData, setPagination}) {
             <Grid>
                 <Grid.Col xs={4} span={12}>
                     <Flex>
-                        <Input placeholder="Search" onChange={(e)=>{
+                        <Input w={"100%"} placeholder="Search" onChange={(e)=>{
                             setSearch(e.target.value);
                             if(e.target.value==""){
                                 fetchQuotation({ url, setQuotationData, setPagination });

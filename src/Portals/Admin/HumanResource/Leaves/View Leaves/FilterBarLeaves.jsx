@@ -15,7 +15,7 @@ function FilterBarLeaves({ currentUrl, setLeavesData, setPagination }) {
     return (
         <>
             <Grid>
-                <Grid.Col xs={3} span={12}>
+                <Grid.Col xs={4} span={12}>
                     <Flex>
                         <Input w={"100%"} placeholder="Search"
                             onChange={(e) => {
