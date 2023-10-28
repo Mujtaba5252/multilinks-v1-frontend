@@ -165,6 +165,24 @@ const LicenseForm = ({ form, setTotal }) => {
             placeholder={"Please Enter Amount"}
             readOnly
             size="md"
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             {...form?.getInputProps("total")}
           />
         </Grid.Col>
@@ -177,6 +195,24 @@ const LicenseForm = ({ form, setTotal }) => {
             icon="Dhs"
             size="md"
             withAsterisk={true}
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             {...form?.getInputProps("service_charges")}
           />
         </Grid.Col>
@@ -193,6 +229,24 @@ const LicenseForm = ({ form, setTotal }) => {
             placeholder={"Please Enter Grand Total"}
             size="md"
             readOnly
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             {...form?.getInputProps("grand_total_numeric")}
           />
         </Grid.Col>
@@ -203,6 +257,24 @@ const LicenseForm = ({ form, setTotal }) => {
             placeholder={"Please Enter Grand Total In Words"}
             readOnly
             size="md"
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             {...form?.getInputProps("grand_total_in_words")}
           />
         </Grid.Col>

@@ -39,7 +39,7 @@ const VisaForm = ({ form, total, setTotal }) => {
     form.values.grand_total_numeric,
     form.values.service_charges,
     form.values.total,
-    calculate
+    calculate,
   ]);
 
   // useEffect(() => {
@@ -59,11 +59,8 @@ const VisaForm = ({ form, total, setTotal }) => {
   //         return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
   //       }, 0)
   //   );
-  // }, [
-  //   form.values.total,
+  // }, []);
 
-  //   form.values.offered_services.map((item) => item.amount),
-  // ]);
   return (
     <>
       <Grid>
@@ -93,111 +90,100 @@ const VisaForm = ({ form, total, setTotal }) => {
             withAsterisk={true}
             placeholder="Select Offered Services"
             size="md"
-            onSelect={(event)=>{
-              console.log(event)
-            }}
             disabled={params.editId}
             {...form?.getInputProps("offered_services")}
           />
         </Grid.Col>
         {form.values.offered_services &&
-          form.values.offered_services.map(
-            (item) => (
-              (
-                <React.Fragment key={item}>
-                  {item == "Entry Permit" ? (
-                    <Grid.Col md={6}>
-                      <Select
-                        form={form}
-                        label={data.find((el) => el.value === item)?.label}
-                        placeholder={
-                          data.find((el) => el.value === item)?.label
+          form.values.offered_services.map((item) => (
+            <React.Fragment key={item}>
+              {item == "Entry Permit" ? (
+                <Grid.Col md={6}>
+                  <Select
+                    form={form}
+                    label={data.find((el) => el.value === item)?.label}
+                    placeholder={data.find((el) => el.value === item)?.label}
+                    size={"md"}
+                    data={[
+                      {
+                        value: "Inside Entry Permit",
+                        label: "Inside Entry Permit",
+                      },
+                      {
+                        value: "Outside Entry Permit",
+                        label: "Outside Entry Permit",
+                      },
+                    ]}
+                    withAsterisk={true}
+                    {...form?.getInputProps("entryPermit")}
+                  />
+                </Grid.Col>
+              ) : (
+                <Grid.Col md={6}>
+                  <TextInput
+                    form={form}
+                    label={data.find((el) => el.value === item)?.label}
+                    placeholder={data.find((el) => el.value === item)?.label}
+                    size="md"
+                    disabled
+                    {...form?.getInputProps(item)}
+                  />
+                </Grid.Col>
+              )}
+              <Grid.Col md={6}>
+                <TextInput
+                  form={form}
+                  type="number"
+                  label={"Amount"}
+                  icon="Dhs"
+                  placeholder={"Amount"}
+                  withAsterisk={true}
+                  onBlurCapture={() => {
+                    if (form.values.offered_services) {
+                      data.forEach((item) => {
+                        if (
+                          !form.values.offered_services.includes(item.value)
+                        ) {
+                          form?.setFieldValue(`${item.value}Amount`, "");
                         }
-                        size={"md"}
-                        data={[
-                          {
-                            value: "Inside Entry Permit",
-                            label: "Inside Entry Permit",
-                          },
-                          {
-                            value: "Outside Entry Permit",
-                            label: "Outside Entry Permit",
-                          },
-                        ]}
-                        withAsterisk={true}
-                        {...form?.getInputProps("entryPermit")}
-                      />
-                    </Grid.Col>
-                  ) : (
-                    <Grid.Col md={6}>
-                      <TextInput
-                        form={form}
-                        label={data.find((el) => el.value === item)?.label}
-                        placeholder={
-                          data.find((el) => el.value === item)?.label
-                        }
-                        size="md"
-                        disabled
-                        {...form?.getInputProps(item)}
-                      />
-                    </Grid.Col>
-                  )}
-                  <Grid.Col md={6}>
-                    <TextInput
-                      form={form}
-                      type="number"
-                      label={"Amount"}
-                      icon="Dhs"
-                      placeholder={"Amount"}
-                      withAsterisk={true}
-                      onBlurCapture={() => {
-                        if (form.values.offered_services) {
-                          data.forEach((item) => {
-                            if (
-                              !form.values.offered_services.includes(item.value)
-                            ) {
-                              form?.setFieldValue(`${item.value}Amount`, "");
-                            }
-                          });
-                        }
-                        form.setFieldValue(
-                          "total",
-                          Object.keys(form.values)
+                      });
+                    }
+                    form.setFieldValue(
+                      "total",
+                      Object.keys(form.values)
 
-                            .filter((key) => key.endsWith("Amount"))
-                            .reduce((acc, key) => {
-                              return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
-                            }, 0)
-                        );
-                      }}
-                      onMouseMove={() => {
-                        if (form.values.offered_services) {
-                          data.forEach((item) => {
-                            if (
-                              !form.values.offered_services.includes(item.value)
-                            ) {
-                              form?.setFieldValue(`${item.value}Amount`, "");
-                            }
-                          });
+                        .filter((key) => key.endsWith("Amount"))
+                        .reduce((acc, key) => {
+                          return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                        }, 0)
+                    );
+                  }}
+                  onMouseMove={() => {
+                    if (form.values.offered_services) {
+                      data.forEach((item) => {
+                        if (
+                          !form.values.offered_services.includes(item.value)
+                        ) {
+                          form?.setFieldValue(`${item.value}Amount`, "");
                         }
-                        form.setFieldValue(
-                          "total",
-                          Object.keys(form.values)
+                      });
+                    }
+                    form.setFieldValue(
+                      "total",
+                      Object.keys(form.values)
 
-                            .filter((key) => key.endsWith("Amount"))
-                            .reduce((acc, key) => {
-                              return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
-                            }, 0)
-                        );
-                      }}
-                      size="md"
-                      {...form?.getInputProps(`${item}Amount`)}
-                    />
-                  </Grid.Col>
-                </React.Fragment>
-              )
-            )
-          )}
+                        .filter((key) => key.endsWith("Amount"))
+                        .reduce((acc, key) => {
+                          return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                        }, 0)
+                    );
+                  }}
+                  size="md"
+                  {...form?.getInputProps(`${item}Amount`)}
+                />
+              </Grid.Col>
+            </React.Fragment>
+          ))}
 
         <Grid.Col md={6}>
           <TextInput
@@ -205,6 +191,25 @@ const VisaForm = ({ form, total, setTotal }) => {
             type="number"
             label={"Total Amount"}
             readOnly
+            onMouseMove={() => {
+              //remove amount from other services if not selected
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             withAsterisk
             placeholder={"Please Enter Amount"}
             size="md"
@@ -219,6 +224,25 @@ const VisaForm = ({ form, total, setTotal }) => {
             placeholder="Enter Service Charges"
             icon="Dhs"
             size="md"
+            onMouseMove={() => {
+              //remove amount from other services if not selected
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             withAsterisk={true}
             {...form?.getInputProps("service_charges")}
           />
@@ -233,6 +257,24 @@ const VisaForm = ({ form, total, setTotal }) => {
             placeholder={"Please Enter Grand Total"}
             size="md"
             readOnly
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             {...form?.getInputProps("grand_total_numeric")}
           />
         </Grid.Col>
@@ -243,6 +285,24 @@ const VisaForm = ({ form, total, setTotal }) => {
             label={"Grand Total(In Words)"}
             placeholder={"Please Enter Grand Total In Words"}
             readOnly
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             size="md"
             {...form?.getInputProps("grand_total_in_words")}
           />

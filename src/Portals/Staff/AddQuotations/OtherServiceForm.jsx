@@ -98,12 +98,12 @@ const OtherServiceForm = ({ form, setTotal }) => {
             label="Offered Services"
             placeholder="Select Offered Services"
             onChange={(value) => {
-              data.forEach(element => {
+              data.forEach((element) => {
                 if (!value.includes(element.value)) {
-                  console.log(element.value)
-                  form.setFieldValue(`${element.value}Amount`, "")
+                  console.log(element.value);
+                  form.setFieldValue(`${element.value}Amount`, "");
                 }
-              })
+              });
             }}
             size="md"
             {...form?.getInputProps("offered_services")}
@@ -207,6 +207,24 @@ const OtherServiceForm = ({ form, setTotal }) => {
             label={"Total Amount"}
             placeholder={"Please Enter Amount"}
             size="md"
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             {...form?.getInputProps("total")}
           />
         </Grid.Col>
@@ -219,6 +237,24 @@ const OtherServiceForm = ({ form, setTotal }) => {
             icon="Dhs"
             size="md"
             withAsterisk={true}
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             {...form?.getInputProps("service_charges")}
           />
         </Grid.Col>
@@ -230,6 +266,24 @@ const OtherServiceForm = ({ form, setTotal }) => {
             placeholder={"Please Enter Grand Total"}
             size="md"
             readOnly
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             {...form?.getInputProps("grand_total_numeric")}
           />
         </Grid.Col>
@@ -239,6 +293,24 @@ const OtherServiceForm = ({ form, setTotal }) => {
             label={"Grand Total(In Words)"}
             placeholder={"Please Enter Grand Total In Words"}
             size="md"
+            onMouseMove={() => {
+              if (form.values.offered_services) {
+                data.forEach((item) => {
+                  if (!form.values.offered_services.includes(item.value)) {
+                    form?.setFieldValue(`${item.value}Amount`, "");
+                  }
+                });
+              }
+              form.setFieldValue(
+                "total",
+                Object.keys(form.values)
+
+                  .filter((key) => key.endsWith("Amount"))
+                  .reduce((acc, key) => {
+                    return acc + (parseInt(form.values[key]) || 0); // Parse and add the amount (default to 0 if NaN)
+                  }, 0)
+              );
+            }}
             {...form?.getInputProps("grand_total_in_words")}
           />
         </Grid.Col>
