@@ -30,7 +30,7 @@ const StaffRingStats = ({ data }) => {
             <Group position="apart" mt={14}>
               <div>
                 <Text
-                  color="white"
+                  color="dark"
                   size="md"
                   tt="uppercase"
                   fw={900}
@@ -39,7 +39,7 @@ const StaffRingStats = ({ data }) => {
                   Total Quotations
                 </Text>
               </div>
-              <Text fw={700} size={30} color="white">
+              <Text fw={700} size={30} color="dark">
                 {data.total_quotations || 0}
               </Text>
             </Group>
@@ -50,7 +50,7 @@ const StaffRingStats = ({ data }) => {
             <Group position="apart" mt={14}>
               <div>
                 <Text
-                  color="white"
+                  color="lime"
                   size="md"
                   tt="uppercase"
                   fw={900}
@@ -59,8 +59,8 @@ const StaffRingStats = ({ data }) => {
                   Approved Quotations
                 </Text>
               </div>
-              <Text fw={700} size={30} color="white">
-                {data.total_approved_quotations || 0}
+              <Text fw={700} size={30} color="lime">
+                {data.approved_quotations || 0}
               </Text>
             </Group>
           </Paper>
@@ -87,7 +87,7 @@ const StaffRingStats = ({ data }) => {
                 </Text>
               </div>
               <Text fw={700} size={30} color="white">
-                {data.total_commission || 0}
+                {CurrencyFormatter(data.total_commission_received || 0)}
               </Text>
             </Group>
           </Paper>

@@ -22,40 +22,37 @@ const AddPaymentInvoice = () => {
       Client_Name: QutationData?.client.client_name,
       Client_Contact_Number: QutationData?.client.client_contact_number,
       Service_Type: QutationData?.service_type,
-      Approved_Quotation_Ammount: QutationData?.grand_total_numeric,
-      Ammount_in_Numeric: "",
-      Ammount_in_Words: ""
+      Approved_Quotation_Amount: QutationData?.grand_total_numeric,
+      Amount_in_Numeric: "",
+      Amount_in_Words: "",
     },
     validate: {
-      Ammount_in_Numeric: (value) =>
-        value ? null : "Please Enter Ammount in Numeric",
-      Ammount_in_Words: (value) =>
-        value ? null : "Please Enter Ammount in Words",
+      Amount_in_Numeric: (value) =>
+        value ? null : "Please Enter Amount in Numeric",
+      Amount_in_Words: (value) =>
+        value ? null : "Please Enter Amount in Words",
     },
-
-  })
+  });
   const submitInvoice = async (values) => {
     const value = {
       quotation: values.id,
-      amount_received: values.Ammount_in_Numeric,
-      amount_received_in_words: values.Ammount_in_Words,
-    }
+      amount_received: values.Amount_in_Numeric,
+      amount_received_in_words: values.Amount_in_Words,
+    };
     console.log(value);
-    const url = '/invoice';
+    const url = "/invoice";
     await axios_post({ url: url, data: value }).then((response) => {
       if (response.status == 201 || response.status == 200) {
         toast.success("Invoice Added Successfully");
         localStorage.removeItem("client_payment");
         navigate(staffRoutes.viewPaymentInvoice);
-      }
-      else if (response.status == 400) {
+      } else if (response.status == 400) {
         toast.error(response.data.message);
-      }
-      else {
+      } else {
         toast.error("Something Went Wrong");
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     console.log(form.values);
@@ -116,36 +113,51 @@ const AddPaymentInvoice = () => {
                 </Grid.Col>
                 <Grid.Col sm={6} span={12}>
                   <TextInput
-                    label="Approved Quotation Ammount"
-                    placeholder="Approved Quotation Ammount"
-                    {...form?.getInputProps("Approved_Quotation_Ammount")}
+                    label="Approved Quotation Amount"
+                    placeholder="Approved Quotation Amount"
+                    {...form?.getInputProps("Approved_Quotation_Amount")}
                     readOnly={true}
                   />
                 </Grid.Col>
                 <Grid.Col sm={6} span={12}>
                   <TextInput
-                    label="Ammount in Numeric"
-                    placeholder="Please Enter Ammount in Numeric"
+                    label="Amount in Numeric"
+                    placeholder="Please Enter Amount in Numeric"
                     type="number"
-                    onBlurCapture={() => form.setValues({Ammount_in_Words:numeric_to_word(parseInt(form.values.Ammount_in_Numeric))})}
+                    onMouseMove={() =>
+                      form.setValues({
+                        Amount_in_Words: numeric_to_word(
+                          parseInt(form.values.Amount_in_Numeric)
+                        ),
+                      })
+                    }
+                    onBlurCapture={() => {
+                      form.setValues({
+                        Amount_in_Words: numeric_to_word(
+                          parseInt(form.values.Amount_in_Numeric)
+                        ),
+                      });
+                    }}
                     //get the value of ammount in numeric and convert it to words
-                    {...form?.getInputProps("Ammount_in_Numeric")}
+                    {...form?.getInputProps("Amount_in_Numeric")}
                   />
                 </Grid.Col>
                 <Grid.Col sm={6} span={12}>
                   <TextInput
-                    label="Ammount in Words"
-                    placeholder="Please Enter Ammount in Words"
-                    {...form?.getInputProps("Ammount_in_Words")}
+                    label="Amount in Words"
+                    placeholder="Please Enter Amount in Words"
+                    {...form?.getInputProps("Amount_in_Words")}
                     readOnly={true}
-                    
                   />
                 </Grid.Col>
                 <Grid.Col span={12}>
-                  <Group position="right">
-                    <Button color={MainBlue()}
+                  <Group position="right" mb={10} mt={10}>
+                    <Button
+                      color={MainBlue()}
                       onClick={() => {
-                        form.isValid() ? submitInvoice(form.values) : form.validate();
+                        form.isValid()
+                          ? submitInvoice(form.values)
+                          : form.validate();
                       }}
                     >
                       Submit

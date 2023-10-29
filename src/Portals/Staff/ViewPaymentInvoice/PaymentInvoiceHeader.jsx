@@ -1,4 +1,4 @@
-import {  Badge } from "@mantine/core";
+import { Badge } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
 import ViewInvoiceModal from "./Modals/ViewInvoiceModal";
@@ -7,7 +7,6 @@ import { CurrencyFormatter } from "../../../Utils/CommonFormatters";
 export const PaymentInvoiceHeader = () => {
   const navigate = useNavigate();
   return [
-    
     {
       name: "S.No",
       selector: (row) => row.sNo,
@@ -30,7 +29,7 @@ export const PaymentInvoiceHeader = () => {
     },
     {
       name: "Client Name",
-      selector: (row) => row.client.client_name || 'N/A',
+      selector: (row) => row.client.client_name || "N/A",
       sortable: true,
       wrap: true,
     },
@@ -49,7 +48,24 @@ export const PaymentInvoiceHeader = () => {
     },
     {
       name: "Status",
-      selector: (row) => {return<Badge   style={{cursor:'default'}} color={row.status=='Approved'?'green':(row.status=='Pending'?'yellow':(row.status=='Rejected'?'red':'blue'))}>{row.status}</Badge>},
+      selector: (row) => {
+        return (
+          <Badge
+            style={{ cursor: "default" }}
+            color={
+              row.status == "Approved"
+                ? "green"
+                : row.status == "Pending"
+                ? "yellow"
+                : row.status == "Rejected"
+                ? "red"
+                : "blue"
+            }
+          >
+            {row.status}
+          </Badge>
+        );
+      },
       sortable: true,
       wrap: true,
     },
@@ -62,9 +78,8 @@ export const PaymentInvoiceHeader = () => {
             <ActionIcons
               ModalTitle={"View Payment Invoice"}
               viewModalSize={1200}
-             ViewModalComponent={<ViewInvoiceModal Data ={row} />}
-            >
-            </ActionIcons>
+              ViewModalComponent={<ViewInvoiceModal row={row} />}
+            />
           </>
         );
       },

@@ -2,6 +2,8 @@ import { Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import React from "react";
 import persons from "../../../assets/svgs/persons.svg";
+import { CurrencyDirham, CurrencyDollar, FileDollar } from "tabler-icons-react";
+import { CurrencyFormatter } from "../../../Utils/CommonFormatters";
 
 const StaffCardStats = ({ data }) => {
   const matches = useMediaQuery("(max-width: 768px)");
@@ -19,63 +21,69 @@ const StaffCardStats = ({ data }) => {
         { maxWidth: 1500, cols: 2 },
       ]}
     >
-      <Paper withBorder radius="md" pb="xs" bg={"#0487FF"} h={"100%"}>
-        <Group ml={30} mt={10} noWrap>
-          <Image
-            src={persons}
-            style={{
-              width: matches ? 50 : 100,
-              height: matches ? 50 : 100,
-            }}
-            color="white"
-          />
-          <div>
-            <Text fw={700} size={matches ? "md" : "xl"} color="white">
-              Total Clients
-            </Text>
-            <Text color="white" size="xs" tt="uppercase" fw={700}>
-              No Of clients Person
-            </Text>
-          </div>
+      <Paper withBorder radius="md" bg={"#0487FF"} h={"100%"}>
+        <Group position="apart" ml={10} mr={10}>
           <div
             style={{
-              marginLeft: "auto",
-              marginRight: "auto",
-              noWrap: true,
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
             }}
           >
-            <Text fw={700} size={matches ? 30 : 50} color="white">
+            <Image
+              src={persons}
+              style={{
+                width: matches ? 50 : 100,
+                height: matches ? 50 : 100,
+              }}
+              color="yellow"
+            />
+            <Stack spacing={0} direction="column" align="center" ml={20}>
+              <Text
+                fw={700}
+                size={matches ? "md" : "xl"}
+                color="yellow"
+                align="left"
+              >
+                Total Clients
+              </Text>
+              <Text color="yellow" size="xs" tt="uppercase" fw={700}>
+                No Of clients Person
+              </Text>
+            </Stack>
+          </div>
+          <Group position="right">
+            <Text fw={700} size={matches ? 30 : 50} color="yellow">
               {data.total_clients || 0}
             </Text>
-          </div>
+          </Group>
         </Group>
       </Paper>
       <Paper withBorder radius="md" pb="xs" bg={"#0487FF"} h={"100%"}>
-        <Group ml={30} mt={10} noWrap>
-          <Image
-            src={persons}
-            style={{
-              width: matches ? 50 : 100,
-              height: matches ? 50 : 100,
-            }}
-            color="white"
-          />
-          <div>
-            <Text fw={700} size={matches ? "md" : "xl"} color="white">
-              Payment Received
-            </Text>
-            <Text color="white" size="xs" tt="uppercase" fw={700}>
-              No Of Payment Received
-            </Text>
-          </div>
+        <Group noWrap position="apart" mt={10}>
           <div
             style={{
-              marginLeft: "auto",
-              marginRight: "auto",
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
             }}
           >
-            <Text fw={700} size={matches ? 30 : 50} color="white">
-              {data.total_payment_received || 0}
+            <FileDollar size={matches ? 50 : 80} color="white" />
+
+            <Stack spacing={0}>
+              <Text fw={700} size={matches ? "md" : "xl"} color="white">
+                Payment Received
+              </Text>
+              <Text color="white" size="xs" tt="uppercase" fw={700}>
+                No Of Payment Received
+              </Text>
+            </Stack>
+          </div>
+          <div>
+            <Text fw={700} size={matches ? 12 : 25} color="white">
+              {CurrencyFormatter(data.total_payments_received || 0)}
             </Text>
           </div>
         </Group>
