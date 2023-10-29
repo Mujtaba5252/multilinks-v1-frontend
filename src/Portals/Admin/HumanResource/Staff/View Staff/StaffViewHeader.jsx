@@ -26,6 +26,12 @@ export const StaffViewHeader = ({ setUpdate }) => {
       wrap: true,
     },
     {
+      name: "Email",
+      selector: (row) => row.login_email,
+      sortable: true,
+      wrap: true,
+    },
+    {
       name: "Designation",
       selector: (row) => row.designation,
       sortable: true,
