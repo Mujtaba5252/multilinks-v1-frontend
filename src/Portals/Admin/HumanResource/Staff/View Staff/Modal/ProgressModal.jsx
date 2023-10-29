@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   Center,
+  Flex,
   Grid,
   Group,
   Popover,
@@ -13,14 +14,16 @@ import { MonthPicker } from "@mantine/dates";
 import { useMediaQuery } from "@mantine/hooks";
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { Calendar } from "tabler-icons-react";
+import { Calendar, ChevronDownLeft, ChevronLeft, ChevronRight } from "tabler-icons-react";
 import { axios_get } from "../../../../../../Utils/Axios";
 import { CurrencyFormatter } from "../../../../../../Utils/CommonFormatters";
 import { MainBlue } from "../../../../../../Utils/ThemeColors";
+import { addOneMonthFromTimestamp, roundOff, subtractOneMonthFromTimestamp } from "../StaffFunction";
+import toast from "react-hot-toast";
 const ProgressModal = ({ row }) => {
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [data, setData] = useState([]);
-  const [opened, setOpened] = useState(false);
-  const [value, setValue] = useState([new Date(), new Date()]);
+  const [swap, setSwap] = useState(false);
   const [chartData, setChartData] = useState(null);
   let days = [
     "Sunday",
@@ -95,22 +98,51 @@ const ProgressModal = ({ row }) => {
     },
     series: series,
   };
-  const handleMonthChange = (e) => {
-    console.log(e);
-  };
-  const getStats = async () => {
-    let url = "/progress-model/651467fa94f2f800181f9a7a/1640995200/1698164608";
-    await axios_get({ url: url })
-      .then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
+  const callGraph = async (url,start_date, end_date) => {
+    console.log(start_date, end_date);
+    if (start_date!=null || end_date!=null) {
+      await axios_get({ url: url })
+        .then((res) => {
+          console.log(res.data);
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    else {
+      toast.error("Please select a date range");
+    }
+  }
+  const nextMonth = () => {
+    const staffID = row.id;
+    const start_date = currentDate.getTime();
+    const end_date = addOneMonthFromTimestamp(currentDate);
+    const url="/progress-model/" + staffID + "/" + start_date + "/" + end_date;
+    if (currentDate.getMonth() != new Date().getMonth()) {
+      setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)));
+      callGraph(url,start_date, end_date);
+    }
+    else {
+      toast.error("Cannot go beyond current month");
+    }
+  }
+  const previousMonth = () => {
+
+    const staffID = row.id;
+    const start_date = currentDate.getTime();
+    const end_date = subtractOneMonthFromTimestamp(currentDate);
+    const url="/progress-model/" + staffID + "/" + end_date + "/" + start_date;
+    setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)));
+    callGraph(url,start_date, end_date);
+  }
   useEffect(() => {
-    getStats();
+    console.log("swap changed:", swap);
+  }, [swap]);
+  useEffect(() => {
+    // getStats();
+    callGraph(currentDate.getTime(), subtractOneMonthFromTimestamp(currentDate.getTime()));
   }, []);
   useEffect(() => {
     setTimeout(() => {
@@ -161,7 +193,7 @@ const ProgressModal = ({ row }) => {
                     roundCaps
                     color="white"
                     thickness={matches ? 12 : 14}
-                    sections={[{ value: 100, color: "orange" }]}
+                    sections={[{ value: data.clientPercentage, color: "orange" }]}
                     label={
                       <Center
                         style={{
@@ -170,7 +202,7 @@ const ProgressModal = ({ row }) => {
                           fontWeight: 800,
                         }}
                       >
-                        100%
+                        {roundOff(data.clientPercentage)}%
                       </Center>
                     }
                   />
@@ -192,7 +224,7 @@ const ProgressModal = ({ row }) => {
                     roundCaps
                     color="white"
                     thickness={matches ? 12 : 14}
-                    sections={[{ value: 100, color: "orange" }]}
+                    sections={[{ value: data.quotationPercentage, color: "orange" }]}
                     label={
                       <Center
                         style={{
@@ -201,7 +233,7 @@ const ProgressModal = ({ row }) => {
                           fontWeight: 800,
                         }}
                       >
-                        100%
+                        {roundOff(data.quotationPercentage)}%
                       </Center>
                     }
                   />
@@ -212,32 +244,17 @@ const ProgressModal = ({ row }) => {
           <Grid.Col span={matches ? 12 : 8}>
             <Grid>
               <Grid.Col span={12}>
-                <Popover opened={opened} onChange={setOpened}>
-                  <Popover.Target>
-                    <Center>
-                      <Tooltip label="Click to Filter by months">
-                        <Button
-                          variant="light"
-                          onClick={() => setOpened((o) => !o)}
-                          style={{ cursor: "pointer" }}
-                          leftIcon={<Calendar color={MainBlue()} />}
-                        >
-                          Monthly Performance
-                        </Button>
-                      </Tooltip>
-                    </Center>
-                  </Popover.Target>
-                  <Popover.Dropdown>
-                    <MonthPicker
-                      type="range"
-                      clearable
-                      value={value}
-                      onChange={(e) => {
-                        handleMonthChange(e);
-                      }}
-                    />
-                  </Popover.Dropdown>
-                </Popover>
+                <Flex justify={"center"}>
+                  <Button onClick={()=>{setSwap(prevSwap => false);previousMonth();}}  p={0} variant="light" w={35} style={{borderRadius:"50%"}}>  
+                    <ChevronLeft style={{cursor:"pointer"}} color={MainBlue()} />
+                  </Button>
+                  <Text  ml={30} mr={30}>
+                    {currentDate.toLocaleDateString("en-US", { month: 'long', year: 'numeric' })}
+                  </Text>
+                  <Button onClick={()=>{setSwap(prevSwap => true);nextMonth();}}  p={0} variant="light" w={35} style={{borderRadius:"50%"}}>  
+                    <ChevronRight style={{cursor:"pointer"}} color={MainBlue()} />
+                  </Button>
+                </Flex>
               </Grid.Col>
               <Grid.Col span={12}>
                 <Card
