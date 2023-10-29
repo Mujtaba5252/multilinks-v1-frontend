@@ -196,7 +196,13 @@ function ViewModal({ Data }) {
                     <Text color={MainBlue()}>Residence Address in UAE</Text>
                   </Grid.Col>
                   <Grid.Col span={6}>
-                    <Text>{Data?.residence_address_in_UAE}</Text>
+                    <Text
+                      style={{
+                        wordBreak: "break-all",
+                      }}
+                    >
+                      {Data?.residence_address_in_UAE}
+                    </Text>
                   </Grid.Col>
                   <Grid.Col span={6}>
                     <Text color={MainBlue()}>Commission Percentage</Text>
