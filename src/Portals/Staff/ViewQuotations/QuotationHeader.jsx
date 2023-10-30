@@ -3,6 +3,7 @@ import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
 import { Badge } from "@mantine/core";
 import { staffRoutes } from "../../../routes";
 import { CurrencyFormatter } from "../../../Utils/CommonFormatters";
+import { Circle, CircleCheck, Clock } from "tabler-icons-react";
 
 export const QuotationHeader = () => {
   return [
@@ -51,6 +52,27 @@ export const QuotationHeader = () => {
       sortable: true,
       wrap: true,
     },
+    {
+      name: "Case Status",
+      selector: (row) => {
+        const services= row.offered_services;
+        const status = services.map((service) => {
+          return service.is_paid;
+        });
+        return(
+          <>
+            {status.includes(false) ? (
+              <Clock style={{marginLeft:'1.5rem'}} color="orange" />
+            ) : (
+              <CircleCheck style={{marginLeft:'1.5rem'}} color="green" />
+            )}
+          </>
+        )
+      },
+      sortable: true,
+      wrap: true,
+    },
+    
     {
       name: "Status",
       center: true,
