@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import CustomLoader from "../../../../../Components/CustomLoader/Customloader";
+import CustomLoader from "../../../../../Components/CustomLoader/CustomLoader";
 import { Button, Group, Input } from "@mantine/core";
 import ImagesAndFileUpload from "../../../../../Components/ImagesAndFileUpload/ImagesAndFileUpload";
 import { MIME_TYPES } from "@mantine/dropzone";
 import { useNavigate } from "react-router-dom";
 import { uploadMultipleImages } from "../../../../../Components/FireBase/Firebase";
+import { axios_put } from "../../../../../Utils/Axios";
+import toast from "react-hot-toast";
+import { adminRoutes } from "../../../../../routes";
 
 const AttachmentModal = ({ row }) => {
   const [attachments, setAttachments] = useState([]);
@@ -28,7 +31,7 @@ const AttachmentModal = ({ row }) => {
       }).then((res) => {
         if (res) {
           toast.success("Attachments Added Successfully");
-          navigate(adminRoutes.paymentsReceipts);
+          navigate(adminRoutes.commissions);
           setLoading(false);
         } else {
           toast.error("Error while adding attachments");
