@@ -1,5 +1,5 @@
-import { Button, Flex, Grid, Loader, Text } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import { ActionIcon, Button, Flex, Grid, Loader, Text } from "@mantine/core";
+import React, { useEffect, useRef, useState } from "react";
 import { CirclePlus } from "tabler-icons-react";
 import DataGrid from "../../../../../../../Components/DataTable/DataGrid";
 import PageWrapper from "../../../../../../../Components/PageWrapper/PageWrapper";
@@ -11,6 +11,7 @@ import FilterBarClientExpense from "./FilterBarClientExpense";
 import { fetchClientExpense } from "./ClientPaymentFunctions";
 
 function ClientExpenseView({ isInvoice, pending }) {
+
   const [clientExpenseData, setClientExpenseData] = useState([]);
   const [addExpense, setAddExpense] = useState(false);
   const [pagination, setPagination] = useState([]);

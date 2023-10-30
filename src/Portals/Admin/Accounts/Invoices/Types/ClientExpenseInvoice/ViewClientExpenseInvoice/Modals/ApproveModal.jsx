@@ -5,8 +5,10 @@ import { CurrencyFormatter } from '../../../../../../../../Utils/CommonFormatter
 import { axios_put } from '../../../../../../../../Utils/Axios'
 import { adminRoutes } from '../../../../../../../../routes'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 function ApproveModal({Data,setUpdate}) {
+    const navigate = useNavigate();
     const handleApprove = async(id) => {
         let url='/client-expense/'+id
         await axios_put({url:url, data:{status:'Approved'}}).then((res)=>{

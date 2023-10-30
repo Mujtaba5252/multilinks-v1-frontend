@@ -4,6 +4,7 @@ import { axios_put } from "../../../../../../../../Utils/Axios";
 import { CurrencyFormatter } from "../../../../../../../../Utils/CommonFormatters";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { adminRoutes } from "../../../../../../../../routes";
 
 function RejectModal({ Data, setUpdate, setOpenRejectModal }) {
   const navigate = useNavigate();

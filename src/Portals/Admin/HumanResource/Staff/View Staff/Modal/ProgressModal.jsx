@@ -8,39 +8,25 @@ import {
   Popover,
   RingProgress,
   Text,
+  Title,
   Tooltip,
 } from "@mantine/core";
-import { MonthPicker } from "@mantine/dates";
 import { useMediaQuery } from "@mantine/hooks";
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { Calendar, ChevronDownLeft, ChevronLeft, ChevronRight } from "tabler-icons-react";
 import { axios_get } from "../../../../../../Utils/Axios";
-import { CurrencyFormatter } from "../../../../../../Utils/CommonFormatters";
+import { CurrencyFormatter, camelCaseFormatter } from "../../../../../../Utils/CommonFormatters";
 import { MainBlue } from "../../../../../../Utils/ThemeColors";
 import { addOneMonthFromTimestamp, roundOff, subtractOneMonthFromTimestamp } from "../StaffFunction";
 import toast from "react-hot-toast";
+import CustomLoader from "../../../../../../Components/CustomLoader/CustomLoader";
 const ProgressModal = ({ row }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [data, setData] = useState([]);
-  const [swap, setSwap] = useState(false);
   const [chartData, setChartData] = useState(null);
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const [labels, setLabels] = useState(days);
-  const [selected, setSelected] = useState("weekly");
   const matches = useMediaQuery("(max-width: 768px)");
-  const [series, setSeries] = useState([
-    { name: "Total", data: [0, 0, 0, 0, 0, 0, 0] },
-    { name: "Remaining", data: [0, 0, 0, 0, 0, 0, 0] },
-  ]);
+  const [loading, setLoading] = useState(false);
 
   const options = {
     height: 400,
@@ -61,10 +47,6 @@ const ProgressModal = ({ row }) => {
           horizontal: false,
           columnWidth: "50%",
         },
-      },
-      xaxis: {
-        type: "category",
-        categories: labels,
       },
       legend: {
         show: true,
@@ -94,21 +76,43 @@ const ProgressModal = ({ row }) => {
       grid: {
         show: true,
       },
-      colors: ["#0487FF", "#FF0000"], // Add your desired colors here
+      colors: ["#fd7e14", "#FF0000"], // Add your desired colors here
     },
-    series: series,
+    series: [{
+      data:[{
+        x: "Clients",
+        y: data.dayWiseData?data.dayWiseData[0].clientCount:0,
+      },
+      {
+        x: "Quotations",
+        y: data.dayWiseData?data.dayWiseData[0].quotationCount:0,
+      },
+      {
+        x: "Payments",
+        y: data.dayWiseData?data.dayWiseData[0].sumOfClientExpensePayment:0,
+      },
+      {
+        x: "Commissions",
+        y: data.dayWiseData?data.dayWiseData[0].sumOfCommission:0,
+      }
+    ]
+
+    }],
   };
 
   const callGraph = async (url,start_date, end_date) => {
+    setLoading(true);
     console.log(start_date, end_date);
     if (start_date!=null || end_date!=null) {
       await axios_get({ url: url })
         .then((res) => {
           console.log(res.data);
           setData(res.data);
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err);
+          setLoading(false);
         });
     }
     else {
@@ -116,12 +120,12 @@ const ProgressModal = ({ row }) => {
     }
   }
   const nextMonth = () => {
+    setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)));
     const staffID = row.id;
-    const start_date = currentDate.getTime();
-    const end_date = addOneMonthFromTimestamp(currentDate);
-    const url="/progress-model/" + staffID + "/" + start_date + "/" + end_date;
+    const start_date = addOneMonthFromTimestamp(currentDate);
+    const end_date = currentDate.getTime();
+    const url="/progress-model/" + staffID + "/" + end_date + "/" + start_date;
     if (currentDate.getMonth() != new Date().getMonth()) {
-      setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)));
       callGraph(url,start_date, end_date);
     }
     else {
@@ -130,28 +134,28 @@ const ProgressModal = ({ row }) => {
   }
   const previousMonth = () => {
 
+    setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)));
     const staffID = row.id;
     const start_date = currentDate.getTime();
     const end_date = subtractOneMonthFromTimestamp(currentDate);
     const url="/progress-model/" + staffID + "/" + end_date + "/" + start_date;
-    setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)));
     callGraph(url,start_date, end_date);
   }
+
   useEffect(() => {
-    console.log("swap changed:", swap);
-  }, [swap]);
-  useEffect(() => {
-    // getStats();
-    callGraph(currentDate.getTime(), subtractOneMonthFromTimestamp(currentDate.getTime()));
+    callGraph("/progress-model/" + row.id + "/" + subtractOneMonthFromTimestamp(currentDate.getTime())+ "/" + currentDate.getTime(),currentDate.getTime(), subtractOneMonthFromTimestamp(currentDate.getTime()));
   }, []);
   useEffect(() => {
     setTimeout(() => {
       setChartData(options);
     }, 200);
-  }, [selected, chartData, labels]);
+  }, [chartData]);
 
   return (
     <Grid>
+      <Grid.Col span={12}>
+        <Title order={2} color={MainBlue()} align="center">{camelCaseFormatter(row?.name)}</Title>
+      </Grid.Col>
       <Grid.Col span={12}>
         <Group
           position="apart"
@@ -243,15 +247,16 @@ const ProgressModal = ({ row }) => {
           </Grid.Col>
           <Grid.Col span={matches ? 12 : 8}>
             <Grid>
+              {loading && <CustomLoader loading={setLoading} />}
               <Grid.Col span={12}>
                 <Flex justify={"center"}>
-                  <Button onClick={()=>{setSwap(prevSwap => false);previousMonth();}}  p={0} variant="light" w={35} style={{borderRadius:"50%"}}>  
+                  <Button onClick={previousMonth}  p={0} variant="light" w={35} style={{borderRadius:"50%"}}>  
                     <ChevronLeft style={{cursor:"pointer"}} color={MainBlue()} />
                   </Button>
-                  <Text  ml={30} mr={30}>
+                  <Text  ml={30} mt={7} mr={30}>
                     {currentDate.toLocaleDateString("en-US", { month: 'long', year: 'numeric' })}
                   </Text>
-                  <Button onClick={()=>{setSwap(prevSwap => true);nextMonth();}}  p={0} variant="light" w={35} style={{borderRadius:"50%"}}>  
+                  <Button onClick={nextMonth}  p={0} variant="light" w={35} style={{borderRadius:"50%"}}>  
                     <ChevronRight style={{cursor:"pointer"}} color={MainBlue()} />
                   </Button>
                 </Flex>

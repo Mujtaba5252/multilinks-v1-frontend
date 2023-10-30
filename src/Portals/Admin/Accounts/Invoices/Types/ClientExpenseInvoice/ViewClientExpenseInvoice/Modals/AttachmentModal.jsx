@@ -5,7 +5,7 @@ import { MIME_TYPES } from "@mantine/dropzone";
 import { uploadMultipleImages } from "../../../../../../../../Components/FireBase/Firebase";
 import { axios_put } from "../../../../../../../../Utils/Axios";
 import toast from "react-hot-toast";
-import CustomLoader from "../../../../../../../../Components/CustomLoader/Customloader";
+import CustomLoader from "../../../../../../../../Components/CustomLoader/CustomLoader";
 import { adminRoutes } from "../../../../../../../../routes";
 import { useNavigate } from "react-router-dom";
 
@@ -29,10 +29,11 @@ const AttachmentModal = ({ row }) => {
         },
       }).then((res) => {
         if (res) {
+          navigate(adminRoutes.clientExpenseReceipts);
           toast.success("Attachments Added Successfully");
           setLoading(false);
-          navigate(adminRoutes.clientExpenseReceipts);
         } else {
+          navigate(adminRoutes.clientExpenseReceipts);
           toast.error("Error while adding attachments");
           setLoading(false);
         }

@@ -149,7 +149,6 @@ const ActionIcons = ({
       <ModalComponent //for progress modal component
         opened={openProgressModal}
         setOpened={setOpenProgressModal}
-        title={ProgressModalTitle}
         size={1200}
       >
         {ProgressModalComponent}

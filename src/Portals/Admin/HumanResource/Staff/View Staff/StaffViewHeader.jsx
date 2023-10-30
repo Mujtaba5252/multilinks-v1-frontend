@@ -70,7 +70,6 @@ export const StaffViewHeader = ({ setUpdate }) => {
             progress={true}
             size={"90vw"}
             ModalTitle={row.name + ` (${row.staff_ID})`}
-            ProgressModalTitle={row?.name}
             DeleteModalTitle={`Delete ${row.name} (${row.staff_ID})`}
             ViewModalComponent={<ViewModal Data={row} />}
             ProgressModalComponent={<ProgressModal row={row} />}
