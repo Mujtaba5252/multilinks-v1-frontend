@@ -10,7 +10,6 @@ function DeleteModal({Data, setUpdate}) {
     const navigate = useNavigate();
     const handleDelete = (id) => {
         let url = '/user/'+id
-        console.log(url)
         axios_delete({url:url}).then((res)=>{
             if(res.status === 200){
                 toast.success('Staff Deleted Successfully')

@@ -18,7 +18,6 @@ const ViewLicenses = () => {
   let url = "/license";
 
   useEffect(() => {
-    console.log(url);
     getLicenseData({ url, setLicenseData, setPagination });
   }, [update, url]);
 

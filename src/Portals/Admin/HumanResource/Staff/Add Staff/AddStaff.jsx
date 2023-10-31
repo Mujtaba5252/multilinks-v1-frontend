@@ -23,7 +23,13 @@ import { MainBlue } from "../../../../../Utils/ThemeColors";
 import { useForm } from "@mantine/form";
 import { toast } from "react-hot-toast";
 import added from "../../../../../assets/images/added.gif";
-import { cnicRegex, emailRegex, emiratesIdRegex, passwordRegex, phoneRegex } from "../../../../../Components/Regex/Regex";
+import {
+  cnicRegex,
+  emailRegex,
+  emiratesIdRegex,
+  passwordRegex,
+  phoneRegex,
+} from "../../../../../Components/Regex/Regex";
 import {
   axios_get,
   axios_post,
@@ -108,11 +114,16 @@ function AddStaff() {
       commission_percentage: null,
     },
     validate: {
-      nationality: (value) => (value.length > 3 ? null : "Please Enter Nationality"),
+      nationality: (value) =>
+        value.length > 3 ? null : "Please Enter Nationality",
       passport_number: (value) =>
-        value.length>3 ? null : "Please Enter Passport Number",
+        value.length > 3 ? null : "Please Enter Passport Number",
       emirates_ID: (value) =>
-        emirateID ? (emiratesIdRegex.test(value) ? null : "Please Enter Valid Emirates ID") : null,
+        emirateID
+          ? emiratesIdRegex.test(value)
+            ? null
+            : "Please Enter Valid Emirates ID"
+          : null,
       emirates_ID_expiry_date: (value) =>
         emirateID
           ? value
@@ -126,13 +137,15 @@ function AddStaff() {
             : "Please Select Emirates ID Issuance Date"
           : null,
       emergency_contact_name: (value) =>
-        value.length>3 ? null : "Please Enter Emergency Contact Name",
+        value.length > 3 ? null : "Please Enter Emergency Contact Name",
       commission_percentage: (value) =>
-        (value>=1 && value<=50) ? null : "Commission Should be in between 1 to 50 percent",
+        value >= 1 && value <= 50
+          ? null
+          : "Commission Should be in between 1 to 50 percent",
       emergency_contact_number: (value) =>
         phoneRegex.test(value) ? null : "Please Enter Emergency Contact Number",
       residence_address_in_UAE: (value) =>
-        value.length>3 ? null : "Please Enter Residence Address in UAE",
+        value.length > 3 ? null : "Please Enter Residence Address in UAE",
     },
   });
   const form3 = useForm({
@@ -144,11 +157,12 @@ function AddStaff() {
     validate: {
       login_email: (value) => (emailRegex.test(value) ? null : "Invalid Email"),
       login_password: (value) =>
-        passwordRegex.test(value)? null : "Password must contain 1 uppercase, 1 lowercase, 1 number, 1 special character and must be 8 characters long",
+        passwordRegex.test(value)
+          ? null
+          : "Password must contain 1 uppercase, 1 lowercase, 1 number, 1 special character and must be 8 characters long",
     },
   });
 
-  
   const getStaffData = async () => {
     setLoading(true);
     axios_get({ url: `/user/${params.editId}` })
@@ -188,7 +202,6 @@ function AddStaff() {
         setAttachments(data?.attachments || []);
         setShow(data?.profile_picture?.path || {});
         setLoading(false);
-        
       })
       .catch((err) => {
         console.log(err);
@@ -280,7 +293,6 @@ function AddStaff() {
         form2.validate();
         toast.error("Please fill all the fields");
       } else {
-        console.log(form2.values);
         emirateID
           ? (form2.values.has_emirates_ID = true)
           : (form2.values.has_emirates_ID = false);
@@ -291,7 +303,12 @@ function AddStaff() {
   return (
     <CustomLoader loading={loading}>
       <PageWrapper title="Add Staff">
-        <Stepper active={active} allowNextStepsSelect={false} onStepClick={setActive} breakpoint>
+        <Stepper
+          active={active}
+          allowNextStepsSelect={false}
+          onStepClick={setActive}
+          breakpoint
+        >
           <Stepper.Step
             label={isSmall ? "" : <Text size={"sm"}>Basic Information</Text>}
             description={

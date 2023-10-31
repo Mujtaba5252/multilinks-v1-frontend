@@ -89,7 +89,6 @@ const AddClient = () => {
 
       attachments: attachments1,
     };
-    console.log("values", values);
     try {
       let url;
       if (params.editId) {

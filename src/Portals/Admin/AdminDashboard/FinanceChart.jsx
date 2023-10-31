@@ -89,7 +89,7 @@ const FinanceChart = ({ stats }) => {
 
       plotOptions: {
         bar: {
-          columnWidth: "100%",
+          columnWidth: "20px",
         },
       },
       xaxis: {
@@ -128,7 +128,7 @@ const FinanceChart = ({ stats }) => {
         type: "solid",
       },
       dataLabels: {
-        enabled: true,
+        enabled: false,
       },
       grid: {
         show: true,

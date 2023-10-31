@@ -16,31 +16,46 @@ import { ArrowDownRight, ArrowUpRight } from "tabler-icons-react";
 import { CurrencyFormatter } from "../../../Utils/CommonFormatters";
 
 const RingStats = ({ data }) => {
-  const matches = useMediaQuery("(max-width: 768px)");
+  const matches = useMediaQuery("(max-width: 1024px)");
   const icons = {
     up: ArrowUpRight,
     down: ArrowDownRight,
   };
+  const roundOff = (param) => {
+    const value = parseInt(param);
+    if (value == "NaN") {
+      return 0;
+    }
+    if (value > 100) {
+      return 100;
+    }
+    if (value < 0) {
+      return 0;
+    }
+    return Math.round(value);
+  };
+  const totalRevenue = data.total_revenue + data.total_revenue_to_be_generated;
 
-  const received = data.total_revenue - data.total_pending_revenue;
-  const totalReceived =
-    (received / data.total_revenue) * data.total_revenue || 0;
+  const totalReceived = (data.total_revenue / totalRevenue) * 100 || 0;
 
-  const totalPending =
-    (data.total_pending_revenue / data.total_revenue) * 100 || 0;
+  const totalPending = (data.total_pending_revenue / totalRevenue) * 100 || 0;
   const totalClientExpesne =
     (data.total_client_expense / data.total_revenue) * 100 || 0;
 
   const totalCommssion =
-    (data.total_commission_to_be_paid / data.total_revenue) * 100 || 0;
+    (data.total_commission_to_be_paid / totalRevenue) * 100 || 0;
 
   const totalOfficeExpense =
-    (data.total_office_expense / data.total_revenue) * 100 || 0;
+    (data.total_office_expense / totalRevenue) * 100 || 0;
 
-  const profit = data.total_client_expense - data.total_revenue;
+  const profit =
+    data.total_revenue -
+    (data.total_client_expense +
+      data.total_office_expense +
+      data.total_commission_to_be_paid);
   const totalProfit = (profit / data.total_revenue) * 100 || 0;
   return (
-    <Grid>
+    <Grid mt={10}>
       <Grid.Col span={!matches ? 5 : 12}>
         <Grid.Col h={"33.33%"} p={0}>
           <Paper withBorder radius="md" p="xs" bg={"#0487FF"}>
@@ -79,7 +94,7 @@ const RingStats = ({ data }) => {
                       fontWeight: 800,
                     }}
                   >
-                    {totalReceived}%
+                    {roundOff(totalReceived)}%
                   </Center>
                 }
               />
@@ -123,7 +138,7 @@ const RingStats = ({ data }) => {
                       fontWeight: 800,
                     }}
                   >
-                    {totalPending}%
+                    {roundOff(totalPending)}%
                   </Center>
                 }
               />
@@ -161,7 +176,7 @@ const RingStats = ({ data }) => {
                       fontWeight: 800,
                     }}
                   >
-                    {totalClientExpesne}%
+                    {roundOff(totalClientExpesne)}%
                   </Center>
                 }
               />
@@ -217,7 +232,7 @@ const RingStats = ({ data }) => {
                       fontWeight: 800,
                     }}
                   >
-                    {totalCommssion}%
+                    {roundOff(totalCommssion)}%
                   </Center>
                 }
               />
@@ -270,7 +285,7 @@ const RingStats = ({ data }) => {
                       fontWeight: 800,
                     }}
                   >
-                    {totalOfficeExpense}%
+                    {roundOff(totalOfficeExpense)}%
                   </Center>
                 }
               />
@@ -319,7 +334,7 @@ const RingStats = ({ data }) => {
                     fontWeight: 800,
                   }}
                 >
-                  {totalProfit}%
+                  {roundOff(totalProfit)}%
                 </Center>
               }
             />

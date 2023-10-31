@@ -81,8 +81,6 @@ const Configure = () => {
   //function for showing date in DatePickerInput in this format September 05,2023
 
   const checkNull=(active)=>{
-    console.log(active);
-    console.log(isServiceAmmountNull());
     if(active==0){
       if(form1.isValid()){
         nextStep();

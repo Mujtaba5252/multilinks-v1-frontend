@@ -23,7 +23,6 @@ import {
 } from "tabler-icons-react";
 
 const ClientViewModal = ({ row }) => {
-  console.log(row);
   const matches = useMediaQuery("(min-width: 768px)");
 
   return (

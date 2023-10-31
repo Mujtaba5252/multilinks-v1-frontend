@@ -39,7 +39,6 @@ const AddPaymentInvoice = () => {
       amount_received: values.Amount_in_Numeric,
       amount_received_in_words: values.Amount_in_Words,
     };
-    console.log(value);
     const url = "/invoice";
     await axios_post({ url: url, data: value }).then((response) => {
       if (response.status == 201 || response.status == 200) {
@@ -54,9 +53,7 @@ const AddPaymentInvoice = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(form.values);
-  }, []);
+
   return (
     <>
       <PageWrapper title="Add Payment Invoice">

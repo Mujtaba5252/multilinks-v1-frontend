@@ -100,7 +100,6 @@ const OtherServiceForm = ({ form, setTotal }) => {
             onChange={(value) => {
               data.forEach((element) => {
                 if (!value.includes(element.value)) {
-                  console.log(element.value);
                   form.setFieldValue(`${element.value}Amount`, "");
                 }
               });

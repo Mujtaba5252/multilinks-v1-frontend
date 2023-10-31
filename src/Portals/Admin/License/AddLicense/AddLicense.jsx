@@ -50,7 +50,6 @@ const AddLicense = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
       });
   };

@@ -40,7 +40,6 @@ export const uploadSingleFile = async ({ file, folderName }) => {
   const storageRef = ref(storage, `/${folderName}/${uuidv4()}`);
   const snapshot = await uploadBytes(storageRef, file);
   const url = await getDownloadURL(snapshot.ref);
-  console.log("file", file);
   return {
     path: url,
     name: file.name,
@@ -50,7 +49,6 @@ export const uploadSingleFile = async ({ file, folderName }) => {
 };
 export const uploadMultipleImages = async (files, folderName) => {
   const urls = [];
-  console.log(files);
   return Promise.all(
     files.map(async (file, ind) => {
       if (file == null || file === "" || file?.length == 0) {

@@ -81,12 +81,15 @@ export const HeaderForQutation = () => {
     {
       name: "Actions",
       cell: (row) => {
-        console.log(row);
         return (
-          <ToiletPaper style={{cursor:'pointer'}} color={MainBlue()} onClick={()=>{
-            localStorage.setItem('client_payment',JSON.stringify(row))
-            navigate(staffRoutes.addPaymentInvoice)
-          }}/>
+          <ToiletPaper
+            style={{ cursor: "pointer" }}
+            color={MainBlue()}
+            onClick={() => {
+              localStorage.setItem("client_payment", JSON.stringify(row));
+              navigate(staffRoutes.addPaymentInvoice);
+            }}
+          />
         );
       },
       sortable: true,
