@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from "react";
-import PageWrapper from "../../../../../Components/PageWrapper/PageWrapper";
 import {
   Button,
-  Grid,
-  Group,
-  Stepper,
-  TextInput,
-  Text,
-  Select,
-  Textarea,
-  Switch,
   Flex,
-  Container,
-  Stack,
-  Title,
+  Group,
   Image,
+  Stepper,
+  Text
 } from "@mantine/core";
+import React, { useEffect, useState } from "react";
+import PageWrapper from "../../../../../Components/PageWrapper/PageWrapper";
 
-import { Calendar, Cloud, Percentage, UserCircle } from "tabler-icons-react";
-import { useMediaQuery } from "@mantine/hooks";
-import { MainBlue } from "../../../../../Utils/ThemeColors";
 import { useForm } from "@mantine/form";
+import { useMediaQuery } from "@mantine/hooks";
 import { toast } from "react-hot-toast";
-import added from "../../../../../assets/images/added.gif";
+import { useNavigate } from "react-router";
+import { useParams } from "react-router-dom";
+import CustomLoader from "../../../../../Components/CustomLoader/CustomLoader";
+import {
+  uploadMultipleImages,
+  uploadSingleFile,
+} from "../../../../../Components/FireBase/Firebase";
 import {
   cnicRegex,
   emailRegex,
@@ -32,20 +28,13 @@ import {
 } from "../../../../../Components/Regex/Regex";
 import {
   axios_get,
-  axios_post,
-  axios_switch,
+  axios_switch
 } from "../../../../../Utils/Axios";
+import added from "../../../../../assets/images/added.gif";
 import { adminRoutes } from "../../../../../routes";
-import { useNavigate } from "react-router";
-import BasicInformation from "./StepperForms/BasicInformation";
 import AdditionalInformation from "./StepperForms/AdditionalInformation";
+import BasicInformation from "./StepperForms/BasicInformation";
 import CreateLogin from "./StepperForms/CreateLogin";
-import {
-  uploadMultipleImages,
-  uploadSingleFile,
-} from "../../../../../Components/FireBase/Firebase";
-import { useParams } from "react-router-dom";
-import CustomLoader from "../../../../../Components/CustomLoader/CustomLoader";
 
 function AddStaff() {
   const isSmall = useMediaQuery("(max-width: 574px)");

@@ -63,13 +63,17 @@ function App() {
               />
               <Route path={adminRoutes.humanResource}>
                 <Route
+                 
                   index
+                 
                   path={adminRoutes.staffView}
+                 
                   element={<StaffView />}
+                
                 />
-                <Route path={adminRoutes.addStaff} element={<AddStaff />} />
+                <Route path={adminRoutes.addStaff} element={<AddStaff />}  />
                 <Route path={adminRoutes.editStaff} element={<AddStaff />} />
-                <Route path={adminRoutes.leaves} element={<LeavesView />} />
+                <Route path={adminRoutes.leaves} element={<LeavesView  />}  />
               </Route>
               <Route path={adminRoutes.accounts}>
                 <Route

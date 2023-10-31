@@ -8,6 +8,7 @@ import { axios_post } from "../../../Utils/Axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { staffRoutes } from "../../../routes";
+import { Currency, SortAZ } from "tabler-icons-react";
 import { numeric_to_word } from "../../../Utils/CommonFormatters";
 import { Currency, SortAZ } from "tabler-icons-react";
 import CustomLoader from "../../../Components/CustomLoader/CustomLoader";
@@ -35,6 +36,7 @@ const AddPaymentInvoice = () => {
         value ? null : "Please Enter Amount in Words",
     },
   });
+  });
   const submitInvoice = async (values) => {
     setLoading(true);
     const value = {
@@ -56,6 +58,8 @@ const AddPaymentInvoice = () => {
         toast.error("Something Went Wrong");
         setLoading(false);
       }
+    });
+  };
     });
   };
 
@@ -157,6 +161,9 @@ const AddPaymentInvoice = () => {
                     <Button
                       color={MainBlue()}
                       onClick={() => {
+                        form.isValid()
+                          ? submitInvoice(form.values)
+                          : form.validate();
                         form.isValid()
                           ? submitInvoice(form.values)
                           : form.validate();
