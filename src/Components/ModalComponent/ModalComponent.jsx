@@ -1,14 +1,5 @@
-import {
-  Button,
-  Container,
-  Group,
-  Modal,
-  Title,
-  createStyles,
-} from "@mantine/core";
+import { Container, Modal } from "@mantine/core";
 import React from "react";
-import PageWrapper from "../PageWrapper/PageWrapper";
-import { X } from "tabler-icons-react";
 import { useMediaQuery } from "@mantine/hooks";
 import "./style.css";
 const ModalComponent = ({

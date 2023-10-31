@@ -10,9 +10,11 @@ import { useNavigate } from "react-router";
 import { staffRoutes } from "../../../routes";
 import { numeric_to_word } from "../../../Utils/CommonFormatters";
 import { Currency, SortAZ } from "tabler-icons-react";
+import CustomLoader from "../../../Components/CustomLoader/CustomLoader";
 const AddPaymentInvoice = () => {
   const QutationData = JSON.parse(localStorage.getItem("client_payment"));
   const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(false);
   const form = useForm({
     initialValues: {
       id: QutationData?.id,
@@ -34,6 +36,7 @@ const AddPaymentInvoice = () => {
     },
   });
   const submitInvoice = async (values) => {
+    setLoading(true);
     const value = {
       quotation: values.id,
       amount_received: values.Amount_in_Numeric,
@@ -43,19 +46,21 @@ const AddPaymentInvoice = () => {
     await axios_post({ url: url, data: value }).then((response) => {
       if (response.status == 201 || response.status == 200) {
         toast.success("Invoice Added Successfully");
+        setLoading(false);
         localStorage.removeItem("client_payment");
         navigate(staffRoutes.viewPaymentInvoice);
       } else if (response.status == 400) {
         toast.error(response.data.message);
+        setLoading(false);
       } else {
         toast.error("Something Went Wrong");
+        setLoading(false);
       }
     });
   };
 
-
   return (
-    <>
+    <CustomLoader loading={loading}>
       <PageWrapper title="Add Payment Invoice">
         <Grid>
           <Grid.Col span={12}>
@@ -166,7 +171,7 @@ const AddPaymentInvoice = () => {
           </Grid.Col>
         </Grid>
       </PageWrapper>
-    </>
+    </CustomLoader>
   );
 };
 

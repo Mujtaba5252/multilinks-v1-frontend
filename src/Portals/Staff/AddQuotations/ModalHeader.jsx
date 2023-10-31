@@ -1,8 +1,9 @@
 import { Button, Group, Text } from "@mantine/core";
 import ActionIcons from "../../../Components/ActionIcons/ActionIcons";
 import { staffRoutes } from "../../../routes";
-import { CirclePlus, Plus } from "tabler-icons-react";
+import { CirclePlus, Plus, ToiletPaper } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
+import { MainBlue } from "../../../Utils/ThemeColors";
 
 export const QuotationHeader = () => {
   const navigate = useNavigate();
@@ -51,8 +52,9 @@ export const QuotationHeader = () => {
       center: true,
       cell: (row) => {
         return (
-          <Button
-            variant="filled"
+          <ToiletPaper
+            color={MainBlue()}
+            style={{ cursor: "pointer" }}
             onClick={() => {
               const {
                 sNo,
@@ -76,11 +78,7 @@ export const QuotationHeader = () => {
               });
             }}
             radius={"xs"}
-          >
-            <Group>
-              <CirclePlus />
-            </Group>
-          </Button>
+          />
         );
       },
       sortable: true,
