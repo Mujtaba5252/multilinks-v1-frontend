@@ -82,7 +82,7 @@ function AddClientExpenseInvoice() {
                     <Grid.Col sm={12} span={6}>
                       <Flex align='center'>
                         <Cash size={isSmall ? 20 : 30} color={MainBlue()} />
-                        <Text size={isSmall ? 20 : 30} fw={700} order={1} ml={10} style={{ wordWrap: "break-word" }}> {CurrencyFormatter(ClientData.client_balance)}</Text>
+                        <Text size={isSmall ? 20 : 30} fw={700} order={1} ml={10} style={{ wordWrap: "break-word" }}> {CurrencyFormatter(ClientData.client_balance-ClientData.client_expense)}</Text>
                       </Flex>
                     </Grid.Col>
                     <Grid.Col sm={12} span={6}>

@@ -25,6 +25,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             },
             primaryColor: "blue",
             globalStyles: () => ({
+              "*": {
+                wordBreak: "break-all",
+              },
               ".mantine-Modal-title": {
                 margin: "auto",
                 fontWeight: "bold",
