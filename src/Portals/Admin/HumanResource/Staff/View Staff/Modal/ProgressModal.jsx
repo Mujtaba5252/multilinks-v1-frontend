@@ -27,7 +27,8 @@ const ProgressModal = ({ row }) => {
   const [chartData, setChartData] = useState(null);
   const matches = useMediaQuery("(max-width: 768px)");
   const [loading, setLoading] = useState(false);
-
+  const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+  const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
   const options = {
     height: 400,
     type: "bar",
@@ -122,24 +123,25 @@ const ProgressModal = ({ row }) => {
   const nextMonth = () => {
     setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)));
     const staffID = row.id;
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const firstDay = new Date(currentYear, currentMonth, 1);
     const start_date = addOneMonthFromTimestamp(currentDate);
-    const end_date = currentDate.getTime();
+    const end_date = firstDay.getTime();
     const url="/progress-model/" + staffID + "/" + end_date + "/" + start_date;
-    if (currentDate.getMonth() != new Date().getMonth()) {
-      callGraph(url,start_date, end_date);
-    }
-    else {
-      toast.error("Cannot go beyond current month");
-    }
+    callGraph(url,start_date, end_date);
   }
   const previousMonth = () => {
 
     setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)));
     const staffID = row.id;
-    const start_date = currentDate.getTime();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+    const start_date = lastDay.getTime();
     const end_date = subtractOneMonthFromTimestamp(currentDate);
     const url="/progress-model/" + staffID + "/" + end_date + "/" + start_date;
-    callGraph(url,start_date, end_date);
+    callGraph(url,startOfMonth, endOfMonth);
   }
 
   useEffect(() => {
