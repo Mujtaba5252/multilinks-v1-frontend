@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import PageWrapper from "../../../Components/PageWrapper/PageWrapper";
-import CustomLoader from "../../../Components/CustomLoader/Customloader";
+import CustomLoader from "../../../Components/CustomLoader/CustomLoader";
 import { Button, Grid, Group, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { DateInput, DatePicker, DatePickerInput } from "@mantine/dates";
