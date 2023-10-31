@@ -9,7 +9,7 @@ const WelcomeCard = () => {
   const matches = useMediaQuery("(max-width: 768px)");
   const user = User();
   return (
-    <Paper withBorder radius="md" pb="xs" bg={"#0487FF"} h={"200px"} mb={10} >
+    <Paper withBorder radius="md" pb="xs" bg={"#0487FF"} h={"auto"} mb={10}>
       <Group ml={30} mr={30} mt={10} noWrap position="apart">
         <div
         // style={{

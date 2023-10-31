@@ -29,12 +29,14 @@ export const QuotationHeader = () => {
     },
     {
       name: "Client Name",
+      width: "150px",
       selector: (row) => row.client?.client_name || "N/A",
       sortable: true,
       wrap: true,
     },
     {
       name: "Service Type",
+      width: "150px",
       selector: (row) => row.service_type || "N/A",
       sortable: true,
       wrap: true,
@@ -54,27 +56,29 @@ export const QuotationHeader = () => {
     },
     {
       name: "Case Status",
+      width: "130px",
       selector: (row) => {
-        const services= row.offered_services;
+        const services = row.offered_services;
         const status = services.map((service) => {
           return service.is_paid;
         });
-        return(
+        return (
           <>
             {status.includes(false) ? (
-              <Clock style={{marginLeft:'1.5rem'}} color="orange" />
+              <Clock style={{ marginLeft: "1.5rem" }} color="orange" />
             ) : (
-              <CircleCheck style={{marginLeft:'1.5rem'}} color="green" />
+              <CircleCheck style={{ marginLeft: "1.5rem" }} color="green" />
             )}
           </>
-        )
+        );
       },
       sortable: true,
       wrap: true,
     },
-    
+
     {
       name: "Status",
+      width: "150px",
       center: true,
       selector: (row) => {
         return (

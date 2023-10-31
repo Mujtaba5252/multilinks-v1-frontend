@@ -7,6 +7,7 @@ import ModalComponent from "../../../Components/ModalComponent/ModalComponent";
 import QuotationsForPaymentInvoice from "./Modals/QuotationsForPaymentInvoice";
 import { getPaymentInvoiceData } from "./PaymentFunctions";
 import FilterBarPaymentView from "../../Admin/Accounts/Invoices/Types/PaymentInvoice/ViewPayments/FilterBarPaymentView";
+import { CirclePlus } from "tabler-icons-react";
 
 const ViewPaymentInvoice = () => {
   const [PaymentInvoiceData, setPaymentInvoiceData] = useState([]);
@@ -30,12 +31,25 @@ const ViewPaymentInvoice = () => {
           <QuotationsForPaymentInvoice />
         </ModalComponent>
         <Grid.Col mt={10} span={12} mb={10}>
-          <Flex justify={'end'}>
-            <Button w={200} onClick={() => { setAddPayment(true) }} variant="filled">ADD PAYMENT INVOICE</Button>
-          </Flex >
+          <Flex justify={"end"}>
+            <Button
+              w={200}
+              leftIcon={<CirclePlus />}
+              onClick={() => {
+                setAddPayment(true);
+              }}
+              variant="filled"
+            >
+              ADD PAYMENT INVOICE
+            </Button>
+          </Flex>
         </Grid.Col>
         <Grid.Col mb={10} span={12}>
-          <FilterBarPaymentView currentUrl={url} setPaymentData={setPaymentInvoiceData} setPagination={setPagination} />
+          <FilterBarPaymentView
+            currentUrl={url}
+            setPaymentData={setPaymentInvoiceData}
+            setPagination={setPagination}
+          />
         </Grid.Col>
         <Grid.Col span={12}>
           <DataGrid
