@@ -65,7 +65,7 @@ const CommissionViewModal = ({ row }) => {
               <Group noWrap>
                 <CurrencyDirham />
                 <Text color="#0487FF" fw={"md"}>
-                  Expense Amount
+                  Commission Amount
                 </Text>
               </Group>
               <Text>{CurrencyFormatter(row?.commission_amount)}</Text>{" "}
@@ -76,7 +76,7 @@ const CommissionViewModal = ({ row }) => {
               <Group noWrap>
                 <CurrencyDirham />
                 <Text color="#0487FF" fw={"md"}>
-                  Expense Amount
+                  Commission Percentage
                 </Text>
               </Group>
               <Text>{`${row?.commission_percentage} %`}</Text>{" "}
