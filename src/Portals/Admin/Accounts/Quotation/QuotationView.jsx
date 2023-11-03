@@ -19,7 +19,7 @@ function QuotationView({pending}) {
 
   return (
     <>
-      <PageWrapper title="Qutations">
+      <PageWrapper title="Quotations">
         <Grid>
           <Grid.Col my={15} span={12}>
             <FilterBarQuoatation currentUrl={url} setPagination={setPagination} setQuotationData={setQuotationData}/>
