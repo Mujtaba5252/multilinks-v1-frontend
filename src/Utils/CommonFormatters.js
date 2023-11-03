@@ -1,7 +1,9 @@
 import {ToWords} from 'to-words';
 export const numeric_to_word = (num) => {
     if(num && !isNaN(num)){
-        const toWords=new ToWords();
+        const toWords=new ToWords({
+            localeCode: 'en-AE',
+        });
         return toWords.convert(num,{currency: true,ignoreDecimal: true});
     }
     else if(isNaN(num)){
